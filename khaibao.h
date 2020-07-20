@@ -38,8 +38,8 @@
 #define positionX_listMB 5
 #define positionY_listMB 8
 
-#define positionX_listCB 23
-#define positionY_listCB 8
+#define positionX_listCB 10
+#define positionY_listCB 6
 
 
 #define positionFormInputX 115
@@ -92,7 +92,6 @@ string staTus[4] = {"HUY CHUYEN","CON VE","HET VE","HOAN TAT"};
 string sex[2] = {"NAM","NU"};
 string sttday[maxsoday]= {"A","B","C","D","E","F","G","H","K","I"};
 typedef struct {
-	
 	string cmnd;
 	string soghe;
 }VE;

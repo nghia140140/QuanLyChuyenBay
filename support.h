@@ -27,15 +27,10 @@ Node_CB * searchInfoShmb(List_CB & l, char SHMBtemp[]) {
 		if (strcmp(p->data.sohieumb, SHMBtemp) == 0) return p;
 	return NULL;
 }
-void coverOutDataSHMB(List_MB l) {
+void coverOutDataSHMB(List_MB l) {//remove
 	SetBGColor(Color_DarkWhite);
-	gotoxy(109, 10);cout << "               ";
-	gotoxy(109, 11);cout << "               ";
-	gotoxy(109, 12);cout << "               ";
-	int dong = 13;
-	//SetColor(Color_DarkRed);	
-	for (int i = 0;i < l.soluong;i++) {
-		gotoxy(109, dong + i);cout << "               ";
+	for (int i = 0;i < 15;i++) {
+		gotoxy(144, 10 + i);cout << "               ";
 	}
 }
 void frameCoverNotice() {
@@ -54,8 +49,8 @@ void outDataSHMB(List_MB l, int vitri) {
 	//SetBGColor(Color_DarkWhite); 
 	int dong = 13;
 	//SetColor(Color_DarkRed);		 
-	gotoxy(109, dong + vitri);cout << "|_____________|";
-	gotoxy(114, dong + vitri);cout << l.nodeMB[vitri]->sohieu_MB;
+//	gotoxy(109, dong + vitri);cout << "|_____________|";
+	gotoxy(150, dong + vitri);cout << l.nodeMB[vitri]->sohieu_MB;
 }
 int checkNoiDen(char noiden[]) {
 	for (int i = 0;i < 6;i++)
@@ -110,10 +105,11 @@ boolean checkTrangThai(int d, int m) {
 }
 
 int frameAddShmb_AddCB(List_MB listMB) {
+	
 	SetBGColor(Color_DarkWhite);SetColor(Color_DarkRed);
-	gotoxy(109, 10);cout << "+-------------+";
-	gotoxy(109, 11);cout << "|  SO HIEU MB |";
-	gotoxy(109, 12);cout << "+-------------+";
+//	gotoxy(140, 10);cout << "+-------------+";
+//	gotoxy(140, 11);cout << "|  SO HIEU MB |";
+//	gotoxy(140, 12);cout << "+-------------+";
 	for (int i = 0;i < listMB.soluong;i++) {
 		if (i == 0) {
 			HighLight();
