@@ -495,69 +495,19 @@ void frameTimChuyenBay() {
 //	gotoxy(132, 25);cout << "|_________________________________________|";//esc enter
 
 }
-void framDatXongVe() {
-	SetColor(Color_DarkRed);
+void thongTinVe() {
+	SetColor(Color_DarkYellow);
 	SetBGColor(Color_DarkWhite);
-
-	gotoxy(140, 7);	cout << "+-------------------------+";
-	gotoxy(140, 8);	cout << "|      THONG TIN VE       |";
-	gotoxy(132, 9);	cout << "--------+-------------------------+--------";
-	gotoxy(132, 10);cout << "|              MA CHUYEN BAY              |";
-	gotoxy(132, 11);cout << "|-----------------------------------------|";
-	gotoxy(132, 12);cout << "|             |              |            |";
-	gotoxy(132, 13);cout << "|_____________|______________|____________|";
-	gotoxy(132, 14);cout << "|                 NOI DEN                 |";
-	gotoxy(132, 15);cout << "|-----------------------------------------|";
-	gotoxy(132, 16);cout << "|             |              |            |";
-	gotoxy(132, 17);cout << "|_____________|______________|____________|";
-	gotoxy(132, 18);cout << "|              NGAY KHOI HANH             |";
-	gotoxy(132, 19);cout << "|-----------------------------------------|";//macb
-	gotoxy(132, 20);cout << "|            |                |           |";//shmb
-	gotoxy(132, 21);cout << "|____________|________________|___________|";//noi den								
-	gotoxy(132, 22);cout << "|              GIO KHOI HANH              |";//ngay thang
-	gotoxy(132, 23);cout << "|-----------------------------------------|";//gio phut
-	gotoxy(132, 24);cout << "|             |              |            |";//trang thai
-	gotoxy(132, 25);cout << "|_____________|______________|____________|";
-	gotoxy(132, 26);cout << "|                  SO GHE                 |";//ngay thang
-	gotoxy(132, 27);cout << "|-----------------------------------------|";//gio phut
-	gotoxy(132, 28);cout << "|             |              |            |";//trang thai
-	gotoxy(132, 29);cout << "|_____________|______________|____________|";
-	gotoxy(132, 30);cout << "|   HO:              TEN:                 |";//thong bao
-	gotoxy(132, 31);cout << "|   SO CMND:                              |";
-	gotoxy(132, 32);cout << "|   GIOI TINH:                            |";//esc enter
-	gotoxy(132, 33);cout << "|_________________________________________|";
-
-
-}
-void frameHuyVeChung() {
-	SetColor(Color_DarkRed);
-	SetBGColor(Color_DarkWhite);
-
-	gotoxy(140, 7);	cout << "+-------------------------+";
-	gotoxy(140, 8);	cout << "|      HUY VE MAY BAY     |";
-	gotoxy(132, 9);	cout << "--------+-------------------------+--------";
-	gotoxy(132, 10);cout << "|              NHAP  NOI DEN              |";
-	gotoxy(132, 11);cout << "-------------------------------------------";
-	gotoxy(132, 12);cout << "|       |                         |       |";
-	gotoxy(132, 13);cout << "|       |_________________________|       |";
-	gotoxy(132, 14);cout << "|                                         |";
-	gotoxy(132, 15);cout << "|-----------------------------------------|";//tim thay
-	gotoxy(132, 16);cout << "|       THANG        |        NGAY        |";
-	gotoxy(132, 17);cout << "|-----------------------------------------|";//macb
-	gotoxy(132, 18);cout << "|                    |                    |";//shmb
-	gotoxy(132, 19);cout << "|____________________|____________________|";//noi den								
-	gotoxy(132, 20);cout << "|              NHAP SO CMND               |";//ngay thang
-	gotoxy(132, 21);cout << "|-----------------------------------------|";//gio phut
-	gotoxy(132, 22);cout << "|           |                |            |";//trang thai
-	gotoxy(132, 23);cout << "|           |________________|            |";
-	gotoxy(132, 24);cout << "|_________________________________________|";//thong bao
-//	gotoxy(132, 25);cout <<						"|                                         |";
-//	gotoxy(132, 26);cout <<						"|_________________________________________|";//esc enter
-//	gotoxy(132, 27);cout <<						"|                                         |";
-//	gotoxy(132, 28);cout <<						"|        KHONG CO DU LIEU KHACH HANG      |";
-//	gotoxy(132, 29);cout <<						"|      BAN CO MUON NHAP LAI THONG TIN     |";
-//	gotoxy(132, 30);cout <<						"|                                         |";						
-//	gotoxy(132, 31);cout <<						"|                                         |";
+	gotoxy(135, 8);cout << "THONG TIN VE";
+	gotoxy(118, 10);cout << "MA CHUYEN BAY";
+	gotoxy(118, 12);cout << "NOI DEN: ";
+	gotoxy(118, 14);cout << "NGAY KHOI HANH:";
+	gotoxy(118, 16);cout << "GIO KHOI HANH:";
+	gotoxy(118, 18);cout << "SO GHE:";
+	gotoxy(118, 20);cout << "HO:";
+	gotoxy(138, 20);cout << "TEN:";
+	gotoxy(118, 22);cout << "CMND:";
+	gotoxy(118, 24);cout << "GIOI TINH: ";
 }
 void frameHuyVe1Cb() {
 	SetColor(Color_DarkRed);
@@ -624,19 +574,6 @@ void frameCoverkhCoCBHopLe() {
 	gotoxy(8, 19);cout << "                                                                ";
 }
 
-void frameAdd_CB() {
-
-	header();footer();
-	//frameTitelAddCB();
-	SetColor(Color_DarkRed);
-	SetBGColor(Color_DarkWhite);
-	gotoxy(2, 10);cout << "+------------------+----------------+------------+----------------+---------+----------+---------------+";
-	gotoxy(2, 11);cout << "|   MA CHUYEN BAY  |   SO HIEU MB   |   NOI DEN  | NGAY KHOI HANH |  GIO KH |  SO GHE  |   TRANG THAI  |";
-	gotoxy(2, 12);cout << "+------------------+----------------+------------+----------------+---------+----------+---------------+";
-	SetBGColor(Color_DarkWhite);
-
-
-}
 void frameSoCbConVe() {
 
 	header();footer();
@@ -662,12 +599,12 @@ void frameCoverListCB2(int sodongcanxoa) {
 		gotoxy(2, 10 + i);cout << "                                                                                                        ";
 	}
 }
-void cheFormDatVe(int sodongcanxoa) {
-	SetBGColor(Color_DarkWhite);
-	for (int i = 0;i <= sodongcanxoa;i++) {
-		gotoxy(132, 7 + i);cout << "                                           ";
-	}
-}
+//void cheFormDatVe(int sodongcanxoa) {
+//	SetBGColor(Color_DarkWhite);
+//	for (int i = 0;i <= sodongcanxoa;i++) {
+//		gotoxy(132, 7 + i);cout << "                                           ";
+//	}
+//}
 void frameTitelAdd_MB() {
 	SetColor(Color_Pink);
 	gotoxy(72, 8);
@@ -676,6 +613,14 @@ void frameTitelAdd_MB() {
 	cout << "|  NHAP DANH SACH MAY BAY |";
 	gotoxy(72, 10);
 	cout << "+-------------------------+";
+}
+void clearOnePart(int x, int y, int width, int hight){
+	SetBGColor(Color_DarkWhite);
+	for(int i = 0; i<=hight; i++){
+		gotoxy(x, y+i);
+		cout.fill(' ');
+		cout<<setw(width)<<" ";
+	}	
 }
 bool Hoi(int x, int y, char* s)
 {
@@ -705,10 +650,22 @@ bool Hoi(int x, int y, char* s)
 				{
 					if(i == 0)
 					{
+						SetBGColor(Color_DarkWhite);
+						gotoxy(x, y);	cout.fill(' ');	cout<<setw(count)<<" ";
+						gotoxy(x, y+1);	cout.fill(' ');	cout<<setw(count)<<" ";
+						gotoxy(x, y+2);	cout.fill(' ');	cout<<setw(count)<<" ";
+						gotoxy(x, y+3);	cout.fill(' ');	cout<<setw(count)<<" ";
 						SetBGColor(7);
+						ShowCur(true);
 						return true;
 					}else{
+						SetBGColor(Color_DarkWhite);
+						gotoxy(x, y);	cout.fill(' ');	cout<<setw(count)<<" ";
+						gotoxy(x, y+1);	cout.fill(' ');	cout<<setw(count)<<" ";
+						gotoxy(x, y+2);	cout.fill(' ');	cout<<setw(count)<<" ";
+						gotoxy(x, y+3);	cout.fill(' ');	cout<<setw(count)<<" ";
 						SetBGColor(7);
+						ShowCur(true);
 						return false;
 					}
 					
@@ -850,35 +807,23 @@ void TextViewChuDe(char s[], int x, int y, int dodai, int background, int textco
 	gotoxy(x + 1, y + 1); cout << s;
 }
 void frameSanbayDen() {
+	SetColor(Color_Back);
+	vekhungdoi(110,positionY_listCB,30,50);
 	SetColor(Color_White);
 	SetBGColor(Color_DarkRed);
-	gotoxy(175, 7);cout << "                   ";
-	gotoxy(175, 8);cout << "      NOI DEN      ";
-	gotoxy(175, 9);cout << "                   ";
+	gotoxy(20, 39);	cout << "      NOI DEN:     ";
 	HighLight1();
-	gotoxy(175, 10);cout << "                   ";
-	gotoxy(175, 11);cout << " SGN - HO CHI MINH ";
-	gotoxy(175, 12);cout << "                   ";
+	cout << " SGN - HO CHI MINH ";
 	HighLight2();
-	gotoxy(175, 13);cout << "                   ";
-	gotoxy(175, 14);cout << "   HAN - HA NOI    ";
-	gotoxy(175, 15);cout << "                   ";
+	cout << "   HAN - HA NOI    ";
 	HighLight1();
-	gotoxy(175, 16);cout << "                   ";
-	gotoxy(175, 17);cout << "  CXR - NHA TRANG  ";
-	gotoxy(175, 18);cout << "                   ";
+	cout << "  CXR - NHA TRANG  ";
 	HighLight2();
-	gotoxy(175, 19);cout << "                   ";
-	gotoxy(175, 20);cout << "  PQC - PHU QUOC   ";
-	gotoxy(175, 21);cout << "                   ";
+	cout << "  PQC - PHU QUOC   ";
 	HighLight1();
-	gotoxy(175, 22);cout << "                   ";
-	gotoxy(175, 23);cout << "  UIH - QUY NHON   ";
-	gotoxy(175, 24);cout << "                   ";
+	cout << "  UIH - QUY NHON   ";
 	HighLight2();
-	gotoxy(175, 25);cout << "                   ";
-	gotoxy(175, 26);cout << "  HPH - HAI PHONG  ";
-	gotoxy(175, 27);cout << "                   ";
+	cout << "  HPH - HAI PHONG  ";
 	SetBGColor(Color_DarkWhite);
 	SetColor(Color_DarkRed);
 }

@@ -38,7 +38,7 @@
 #define positionX_listMB 5
 #define positionY_listMB 8
 
-#define positionX_listCB 10
+#define positionX_listCB 5
 #define positionY_listCB 6
 
 
