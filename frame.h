@@ -440,61 +440,6 @@ void frameTitelEditCB2() {
 	//	gotoxy(132, 28);cout <<						"|                    |                    |";				
 	//	gotoxy(132, 29);cout <<						"|_________________________________________|";
 }
-void frameDatVe() {
-	SetColor(Color_DarkRed);
-	SetBGColor(Color_DarkWhite);
-
-	gotoxy(140, 7);	cout << "+-------------------------+";
-	gotoxy(140, 8);	cout << "|      DAT VE MAY BAY     |";
-	gotoxy(132, 9);	cout << "--------+-------------------------+--------";
-	gotoxy(132, 10);cout << "|                 NOI DEN                 |";
-	gotoxy(132, 11);cout << "-------------------------------------------";
-	gotoxy(132, 12);cout << "|       |                         |       |";
-	gotoxy(132, 13);cout << "|       |_________________________|       |";
-	gotoxy(132, 14);cout << "|                                         |";
-	gotoxy(132, 15);cout << "|-----------------------------------------|";//tim thay
-	gotoxy(132, 16);cout << "|       THANG        |        NGAY        |";
-	gotoxy(132, 17);cout << "|-----------------------------------------|";//macb
-	gotoxy(132, 18);cout << "|                    |                    |";//shmb
-	gotoxy(132, 19);cout << "|____________________|____________________|";//noi den								
-	gotoxy(132, 20);cout << "|                                         |";//ngay thang
-	gotoxy(132, 21);cout << "|                                         |";//gio phut
-	gotoxy(132, 22);cout << "|                                         |";//trang thai
-	gotoxy(132, 23);cout << "|                                         |";
-	gotoxy(132, 24);cout << "|                                         |";//thong bao
-//	gotoxy(132, 25);cout <<						"|                                         |";
-	gotoxy(132, 25);cout << "|_________________________________________|";//esc enter
-//	gotoxy(132, 27);cout <<						"|                                         |";
-//	gotoxy(132, 28);cout <<						"|                                         |";
-//	gotoxy(132, 29);cout <<						"|                                         |";
-//	gotoxy(132, 30);cout <<						"|                                         |";						
-//	gotoxy(132, 31);cout <<						"|                                         |";
-}
-void frameTimChuyenBay() {
-	SetColor(Color_DarkRed);
-	SetBGColor(Color_DarkWhite);
-
-	gotoxy(140, 7);	cout <<         "+-------------------------+";
-	gotoxy(140, 8);	cout <<         "|      TIM CHUYEN BAY     |";
-	gotoxy(132, 9);	cout << "--------+-------------------------+--------";
-	gotoxy(132, 10);cout << "|                 NOI DEN                 |";
-	gotoxy(132, 11);cout << "-------------------------------------------";
-	gotoxy(132, 12);cout << "|       |                         |       |";
-	gotoxy(132, 13);cout << "|       |_________________________|       |";
-	gotoxy(132, 14);cout << "|                                         |";
-	gotoxy(132, 15);cout << "|-----------------------------------------|";//tim thay
-	gotoxy(132, 16);cout << "|       THANG        |        NGAY        |";
-	gotoxy(132, 17);cout << "|-----------------------------------------|";//macb
-	gotoxy(132, 18);cout << "|                    |                    |";//shmb
-	gotoxy(132, 19);cout << "|____________________|____________________|";//noi den								
-//	gotoxy(132, 20);cout << "|                                         |";//ngay thang
-//	gotoxy(132, 21);cout << "|                                         |";//gio phut
-//	gotoxy(132, 22);cout << "|                                         |";//trang thai
-//	gotoxy(132, 23);cout << "|                                         |";
-//	gotoxy(132, 24);cout << "|                                         |";//thong bao
-//	gotoxy(132, 25);cout << "|_________________________________________|";//esc enter
-
-}
 void thongTinVe() {
 	SetColor(Color_DarkYellow);
 	SetBGColor(Color_DarkWhite);
@@ -508,26 +453,6 @@ void thongTinVe() {
 	gotoxy(138, 20);cout << "TEN:";
 	gotoxy(118, 22);cout << "CMND:";
 	gotoxy(118, 24);cout << "GIOI TINH: ";
-}
-void frameHuyVe1Cb() {
-	SetColor(Color_DarkRed);
-	SetBGColor(Color_DarkWhite);
-
-	gotoxy(140, 10);	cout << "+-------------------------+";
-	gotoxy(140, 11);	cout << "|      HUY VE MAY BAY     |";
-	gotoxy(132, 12);	cout << "--------+-------------------------+--------";
-	gotoxy(132, 13);cout << "|**************THONG TIN VE***************|";
-	gotoxy(132, 14);cout << "|                                         |";
-	gotoxy(132, 15);cout << "|    CHUYEN BAY:                          |";
-	gotoxy(132, 16);cout << "|    NOI DEN:                             |";
-	gotoxy(132, 17);cout << "|    NGAY DI:                             |";//thong bao
-	gotoxy(132, 18);cout << "|    GIO DI:                              |";
-	gotoxy(132, 19);cout << "|    SO CMND:                             |";
-	gotoxy(132, 20);cout << "|    HO:              TEN:                |";
-	gotoxy(132, 21);cout << "|    GIOI TINH:                           |";
-	gotoxy(132, 22);cout << "|    SO GHE:                              |";
-	gotoxy(132, 23);cout << "|_________________________________________|";//esc enter
-
 }
 void frameInfoCbXXX() {
 	SetColor(Color_DarkRed);

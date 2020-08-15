@@ -70,7 +70,7 @@ const int cotStart= 51;
 const int dongStart= 11;
 const int cotStartCB= 2;
 const int dongStartCB= 13;
-const int dongStartHK= 12;
+const int dongStartHK= 9;
 typedef struct  {
 	int day,month,year,hours,minutes;
 	
@@ -135,20 +135,6 @@ typedef NODEHK* NODEHKPTR;
 void InitTree(NODEHKPTR &Root)
 {
 	Root = NULL;//cay rong
-}
-
-void DuyetDSHK(NODEHKPTR listhk)//SHOW TAT CAC CAC HANH KHACH CO TRONG DANH SACH
-{
-     if(listhk!=NULL)
-     {
-      DuyetDSHK(listhk->Left);
-      ///show thong tin
-      cout<<listhk->data.cmnd<<endl;
-      cout<<listhk->data.ho<<" "<<listhk->data.ten<<endl;
-      cout<<listhk->data.gioiTinh<<endl;
-      
-      DuyetDSHK(listhk->Right);
-     }
 }
 
 
