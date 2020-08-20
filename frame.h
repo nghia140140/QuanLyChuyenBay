@@ -128,41 +128,55 @@ void header() {
 	gotoxy(82,1);
 	SetColor(Color_DarkRed);
 	cout<<"QUAN LY MAY BAY";
-	
+}
+
+void footerMB() {
+	SetColor(Color_Grey);	gotoxy(15, MAXYCONSOLE-1);	int vitri = 35;
+	cout << "---------------------------------------------------------------------------------------------------------------------------------------------";
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "   THEM:  ";	vitri += 10;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "    F1    ";	vitri += 10;
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << " THONG KE:";	vitri += 10;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "    F2    ";	vitri += 10;
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "  THOAT:  ";	vitri += 10;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "   ESC    ";	vitri += 10;
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "   CHON:  ";	vitri += 10;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout <<"   ENTER  ";	vitri += 10;
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << " UP/DOWN  ";	vitri += 10;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "   "<< (char)94 << "  " << (char)118<<"   ";
+	SetBGColor(Color_DarkWhite);
+}
+
+void footerCB() {
+	SetBGColor(Color_DarkWhite);
+	gotoxy(35,MAXYCONSOLE); cout<<"                                                                                                    ";
+	SetColor(Color_Grey);	gotoxy(15, MAXYCONSOLE-1);	int vitri = 40;
+	cout << "---------------------------------------------------------------------------------------------------------------------------------------------";
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "   THEM:  ";	vitri += 10;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "    F1    ";	vitri += 10;
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "    XOA   :";	vitri += 10;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "    F3    ";	vitri += 10;
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "   SUA:   ";	vitri += 10;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "    F4    ";	vitri += 10;
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "  THOAT:  ";	vitri += 10;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "    ESC   ";	vitri += 10;
+//	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << " UP/DOWN  ";	vitri += 10;
+//	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "   "<< (char)94 << "  " << (char)118<<"   ";
+	SetBGColor(Color_DarkWhite);
 }
 void footer() {
-	SetColor(Color_Grey);
-	gotoxy(15, MAXYCONSOLE-1);
-	cout << "-------------------------------------------------------------------------------------------------------------------------------------------------------";
-
-	// exit
-	SetColor(Color_White);
-	SetBGColor(Color_DarkRed);
-	gotoxy(62, MAXYCONSOLE); cout << " ESC ";
-
-	SetColor(Color_DarkYellow);
-	SetBGColor(Color_Back);
-	gotoxy(67, MAXYCONSOLE); cout << ":EXIT";
-
-	// ok
-	SetColor(Color_White);
-	SetBGColor(Color_DarkGreen);
-	gotoxy(78, MAXYCONSOLE); cout << " ENTER ";
-
-	SetColor(Color_DarkYellow);
-	SetBGColor(Color_Back);
-	gotoxy(85, MAXYCONSOLE); cout << ":OK";
-
-	// Di chuyen
-	SetColor(Color_White);
-	SetBGColor(9);
-	gotoxy(95, MAXYCONSOLE); cout << (char)94 << " " << (char)118;
-
-	SetColor(Color_DarkYellow);
-	SetBGColor(Color_Back);
-	gotoxy(98, MAXYCONSOLE); cout << ":UP / DOWN";
-
-
+	SetColor(Color_Grey);	gotoxy(15, MAXYCONSOLE-1);	int vitri = 45;
+	cout << "---------------------------------------------------------------------------------------------------------------------------------------------";
+//	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "   THEM:  ";	vitri += 10;
+//	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "    F1    ";	vitri += 10;
+//	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << " THONG KE:";	vitri += 10;
+//	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "    F2    ";	vitri += 10;
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "  THOAT:  ";	vitri += 10;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "   ESC    ";	vitri += 20;
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "   CHON:  ";	vitri += 10;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout <<"   ENTER  ";	vitri += 20;
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << " UP/DOWN  ";	vitri += 10;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "   "<< (char)94 << "  " << (char)118<<"   ";
+	SetBGColor(Color_DarkWhite);
 }
 int frameDocGhiFileCB() {
 	SetColor(Color_Red);
@@ -204,38 +218,16 @@ void xoaSoHieuMayBay(int y){
 	}
 
 void footerEditMB() {
-	SetColor(Color_Grey);
-	gotoxy(15, MAXYCONSOLE-1);
-	cout << "-------------------------------------------------------------------------------------------------------------------------------------------------------";
-
 	SetBGColor(Color_DarkWhite);
-	gotoxy(8, MAXYCONSOLE); cout << "                                                                                                                                 ";
-	// exit
-	SetColor(Color_White);
-	SetBGColor(Color_DarkRed);
-	gotoxy(58, MAXYCONSOLE); cout << " ESC ";
-
-	SetColor(Color_DarkYellow);
-	SetBGColor(Color_Back);
-	gotoxy(63, MAXYCONSOLE); cout << ":EXIT";
-
-	// ok
-	SetColor(Color_White);
-	SetBGColor(Color_DarkGreen);
-	gotoxy(74, MAXYCONSOLE); cout << " ENTER ";
-
-	SetColor(Color_DarkYellow);
-	SetBGColor(Color_Back);
-	gotoxy(81, MAXYCONSOLE); cout << ":OK & NEXT";
-
-	// Di chuyen
-	SetColor(Color_White);
-	SetBGColor(9);
-	gotoxy(94, MAXYCONSOLE); cout << "TAB";//<<" " <<(char)60<<" " <<(char)62;
-
-	SetColor(Color_DarkYellow);
-	SetBGColor(Color_Back);
-	gotoxy(97, MAXYCONSOLE); cout << ":SKIP & NEXT";
+	gotoxy(35,MAXYCONSOLE); cout<<"                                                                                                    ";
+	SetColor(Color_Grey);	gotoxy(15, MAXYCONSOLE-1);	int vitri = 45;
+	cout << "---------------------------------------------------------------------------------------------------------------------------------------------";
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "  THOAT:  ";	vitri += 10;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "   ESC    ";	vitri += 20;
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "   NEXT:  ";	vitri += 10;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout <<	"ENTER/TAB ";	vitri += 20;
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "   LUU:   ";	vitri += 10;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "   F2     ";
 	SetBGColor(Color_DarkWhite);
 }
 void frameFull() {
@@ -264,6 +256,7 @@ void alertHelp(int x, int y, char S[69]) {
 	cout <<S;
 	gotoxy(x, y + 2);
 	cout << "                                                           ";
+	SetColor(Color_DarkBlue);
 	SetBGColor(Color_DarkWhite);
 }
 
@@ -556,14 +549,14 @@ bool Hoi(int x, int y, char* s)
 		count++;
 	}
 	
-	SetBGColor(Color_Cyan);	gotoxy(x,y);
+	SetBGColor(Color_White);	gotoxy(x,y);
 	for(int i =0;i<4;i++)
 	{
 		gotoxy(x,y+i);
 		cout.fill(' ');
 		cout<<setw(count)<<" ";
 	}
-	SetColor(Color_DarkRed);		gotoxy(x,y);	cout<<s;
+	SetColor(Color_Green);		gotoxy(x,y);	cout<<s;
 	gotoxy(x+6,y+2);		SetColor(15);	SetBGColor(0);	cout<<" YES ";
 	gotoxy(x+count-10,y+2);	SetColor(15);	SetBGColor(Color_Cyan);	cout<<" NO ";
 	int key; int i =0;
@@ -571,6 +564,17 @@ bool Hoi(int x, int y, char* s)
 		key =GetKey();
 		switch(key)
 		{
+			case ESC:
+				{
+					SetBGColor(Color_DarkWhite);
+					gotoxy(x, y);	cout.fill(' ');	cout<<setw(count)<<" ";
+					gotoxy(x, y+1);	cout.fill(' ');	cout<<setw(count)<<" ";
+					gotoxy(x, y+2);	cout.fill(' ');	cout<<setw(count)<<" ";
+					gotoxy(x, y+3);	cout.fill(' ');	cout<<setw(count)<<" ";
+					SetBGColor(Color_DarkWhite);
+					ShowCur(true);
+					return false;
+				}
 			case ENTER:
 				{
 					if(i == 0)
@@ -580,7 +584,7 @@ bool Hoi(int x, int y, char* s)
 						gotoxy(x, y+1);	cout.fill(' ');	cout<<setw(count)<<" ";
 						gotoxy(x, y+2);	cout.fill(' ');	cout<<setw(count)<<" ";
 						gotoxy(x, y+3);	cout.fill(' ');	cout<<setw(count)<<" ";
-						SetBGColor(7);
+						SetBGColor(Color_DarkWhite);
 						ShowCur(true);
 						return true;
 					}else{
@@ -589,7 +593,7 @@ bool Hoi(int x, int y, char* s)
 						gotoxy(x, y+1);	cout.fill(' ');	cout<<setw(count)<<" ";
 						gotoxy(x, y+2);	cout.fill(' ');	cout<<setw(count)<<" ";
 						gotoxy(x, y+3);	cout.fill(' ');	cout<<setw(count)<<" ";
-						SetBGColor(7);
+						SetBGColor(Color_DarkWhite);
 						ShowCur(true);
 						return false;
 					}
@@ -625,22 +629,22 @@ bool Hoi(int x, int y, char* s)
 		}
 	}while(key!=ENTER);
 }
-bool alertOption(int x, int y, char* s){
-int count=0;
+int alertOption(int x, int y, char* s){
+	int count=0;
 	ShowCur(false);
 	while (s[count] != '\0') 
 	{
 		count++;
 	}
 	
-	SetBGColor(Color_Cyan);	gotoxy(x,y);
+	SetBGColor(Color_White);	gotoxy(x,y);
 	for(int i =0;i<4;i++)
 	{
 		gotoxy(x,y+i);
 		cout.fill(' ');
 		cout<<setw(count)<<" ";
 	}
-	SetColor(Color_DarkRed);		gotoxy(x,y);	cout<<s;
+	SetColor(Color_Green);		gotoxy(x,y);	cout<<s;
 	gotoxy(x+6,y+2);		SetColor(15);	SetBGColor(0);	cout<<" XOA ";
 	gotoxy(x+count-10,y+2);	SetColor(15);	SetBGColor(Color_Cyan);	cout<<" SUA ";
 	int key; int i =0;
@@ -648,15 +652,38 @@ int count=0;
 		key =GetKey();
 		switch(key)
 		{
+			case ESC:
+				{
+					SetBGColor(Color_DarkWhite);
+					gotoxy(x, y);	cout.fill(' ');	cout<<setw(count)<<" ";
+					gotoxy(x, y+1);	cout.fill(' ');	cout<<setw(count)<<" ";
+					gotoxy(x, y+2);	cout.fill(' ');	cout<<setw(count)<<" ";
+					gotoxy(x, y+3);	cout.fill(' ');	cout<<setw(count)<<" ";
+					SetBGColor(Color_DarkWhite);
+					ShowCur(true);
+					return -1;
+				}
 			case ENTER:
 				{
 					if(i == 0)
 					{
-						SetBGColor(7);
-						return true;
+						SetBGColor(Color_DarkWhite);
+						gotoxy(x, y);	cout.fill(' ');	cout<<setw(count)<<" ";
+						gotoxy(x, y+1);	cout.fill(' ');	cout<<setw(count)<<" ";
+						gotoxy(x, y+2);	cout.fill(' ');	cout<<setw(count)<<" ";
+						gotoxy(x, y+3);	cout.fill(' ');	cout<<setw(count)<<" ";
+						SetBGColor(Color_DarkWhite);
+						ShowCur(true);
+						return 1;
 					}else{
-						SetBGColor(7);
-						return false;
+						SetBGColor(Color_DarkWhite);
+						gotoxy(x, y);	cout.fill(' ');	cout<<setw(count)<<" ";
+						gotoxy(x, y+1);	cout.fill(' ');	cout<<setw(count)<<" ";
+						gotoxy(x, y+2);	cout.fill(' ');	cout<<setw(count)<<" ";
+						gotoxy(x, y+3);	cout.fill(' ');	cout<<setw(count)<<" ";
+						SetBGColor(Color_DarkWhite);
+						ShowCur(true);
+						return 2;
 					}
 					
 					break;
@@ -783,14 +810,8 @@ void frameTitelOpenfile() {
 
 
 void formInput(int x, int y, int col,char item[][16]){
-//	for(int i =0; i<22; i++){
-//		gotoxy(x-10,i+y-2);
-//		SetBGColor(0);
-//		cout.fill(' ');
-//		cout<<setw(62)<<' ';
-//	}
 	for(int i = 0; i<col; i++){
-		SetBGColor(7);
+		SetBGColor(Color_DarkWhite);
 		SetColor(0);
 		gotoxy(x-8, y + i*4 + 1);
 		cout<<item[i];

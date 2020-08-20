@@ -6,7 +6,7 @@
 #define ArrowLEFT 26
 #define ArrowUP 25
 #define ArrowDOWN 24
-#define MAXMAYBAY 14
+#define MAXMAYBAY 15
 #define maxSOHIEUMB 15
 #define maxLOAIMB 40
 #define maxMACB 15
@@ -19,6 +19,8 @@
 #define UP -72
 #define F1 -59
 #define F2 -60
+#define F3 -61
+#define F4 -62
 #define TAB 9
 #define LEFT -75
 #define RIGHT -77

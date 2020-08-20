@@ -47,10 +47,8 @@ void frameCoverNotice() {
 }
 void outDataSHMB(List_MB l, int vitri) {
 	//SetBGColor(Color_DarkWhite); 
-	int dong = 13;
-	//SetColor(Color_DarkRed);		 
-//	gotoxy(109, dong + vitri);cout << "|_____________|";
-	gotoxy(150, dong + vitri);cout << l.nodeMB[vitri]->sohieu_MB;
+	int dong = 11;
+	gotoxy(156, dong + vitri);cout << l.nodeMB[vitri]->sohieu_MB;
 }
 int checkNoiDen(char noiden[]) {
 	for (int i = 0;i < 6;i++)
@@ -107,9 +105,6 @@ boolean checkTrangThai(int d, int m) {
 int frameAddShmb_AddCB(List_MB listMB) {
 	
 	SetBGColor(Color_DarkWhite);SetColor(Color_DarkRed);
-//	gotoxy(140, 10);cout << "+-------------+";
-//	gotoxy(140, 11);cout << "|  SO HIEU MB |";
-//	gotoxy(140, 12);cout << "+-------------+";
 	for (int i = 0;i < listMB.soluong;i++) {
 		if (i == 0) {
 			HighLight();
@@ -163,14 +158,13 @@ int frameAddShmb_AddCB(List_MB listMB) {
 			frameCoverNotice();
 			return -1;
 		case ESC:
-			return -1;
+			return -2;
 			break;
 		}
 	}
 }
 void outDataMB(List_MB listMB ,int i) {
-//	gotoxy(45, dongStart + i);cout << "|________________|______________________|____________|_____________|_______________|";
-//	SetBGColor(Color_DarkWhite);
+	
 	gotoxy(positionX_listMB + 8, dongStart + i);	cout << listMB.nodeMB[i]->sohieu_MB;
 	gotoxy(positionX_listMB + 30, dongStart + i);	cout << listMB.nodeMB[i]->loai_MB;
 	gotoxy(positionX_listMB + 57, dongStart + i);	cout << listMB.nodeMB[i]->soday_MB;
@@ -178,17 +172,17 @@ void outDataMB(List_MB listMB ,int i) {
 	gotoxy(positionX_listMB + 86, dongStart + i);	cout << (listMB.nodeMB[i]->soday_MB * listMB.nodeMB[i]->sohang_MB);
 	SetColor(Color_DarkRed);
 	SetBGColor(Color_White);
-	gotoxy(positionFormInputX + 12, positionFormInputY + 1);	cout<<"                                        ";
-	gotoxy(positionFormInputX + 12, positionFormInputY + 5);	cout<<"                                        ";
-	gotoxy(positionFormInputX + 12, positionFormInputY + 9);	cout<<"                                        ";
-	gotoxy(positionFormInputX + 12, positionFormInputY + 13);	cout<<"                                        ";
-	gotoxy(positionFormInputX + 12, positionFormInputY + 17);	cout<<"                                        ";
+	gotoxy(positionFormInputX + 21, positionFormInputY + 1);	cout<<"                               ";
+	gotoxy(positionFormInputX + 21, positionFormInputY + 5);	cout<<"                               ";
+	gotoxy(positionFormInputX + 21, positionFormInputY + 9);	cout<<"                               ";
+	gotoxy(positionFormInputX + 21, positionFormInputY + 13);	cout<<"                               ";
+	gotoxy(positionFormInputX + 21, positionFormInputY + 17);	cout<<"                               ";
 	
-	gotoxy(positionFormInputX + 12, positionFormInputY + 1);	cout << listMB.nodeMB[i]->sohieu_MB;
-	gotoxy(positionFormInputX + 12, positionFormInputY + 5);	cout << listMB.nodeMB[i]->loai_MB;
-	gotoxy(positionFormInputX + 12, positionFormInputY + 9);	cout << listMB.nodeMB[i]->soday_MB;
-	gotoxy(positionFormInputX + 12, positionFormInputY + 13);	cout << listMB.nodeMB[i]->sohang_MB;
-	gotoxy(positionFormInputX + 12, positionFormInputY + 17);	cout << (listMB.nodeMB[i]->soday_MB * listMB.nodeMB[i]->sohang_MB);
+	gotoxy(positionFormInputX + 21, positionFormInputY + 1);	cout << listMB.nodeMB[i]->sohieu_MB;
+	gotoxy(positionFormInputX + 21, positionFormInputY + 5);	cout << listMB.nodeMB[i]->loai_MB;
+	gotoxy(positionFormInputX + 21, positionFormInputY + 9);	cout << listMB.nodeMB[i]->soday_MB;
+	gotoxy(positionFormInputX + 21, positionFormInputY + 13);	cout << listMB.nodeMB[i]->sohang_MB;
+	gotoxy(positionFormInputX + 21, positionFormInputY + 17);	cout << (listMB.nodeMB[i]->soday_MB * listMB.nodeMB[i]->sohang_MB);
 }
 int checkSex(string gioitinhcansosanh) {
 	for (int i = 0;i < 2;i++) {

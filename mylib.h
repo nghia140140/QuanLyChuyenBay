@@ -187,7 +187,7 @@ void Normal() {
 	SetBGColor(Color_DarkWhite);
 }
 void HighLight() {
-	SetColor(11);
+	SetColor(Color_Cyan);
 	SetBGColor(Color_DarkBlue);
 }
 void HighLight1() {
@@ -196,7 +196,7 @@ void HighLight1() {
 }
 void HighLight2() {
 	SetColor(Color_White);
-	SetBGColor(8);
+	SetBGColor(Color_Grey);
 }
 void clrscr() {
 	system("cls");

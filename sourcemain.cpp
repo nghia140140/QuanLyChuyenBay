@@ -58,314 +58,311 @@ int showList_MB(List_MB listMB, boolean flag) {
 	}
 }
 //them thong tin cho may bay
-int  addInfo_MB(List_MB& listMB, MAYBAY& mb) {
+void nhapMa(int x, int y, string &text, int sokytu){
+
+	int key;
+	gotoxy(x, y);	cout<<text;
+	while (true) {
+		key = GetKey();
+		switch(key)
+		{
+			case ESC:{
+				text = "";
+				return;
+			}
+			case TAB:
+			case ENTER:
+				{
+					if(text.length()==0){
+						gotoxy(x -10, y+1); SetColor(Color_DarkRed);
+						cout<<"VUI LONG DIEN THONG TIN";
+						gotoxy(x,y); SetColor(Color_DarkBlue); cout<<text;
+					}else{
+						gotoxy(x -10, y+1);
+						cout<<"                       ";
+						return;
+					}
+				}
+			case BACKSPACE:
+				{
+					if(text.length()>0){	
+						text.erase(text.length()-1,1);
+						cout<<"\b \b";
+					}
+					break;
+				}
+			default:
+				{
+					if((key>47&&key<123) &&text.length()<sokytu)
+					{
+						gotoxy(x, y);
+						if(97<= key && key<=122)
+						{
+							text +=char(key-32);
+						}else{
+							text +=char(key);
+						}
+						cout<<text;
+					}
+					break;
+				}	
+		}
+	}
+}
+void NhapLieu(int x, int y, string &text, int sokytu){
+
+	int key;
+	gotoxy(x, y);	cout<<text;
+	while (true) {
+		key = GetKey();
+		switch(key)
+		{
+			case ESC:{
+				text = "";
+				return;
+			}
+			case TAB:
+			case ENTER:
+				{
+					if(text.length()==0){
+						gotoxy(x -10, y+1); SetColor(Color_DarkRed);
+						cout<<"VUI LONG DIEN THONG TIN";
+						gotoxy(x,y); SetColor(Color_DarkBlue); cout<<text;
+					}else{
+						gotoxy(x -10, y+1);
+						cout<<"                       ";
+						return;
+					}
+				}
+			case BACKSPACE:
+				{
+					if(text.length()>0){	
+						text.erase(text.length()-1,1);
+						cout<<"\b \b";
+					}
+					break;
+				}
+			default:
+				{
+					if((key>47&&key<123 || key==32) && text.length()<sokytu)
+					{
+						gotoxy(x, y);
+						if(97<= key && key<=122)
+						{
+							text +=char(key-32);
+						}else{
+							text +=char(key);
+						}
+						cout<<text;
+					}
+					break;
+				}	
+		}
+	}
+}
+
+void NhapLieuSo(int x, int y, int &num, int sokytu){
+
+	int key; string text;
+	if(num == 0) text = "";
+	else{
+		stringstream ss;	ss << num; text = ss.str();
+	}
+	gotoxy(x, y);	cout<<text;
+	while (true) {
+		key = GetKey();
+		switch(key)
+		{
+			case ESC:{
+				num = 0;
+				return;
+			}
+			case TAB:
+			case ENTER:
+				{
+					if(text.length()==0){
+						gotoxy(x -10, y+1); SetColor(Color_DarkRed);
+						cout<<"VUI LONG DIEN THONG TIN";
+						gotoxy(x,y); SetColor(Color_DarkBlue); cout<<text;
+					}else{
+						gotoxy(x -10, y+1);
+						cout<<"                       ";
+						num = atoi(text.c_str());
+						return;
+					}
+				}
+			case BACKSPACE:
+				{
+					if(text.length()>0){	
+						text.erase(text.length()-1,1);
+						cout<<"\b \b";
+					}
+					break;
+				}
+			default:
+				{
+					if((key>47&&key<58) &&text.length()<sokytu)
+					{
+						gotoxy(x, y);
+						text +=char(key);
+						cout<<text;
+					}
+					break;
+				}	
+		}
+	}
+}
+void NhapLieuso(int x, int y, string &text, int sokytu){
+
+	int key;
+	gotoxy(x, y);	cout<<text;
+	while (true) {
+		key = GetKey();
+		switch(key)
+		{
+			case ESC:{
+				text = "";
+				return;
+			}
+			case TAB:
+			case ENTER:
+				{
+					if(text.length()==0){
+						gotoxy(x -10, y+1); SetColor(Color_DarkRed);
+						cout<<"VUI LONG DIEN THONG TIN";
+//						gotoxy(x,y); SetColor(Color_DarkBlue); cout<<text;
+					}else{
+						gotoxy(x -10, y+1);
+						cout<<"                       ";
+						return;
+					}
+				}
+			case BACKSPACE:
+				{
+					if(text.length()>0){	
+						text.erase(text.length()-1,1);
+						cout<<"\b \b";
+					}
+					break;
+				}
+			default:
+				{
+					if((key>=47&&key<=58) &&text.length()<sokytu)
+					{
+						gotoxy(x, y);
+						text +=char(key);
+						cout<<text;
+					}
+					break;
+				}	
+		}
+	}
+}
+int addInfo_MB(List_MB list_MB, MAYBAY& mb) {
 	ShowCur(true);
-//	clrscr();
-//	frameAdd_MB();
-//	showList_MB(listMB, FALSE);
-	formInput(positionFormInputX,positionFormInputY,5,ITEM);
-	int key; int vitri;
-SOHIEUCB:///////////////// NHAP SO HIEU MAY BAY //////////////
-	// ghi chu
-	alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"         SO HIEU MB: GOM CAC KI TU (A-Z) & (0-9)           ");
-	vitri = 0;
-	//
-	while (1) {
-		gotoxy(positionFormInputX + 12 + vitri, positionFormInputY + 1);
-//		gotoxy(positionX_listMB + 8 + vitri, dongStart + listMB.soluong);
-		SetColor(Color_Blue);
-		SetBGColor(Color_White);
-		key = GetKey();
-		if (((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key <= '9' && key >= '0')) && (vitri < maxSOHIEUMB)) {
-			mb.sohieu_MB[vitri] = toupper((char)key);
-			cout << mb.sohieu_MB[vitri];
-			vitri++;
-		}
-		if (key == BACKSPACE && vitri > 0) {
-			vitri--;
-			gotoxy(positionFormInputX + 12 + vitri, positionFormInputY + 1);
-			SetColor(Color_DarkRed);
-			cout << " ";
-		}
-		if (key == ESC) {
-			gotoxy(50, MAXYCONSOLE-3);
-
-			SetBGColor(Color_DarkWhite);
-			cout << "                                                            ";
-			SetColor(Color_DarkRed);
-			SetBGColor(Color_DarkWhite);
-			gotoxy(76, MAXYCONSOLE-3);
-			cout << "BAN CO CHAC CHAN HUY?";
-			int cofirm = GetKey();
-			if (cofirm == ENTER) {
+	footerEditMB();
+	int key;
+	// LAY CAC GIA TRI CU
+	string sohieuMB = "";	gotoxy(136,11);		SetBGColor(Color_White);	cout<<"               ";
+	string loaiMB = "";		gotoxy(136,15);		SetBGColor(Color_White);	cout<<"               ";
+	int soday = 0;			gotoxy(136,19);		SetBGColor(Color_White);	cout<<"  ";
+	int sohang = 0;			gotoxy(136,23);		SetBGColor(Color_White);	cout<<"  ";
+	gotoxy(136,27);		SetBGColor(Color_White);	cout<<"   ";
+	bool xacthuc;
+	do{
+		// SO HIEU MAY BAY
+		alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"         SO HIEU MB: GOM CAC KI TU (A-Z) & (0-9)           ");
+		bool xacnhanSHMB;
+		do{
+			xacnhanSHMB = true;
+			SetBGColor(Color_White);
+			nhapMa(136,11,sohieuMB,15);
+			if(sohieuMB == ""){
 				return 0;
+			}else strcpy(mb.sohieu_MB, sohieuMB.c_str());
+			if (search(list_MB, mb.sohieu_MB) > -1) {
+				gotoxy(126,13); SetColor(Color_Red);	SetBGColor(Color_DarkWhite);	cout<<"SO HIEU MAY BAY TRUNG";	SetColor(Color_DarkBlue);
+				xacnhanSHMB = false;
 			}
-			gotoxy(76, MAXYCONSOLE - 3);
-			SetBGColor(Color_DarkWhite);
-			cout << "                                                            ";
-		}
-		if (key == ENTER) {
-			mb.sohieu_MB[vitri] = '\0';
-			if (mb.sohieu_MB[0] == '\0') {
-				Alert("CHUA NHAP SO HIEU MAY BAY", 73, MAXYCONSOLE - 3, 2);
-				goto SOHIEUCB;
-			}
-			else if (search(listMB, mb.sohieu_MB) > -1) {
-				Alert("SO HIEU MB BI TRUNG!", 73, MAXYCONSOLE - 3, 2);
-				gotoxy(positionFormInputX + 12 + vitri, positionFormInputY + 1);
-				SetColor(Color_DarkRed);cout << "        ";
-				goto SOHIEUCB;
-			}
-			else {
-				goto LOAIMAYBAY;
-			}
-		}
-	}
-
-LOAIMAYBAY: /////////// NHAP LOAI MAY BAY //////////////
-	alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"        LOAI MAY BAY: GOM CAC KI TU (A-Z) & (0-9)          ");
-	vitri = 0;
-	//
-	while (1) {
-//		gotoxy(positionX_listMB + 29 + vitri, dongStart + listMB.soluong);
-		gotoxy(positionFormInputX + 12 + vitri, positionFormInputY + 5);
-		SetColor(Color_Blue);
+		}while(!xacnhanSHMB);
+		gotoxy(126,13);		SetBGColor(Color_DarkWhite);	cout<<"                     ";	
+		// LOAI MAY BAY
+		alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"        LOAI MAY BAY: GOM CAC KI TU (A-Z) & (0-9)          ");
 		SetBGColor(Color_White);
-		key = GetKey();
-		if (((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key <= '9' && key >= '0')) && (vitri < maxLOAIMB)) {
-			mb.loai_MB[vitri] = toupper((char)key);
-			cout << mb.loai_MB[vitri];
-			vitri++;
-		}
-		if (key == BACKSPACE && vitri > 0) {
-			vitri--;
-//			gotoxy(positionX_listMB + 29 + vitri, dongStart + listMB.soluong);
-			gotoxy(positionFormInputX + 12 + vitri, positionFormInputY + 1);
-			SetColor(Color_DarkRed);
-			cout << " ";
-		}
-		if (key == ESC) {
-			gotoxy(50, MAXYCONSOLE-3);
-
-			SetBGColor(Color_DarkWhite);
-			cout << "                                                            ";
-			SetColor(Color_DarkRed);
-			SetBGColor(Color_DarkWhite);
-			gotoxy(76, MAXYCONSOLE-3);
-			cout << "BAN CO CHAC CHAN HUY?";
-			int cofirm = GetKey();
-			if (cofirm == ENTER) {
-				return 0;
-			}
-			gotoxy(76, MAXYCONSOLE-3);
-			SetBGColor(Color_DarkWhite);
-			cout << "                                                            ";
-		}
-		if (key == ENTER) {
-			mb.loai_MB[vitri] = '\0';
-			if (mb.loai_MB[0] == '\0') {
-				Alert("CHUA NHAP LOAI MAY BAY", 73, MAXYCONSOLE-3, 2);
-				goto LOAIMAYBAY;
-			}
-			else {
-				goto SODAY;
-			}
-		}
-	}
-SODAY:////////////// NHAP SO DAY MAY BAY/////////////////
-	char sodaychar[3];
-	
-	alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"                 0 < SO LUONG DAY < 10                     ");
-	vitri = 0;
-	
-	///
-	while (1) {
-//		gotoxy(positionX_listMB + 57 + vitri, dongStart + listMB.soluong);
-		gotoxy(positionFormInputX + 12 + vitri, positionFormInputY + 9);
-		SetColor(Color_Blue);
-		SetBGColor(Color_White);
-		fflush(stdin);
-		key = GetKey();
-		if (key >= '0' && key <= '9' && vitri < 2) {
-			sodaychar[vitri] = (char)key;
-			cout << sodaychar[vitri];
-			vitri++;
-		}
-		if (key == BACKSPACE && vitri > 0) {
-			vitri--;
-//			gotoxy(positionX_listMB + 57  + vitri, dongStart + listMB.soluong);
-			gotoxy(positionFormInputX + 12 + vitri, positionFormInputY + 9);
-			SetColor(Color_DarkRed);
-			cout << " ";
-
-		}if (key == ENTER) {
-			sodaychar[vitri] = '\0';
-			if (sodaychar[0] == '\0') {
-				Alert("CHUA NHAP SO DAY", 77, MAXYCONSOLE - 3, 2);
-				goto SODAY;
-			}
-			else {
-				mb.soday_MB = atoi(sodaychar);
-				if (mb.soday_MB > maxsoday || mb.soday_MB <= 0) {
-					Alert("SO DAY KHONG THOA MAN ", 72, MAXYCONSOLE - 3, 2);
-					SetColor(Color_DarkRed);
-//					gotoxy(positionX_listMB + 57 , dongStart + listMB.soluong);
-					SetBGColor(Color_White);
-					gotoxy(positionFormInputX + 12, positionFormInputY + 9);
-					cout << "  ";
-					goto SODAY;
-				}
-				else {
-					goto SOHANG;
-				}
-			}
-		}
-		if (key == ESC) {
-			gotoxy(50, MAXYCONSOLE - 3);
-
-			SetBGColor(Color_DarkWhite);
-			cout << "                                                            ";
-			SetColor(Color_DarkRed);
-			SetBGColor(Color_DarkWhite);
-			gotoxy(76, MAXYCONSOLE - 3);
-			cout << "BAN CO CHAC CHAN HUY?";
-			int cofirm = GetKey();
-			if (cofirm == ENTER) {
-				return 0;
-			}
-			gotoxy(76, MAXYCONSOLE - 3);
-			SetBGColor(Color_DarkWhite);
-			cout << "                                                            ";
-		}
-	}
-SOHANG://///////////// NHAP SO HANG CUA MAY BAY ////////////////////
-	char sohangchar[3];
-	alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"                 0 < SO LUONG HANG < 35                    ");
-	vitri = 0;
-	///
-	while (1) {
-//		gotoxy(positionX_listMB + 72 + vitri, dongStart + listMB.soluong);
-		gotoxy(positionFormInputX + 12 + vitri, positionFormInputY + 13);
-		SetColor(Color_Blue);
-		SetBGColor(Color_White);
-		fflush(stdin);
-		key = GetKey();
-		if (key >= '0' && key <= '9' && vitri < 2) {
-			sohangchar[vitri] = (char)key;
-			cout << sohangchar[vitri];
-			vitri++;
-		}
-		if (key == BACKSPACE && vitri > 0) {
-			vitri--;
-//			gotoxy(positionX_listMB + 72 + vitri, dongStart + listMB.soluong);
-			gotoxy(positionFormInputX + 12 + vitri, positionFormInputY + 13);
-			SetColor(Color_DarkRed);
-			cout << " ";
-		}if (key == ENTER) {
-			sohangchar[vitri] = '\0';
-			if (sohangchar[0] == '\0') {
-				Alert("CHUA NHAP SO HANG", 77, MAXYCONSOLE - 3, 2);
-				goto SOHANG;
-			}
-			else {
-				mb.sohang_MB = atoi(sohangchar);
-				if (mb.sohang_MB > maxsohang || mb.sohang_MB <= 0) {
-					Alert("SO HANG KHONG THOA MAN ", 72, MAXYCONSOLE - 3, 2);
-					SetColor(Color_DarkRed);
-//					gotoxy(positionX_listMB + 72, dongStart + listMB.soluong);
-					SetBGColor(Color_White);
-					gotoxy(positionFormInputX + 12, positionFormInputY + 13);
-					cout << "  ";
-					goto SOHANG;
-				}
-				else {
-					goto ENDp;
-				}
-			}
-		}
-		if (key == ESC) {
-			gotoxy(50, MAXYCONSOLE - 3);
-
-			SetBGColor(Color_DarkWhite);
-			cout << "                                                            ";
-			SetColor(Color_DarkRed);
-			SetBGColor(Color_DarkWhite);
-			gotoxy(76, MAXYCONSOLE - 3);
-			cout << "BAN CO CHAC CHAN HUY?";
-			int cofirm = GetKey();
-			if (cofirm == ENTER) {
-				return 0;
-			}
-			gotoxy(76, MAXYCONSOLE - 3);
-			SetBGColor(Color_DarkWhite);
-			cout << "                                                            ";
-		}
-	}
-ENDp:
-//	gotoxy(positionX_listMB + 89, dongStart + listMB.soluong);
-	gotoxy(positionFormInputX + 12, positionFormInputY + 17);
-	cout << (mb.soday_MB * mb.sohang_MB);
-	return 1;
-
+		NhapLieu(136,15,loaiMB,40);
+		if(loaiMB == ""){
+			return 0;
+		}else strcpy(mb.loai_MB, loaiMB.c_str());
+		// SO DAY
+		alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"                 0 < SO LUONG DAY < 10                     ");
+		do{
+			SetBGColor(Color_White);
+			NhapLieuSo(136,19,soday,2);
+			if(soday == 0) return 0;
+			else if(soday >10){
+				gotoxy(126,21); SetColor(Color_Red);	SetBGColor(Color_DarkWhite);	cout<<"SO DAY KHONG HOP LE";	SetColor(Color_DarkBlue);
+			}else mb.soday_MB = soday;
+		}while(soday==0 || soday>10);
+		gotoxy(126,21);	SetBGColor(Color_DarkWhite);	cout<<"                   ";
+		// SO HANG
+		alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"                 0 < SO LUONG HANG < 35                    ");
+		do{
+			SetBGColor(Color_White);
+			NhapLieuSo(136,23,sohang,2);
+			if(sohang == 0) return 0;
+			else if(sohang >30){
+				gotoxy(126,25); SetColor(Color_Red);	SetBGColor(Color_DarkWhite);	cout<<"SO HANG KHONG HOP LE";	SetColor(Color_DarkBlue);
+			}else mb.sohang_MB = sohang;
+		}while(sohang>30);
+		gotoxy(126,25);		SetBGColor(Color_DarkWhite);	cout<<"                    ";
+		// 
+		gotoxy(136, 27); 	SetBGColor(Color_White);		cout << (mb.soday_MB * mb.sohang_MB);
+		bool xacthucKey;
+		do{
+			xacthucKey = true;
+			key = GetKey();
+			if(key == ESC) return 0;
+			else if(key == F2) return 1;
+			else if(key == TAB)	xacthuc = false;
+			else xacthucKey= false;
+		}while(!xacthucKey);
+	}while(!xacthuc);
+	return 0;
 }
 //them may bay vao danh sach
-void addList_MB(List_MB & listMB) {
-	int key1;
-	bool nhaptiep = false;
-	
+int addList_MB(List_MB & listMB) {
 	ShowCur(true);
-	do {
-		if (isFull(listMB)) {//kiem tra day chua?
-			alertHelp(55 ,MAXYCONSOLE-9 ,"                     DANH SACH DA DAY                      ");
-			
-			if(GetKey())
-			gotoxy(55, MAXYCONSOLE-9);
-			cout << "                                                           ";
-			gotoxy(55, MAXYCONSOLE-8);
-			cout << "                                                           ";
-			gotoxy(55, MAXYCONSOLE-7);
-			cout << "                                                           ";
-			return;
-		}
-		else {//neu chua day...
-			if (isEmpty(listMB)) {//... thi kiem tra xem co phan tu chua?
-				MAYBAY mb;
-				if (addInfo_MB(listMB, mb) == 0) {
-					gotoxy(50, MAXYCONSOLE - 3);
-
-					SetBGColor(Color_DarkWhite);
-					cout << "                                                            ";
-					Alert("DA HUY", 82, MAXYCONSOLE - 3, 2);
-				}
-				else {
-					listMB.nodeMB[0] = new MAYBAY;
-					*listMB.nodeMB[0] = mb; listMB.soluong++;
-					Alert("THEM MAY BAY THANH CONG!", 70, MAXYCONSOLE - 3, 2);
-				}
+	if (isFull(listMB)) {//kiem tra day chua?
+		return -1;
+	}
+	else {//neu chua day...
+		if (isEmpty(listMB)) {//... thi kiem tra xem co phan tu chua?
+			MAYBAY mb;
+			if (addInfo_MB(listMB, mb) == 0) {
+				return 0;
 			}
 			else {
-				MAYBAY mb;
-				if (addInfo_MB(listMB, mb) == 0) {
-					gotoxy(50, MAXYCONSOLE - 3);
-					SetBGColor(Color_DarkWhite);
-					cout << "                                                            ";
-					Alert("DA HUY", 82, MAXYCONSOLE - 3, 2);
-				}
-				else {
-					int j, k;
-					for (j = 0; j < listMB.soluong && strcmp(listMB.nodeMB[j]->sohieu_MB, mb.sohieu_MB) < 1; j++);
-					for (k = listMB.soluong - 1; k >= j; k--)
-						listMB.nodeMB[k + 1] = listMB.nodeMB[k];
-					listMB.nodeMB[j] = new MAYBAY;
-					*listMB.nodeMB[j] = mb; listMB.soluong++;
-					Alert("THEM MAY BAY THANH CONG!", 70, MAXYCONSOLE - 3, 2);
-
-				}
+				listMB.nodeMB[0] = new MAYBAY;
+				*listMB.nodeMB[0] = mb; listMB.soluong++;
+				return 1;
 			}
 		}
-		nhaptiep = Hoi(55,MAXYCONSOLE-5,"                   BAN CO MUON THEM TIEP?                  ");
-		SetBGColor(7);
-	} while (nhaptiep == true);
+		else {
+			MAYBAY mb;
+			if (addInfo_MB(listMB, mb) == 0) {
+				return 0;
+			}
+			else {
+				int j, k;
+				for (j = 0; j < listMB.soluong && strcmp(listMB.nodeMB[j]->sohieu_MB, mb.sohieu_MB) < 1; j++);
+				for (k = listMB.soluong - 1; k >= j; k--)
+					listMB.nodeMB[k + 1] = listMB.nodeMB[k];
+				listMB.nodeMB[j] = new MAYBAY;
+				*listMB.nodeMB[j] = mb; listMB.soluong++;
+				return 1;
+			}
+		}
+	}
 }
 
 void Insoluotbay(List_MB lMB, List_CB lCB)
@@ -419,10 +416,9 @@ void Insoluotbay(List_MB lMB, List_CB lCB)
 	
 
 }
-int frameDeleteMB(List_MB & listMB, List_CB l) {
-	SetBGColor(Color_DarkWhite);
-	header();
-	if (isEmpty(listMB)) {
+int optionMB(List_MB & list_MB, List_CB list_CB) {
+	ShowCur(false);		header();	SetBGColor(Color_DarkWhite);
+	if (isEmpty(list_MB)) {
 		Alert("CHUA CO MAY BAY TRONG DANH SACH ", 70, MAXYCONSOLE - 3, 1.2);
 		return -1;
 	}
@@ -439,441 +435,205 @@ int frameDeleteMB(List_MB & listMB, List_CB l) {
 		gotoxy(positionX_listMB + 70, positionY_listMB + 1);cout << "SO HANG";
 		gotoxy(positionX_listMB+ 84, positionY_listMB + 1);cout << "SO GHE";
 		
-		for (int i = 0;i < listMB.soluong;i++) {
-			Normal();
-			outDataMB(listMB, i);
+		for (int i = 0;i < list_MB.soluong;i++) {
+			Normal();	outDataMB(list_MB, i);
 		}
-		HighLight();
-		outDataMB(listMB, 0);
+		HighLight();	outDataMB(list_MB, 0);
 		
-		int vitri = 0;
-		SetBGColor(Color_DarkWhite);
+		int vitri = 0;	SetBGColor(Color_DarkWhite);
 		while (true) {
 			int key = GetKey();
 			switch (key) {
-			case DOWN:
-				if (vitri == listMB.soluong - 1) {
-					Normal();
-					outDataMB(listMB, vitri);
-					vitri = 0;
-					HighLight();
-					outDataMB(listMB, vitri);
-				}
-				else {
-					Normal();
-					outDataMB(listMB, vitri);
-					vitri++;
-					HighLight();
-					outDataMB(listMB, vitri);
-				}
-				break;
-			case UP:
-				if (vitri == 0) {
-					Normal();
-					outDataMB(listMB, vitri);
-					vitri = listMB.soluong - 1;
-					HighLight();
-					outDataMB(listMB, vitri);
-				}
-				else {
-					Normal();
-					outDataMB(listMB, vitri);
-					vitri--;
-					HighLight();
-					outDataMB(listMB, vitri);
-				}
-				break;
-			case ENTER:
-				if (listMB.soluong > 0) {
-					return vitri;
-				}
-				frameCoverNotice();
-				return -1;
-			case F1:
-				{
-					addList_MB(listMB);
-					return -2;
-				}
-			case F2: 
-				{
-					clrscr();
-					
-					int A[2]={20,50};
-					table(40,8,20,70,2,A);
-					gotoxy(43,9);	cout<<"SO HIEU MAY BAY";
-					gotoxy(70,9);	cout<<"LOAI MAY BAY";
-					gotoxy(95,9);	cout<<"SO LUOT BAY";
-					
-					Insoluotbay(listMB ,l);
-					getch();
-					
-					return -2;
-				}
-			case ESC:
-				return -1;
-				break;
-			}
-		}
-	}
-}
-
-
-string textInput(List_MB &listMB, MAYBAY &mb, int vitrinode, char tenField[20], string temp){
-
-	int vitri = 0; int key;
-	string text = "";
-	int so = 0;
-	int y = 0;
-	char tmp[3] = "";
-	if(tenField == "SOHIEUMB" ){
-		if(temp == ""){
-			text = listMB.nodeMB[vitrinode]->sohieu_MB;
-		} else{
-			text = temp;
-		}
-		y = 1;
-	}else if(tenField == "LOAIMAYBAY" ){
-		text = listMB.nodeMB[vitrinode]->loai_MB;
-		y = 5;
-	}else if(tenField == "SODAY" ){
-		so = listMB.nodeMB[vitrinode]->soday_MB;
-		itoa(so,tmp,3);
-		text = 	tmp;
-		y = 9;
-	}else if(tenField == "SOHANG" ){
-		
-		so = listMB.nodeMB[vitrinode]->sohang_MB;
-		itoa(so,tmp,3);
-		text = 	tmp;
-		y = 13;
-//		text = listMB.nodeMB[vitrinode]->sohang_MB;
-	}
-//	string text = listMB.nodeMB[vitrinode]->sohieu_MB;
-
-start:
-	gotoxy(positionFormInputX + 12 + vitri, positionFormInputY + y);	SetBGColor(Color_White);	cout<<text;
-	while (1) {
-		key = GetKey();
-		switch(key)
-		{
-			case ENTER:
-				{
-					if(text.length()==0){
-						Alert("CHUA NHAP SO HIEU MAY BAY", 73, MAXYCONSOLE-3, 2);
-						return 0;
+				case DOWN:
+					if (vitri == list_MB.soluong - 1) {
+						Normal();		outDataMB(list_MB, vitri);	vitri = 0;
+						HighLight();	outDataMB(list_MB, vitri);
 					}
-					if(tenField == "SOHIEUMB" ){
-						text.copy(mb.sohieu_MB,15);
-					}else if(tenField == "LOAIMAYBAY" ){
-						text.copy(mb.loai_MB,40);
-					}else if(tenField == "SODAY" ){
-//						text.copy(mb.soday_MB,2);
-						if(text.length()==0){
-							Alert("CHUA NHAP SO DAY", 77, MAXYCONSOLE-3, 2);
-							goto start;
-						}
-						mb.soday_MB = atoi(text.c_str());
-						if(mb.soday_MB>maxsoday || mb.soday_MB<=0){
-							Alert("SO DAY KHONG THOA MAN ", 72, MAXYCONSOLE-3, 2);
-							SetColor(Color_DarkRed);
-							gotoxy(positionX_listMB + 57, dongStart + vitrinode);
-							cout << "  ";
-							goto start;
-						}
-					}else if(tenField == "SOHANG" ){
-//						text.copy(mb.sohang_MB,2);
-//						mb.sohang_MB = atoi(text.c_str());
-						if(text.length()==0){
-							Alert("CHUA NHAP SO DAY", 77, MAXYCONSOLE-3, 2);
-							goto start;
-						}
-						mb.sohang_MB = atoi(text.c_str());
-						if(mb.sohang_MB>maxsohang || mb.sohang_MB<=0){
-							Alert("SO DAY KHONG THOA MAN ", 72, MAXYCONSOLE-3, 2);
-							SetColor(Color_DarkRed);
-							gotoxy(positionX_listMB + 57, dongStart + vitrinode);
-							cout << "  ";
-							goto start;
-						}
-					}
-//					text.copy(mb.sohieu_MB,15);
-//						text
-						return text;
-				}
-			case BACKSPACE:
-				{
-					if(text.length()>0){	
-						text.erase(text.length()-1,1);
-						cout<<"\b \b";
+					else {
+						Normal();		outDataMB(list_MB, vitri);	vitri++;
+						HighLight();	outDataMB(list_MB, vitri);
 					}
 					break;
-				}
-			case TAB:
-				{
-					strcpy(mb.sohieu_MB, listMB.nodeMB[vitrinode]->sohieu_MB);
-					if(tenField == "SOHANG"){
-						return "ok";
+				case UP:
+					if (vitri == 0) {
+						Normal();		outDataMB(list_MB, vitri);	vitri = list_MB.soluong - 1;
+						HighLight();	outDataMB(list_MB, vitri);
 					}
-					return text;
-				}
-			default:
-				{
-					if((key>47&&key<123) &&text.length()<15)
+					else {
+						Normal();		outDataMB(list_MB, vitri);	vitri--;
+						HighLight();	outDataMB(list_MB, vitri);
+					}
+					break;
+				case ENTER:
+					if (list_MB.soluong > 0) {
+						return vitri;
+					}	return -1;
+				case F1:
 					{
-						gotoxy(positionFormInputX + 12 + vitri, positionFormInputY + y);
-						if(97<= key && key<=122)
-						{
-							text +=char(key-32);
-						}else{
-							text +=char(key);
+						int add = addList_MB(list_MB);
+						SetBGColor(Color_DarkWhite);
+						if(add == 1){
+							gotoxy(118,30); cout<<"THEM MAY BAY THANH CONG!";
+						}else if(add == -1){
+							gotoxy(118,30); cout<<"DANH SACH DA DAY!";
+						}else {
+							gotoxy(118,30); cout<<"DA HUY!";
 						}
-						cout<<text;
+						getch();	gotoxy(118,30); cout<<"                        ";
+						gotoxy(positionAlertHelp,31); cout<<"                                                            ";
+						gotoxy(positionAlertHelp,32); cout<<"                                                            ";
+						gotoxy(positionAlertHelp,33); cout<<"                                                            ";	
+						return -2;
 					}
-					break;
-				}	
+				case F2: 
+					{
+						SetBGColor(Color_DarkWhite);	clrscr();
+						int A[2]={20,50};	table(40,8,20,70,2,A);
+						gotoxy(43,9);	cout<<"SO HIEU MAY BAY";
+						gotoxy(70,9);	cout<<"LOAI MAY BAY";
+						gotoxy(95,9);	cout<<"SO LUOT BAY";
+						Insoluotbay(list_MB ,list_CB);
+						getch();	return -2;
+					}
+				case ESC:	return -1;
+				default: break;
+			}
 		}
 	}
 }
 
 int updateInfo_MB(List_MB &listMB, MAYBAY &mb, int vitrinode) {
-	int vitri;int key;
-	SetBGColor(Color_DarkWhite);
-	SetColor(Color_DarkRed);
-SOHIEUMB:///////////////// NHAP SO HIEU MAY BAY //////////////
-	// ghi chu
-	alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"         SO HIEU MB: GOM CAC KI TU (A-Z) & (0-9)           ");
-	string temp = "";
-	temp = textInput(listMB, mb, vitrinode ,"SOHIEUMB" ,temp);
-LOAIMAYBAY: /////////// NHAP LOAI MAY BAY //////////////
-		// ghi chu
-	string temp2 = "";
-	alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"        LOAI MAY BAY: GOM CAC KI TU (A-Z) & (0-9)          ");
-//	vitri = 0;
-	
-	textInput(listMB, mb, vitrinode,"LOAIMAYBAY",temp2);
-SODAY:////////////// NHAP SO DAY MAY BAY/////////////////
-//	char sodaychar[3];
-	// ghi chu
-	
-	alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"                 0 < SO LUONG DAY < 10                     ");
-	
-	textInput(listMB, mb, vitrinode,"SODAY","");
-//	vitri = 0;
-//	///
-//	while (1) {
-//		gotoxy(positionX_listMB + 57 + vitri, dongStart + vitrinode);
-//		SetColor(Color_Blue);
-//		SetBGColor(Color_DarkWhite);
-//		fflush(stdin);
-//		key = GetKey();
-//		if (key >= '0' && key <= '9' && vitri < 2) {
-//			sodaychar[vitri] = (char)key;
-//			cout << sodaychar[vitri];
-//			vitri++;
-//		}
-//		if (key == BACKSPACE && vitri > 0) {
-//			vitri--;
-//			gotoxy(positionX_listMB + 57 + vitri, dongStart + vitrinode);SetColor(Color_DarkRed);
-//			cout << " ";
-//
-//		}
-//		if (key == TAB) {
-//			mb.soday_MB = listMB.nodeMB[vitrinode]->soday_MB;
-//			goto SOHANG;
-//		}
-//		if (key == ENTER) {
-//			sodaychar[vitri] = '\0';
-//			if (sodaychar[0] == '\0') {
-//				Alert("CHUA NHAP SO DAY", 77, MAXYCONSOLE-3, 2);
-//				goto SODAY;
-//			}
-//			else {
-//				mb.soday_MB = atoi(sodaychar);
-//				if (mb.soday_MB > maxsoday || mb.soday_MB <= 0) {
-//					Alert("SO DAY KHONG THOA MAN ", 72, MAXYCONSOLE-3, 2);
-//					SetColor(Color_DarkRed);
-//					gotoxy(positionX_listMB + 57, dongStart + vitrinode);
-//					cout << "  ";
-//					goto SODAY;
-//				}
-//				else {
-//					goto SOHANG;
-//				}
-//			}
-//		}
-//		if (key == ESC) {
-//			gotoxy(50, MAXYCONSOLE-3);
-//
-//			SetBGColor(Color_DarkWhite);
-//			cout << "                                                            ";
-//			SetColor(Color_DarkRed);
-//			SetBGColor(Color_DarkWhite);
-//			gotoxy(76, MAXYCONSOLE-3);
-//			cout << "BAN CO CHAC CHAN HUY?";
-//			int cofirm = GetKey();
-//			if (cofirm == ENTER) {
-//				return 0;
-//			}
-//			gotoxy(76, MAXYCONSOLE-3);
-//			SetBGColor(Color_DarkWhite);
-//			cout << "                                                            ";
-//		}
-//	}
-SOHANG://///////////// NHAP SO HANG CUA MAY BAY ////////////////////
-//	char sohangchar[3];
-	// ghi chu
-	
-	alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"                 0 < SO LUONG HANG < 35                    ");
-	string x = textInput(listMB, mb, vitrinode,"SOHANG","");
-	if(x=="ok"){
-		goto SOHIEUMB;
-	}
-	
-//	vitri = 0;
-//	///
-//	while (1) {
-//		gotoxy(positionX_listMB + 72 + vitri, dongStart + vitrinode);
-//		SetColor(Color_Blue);
-//		SetBGColor(Color_DarkWhite);
-//		fflush(stdin);
-//		key = GetKey();
-//		if (key >= '0' && key <= '9' && vitri < 2) {
-//			sohangchar[vitri] = (char)key;
-//			cout << sohangchar[vitri];
-//			vitri++;
-//		}
-//		if (key == BACKSPACE && vitri > 0) {
-//			vitri--;
-//			gotoxy(positionX_listMB + 72 + vitri, dongStart + vitrinode);SetColor(Color_DarkRed);
-//			cout << " ";
-//		}
-//		if (key == TAB) {
-//			mb.sohang_MB = listMB.nodeMB[vitrinode]->sohang_MB;
-//			goto SOHIEUMB;
-//		}
-//		if (key == ENTER) {
-//			sohangchar[vitri] = '\0';
-//			if (sohangchar[0] == '\0') {
-//				mb.sohang_MB = listMB.nodeMB[vitrinode]->sohang_MB;
-//				goto ENDp;
-//
-//			}
-//			else {
-//				mb.sohang_MB = atoi(sohangchar);
-//				if (mb.sohang_MB > maxsohang || mb.sohang_MB <= 0) {
-//					Alert("SO HANG KHONG THOA MAN ", 72, MAXYCONSOLE-3, 2);
-//					SetColor(Color_DarkRed);
-//					gotoxy(positionX_listMB + 72, dongStart + vitrinode);
-//					cout << "  ";
-//					goto SOHANG;
-//				}
-//				else {
-//					goto ENDp;
-//				}
-//			}
-//		}
-//		if (key == ESC) {
-//			gotoxy(50, MAXYCONSOLE-3);
-//
-//			SetBGColor(Color_DarkWhite);
-//			cout << "                                                            ";
-//			SetColor(Color_DarkRed);
-//			SetBGColor(Color_DarkWhite);
-//			gotoxy(76, MAXYCONSOLE-3);
-//			cout << "BAN CO CHAC CHAN HUY?";
-//			int cofirm = GetKey();
-//			if (cofirm == ENTER) {
-//				return 0;
-//			}
-//			gotoxy(76, MAXYCONSOLE-3);
-//			SetBGColor(Color_DarkWhite);
-//			cout << "                                                            ";
-//		}
-//	}
-ENDp:
-	gotoxy(positionFormInputX + 12, positionFormInputY + 17);
-//	gotoxy(positionX_listMB + 86, dongStart + vitrinode);
-	cout << (mb.soday_MB * mb.sohang_MB);
-	return 1;
+	int key;
+	// LAY CAC GIA TRI CU
+	string sohieuMB = listMB.nodeMB[vitrinode]->sohieu_MB;
+	strcpy(mb.sohieu_MB, sohieuMB.c_str());
+	string loaiMB = listMB.nodeMB[vitrinode]->loai_MB;
+	int soday= listMB.nodeMB[vitrinode]->soday_MB;
+	int sohang= listMB.nodeMB[vitrinode]->sohang_MB;
+//	gotoxy(136,11); cout<<sohieuMB;
+	bool xacthuc;
+	do{
+		
+		SetBGColor(Color_DarkWhite);
+		SetColor(Color_DarkBlue);
+		// SO HIEU MAY BAY
+//		alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"         SO HIEU MB: GOM CAC KI TU (A-Z) & (0-9)           ");
+//		SetBGColor(Color_White);
+//		NhapLieu(136,11,sohieuMB,15);
+//		if(sohieuMB == ""){
+//			return 0;
+//		}else strcpy(mb.sohieu_MB, sohieuMB.c_str());
+		// LOAI MAY BAY
+		alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"        LOAI MAY BAY: GOM CAC KI TU (A-Z) & (0-9)          ");
+		SetBGColor(Color_White);
+		NhapLieu(136,15,loaiMB,15);
+		if(loaiMB == ""){
+			return 0;
+		}else strcpy(mb.loai_MB, loaiMB.c_str());
+		// SO DAY
+		alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"                 0 < SO LUONG DAY < 10                     ");
+		do{
+			SetBGColor(Color_White);
+			NhapLieuSo(136,19,soday,2);
+			if(soday == 0) return 0;
+			else if(soday >10){
+				gotoxy(126,21); SetColor(Color_Red);	SetBGColor(Color_DarkWhite);	cout<<"SO DAY KHONG HOP LE";	SetColor(Color_DarkBlue);
+			}else mb.soday_MB = soday;
+		}while(soday==0 || soday>10);
+		gotoxy(126,21);	SetBGColor(Color_DarkWhite);	cout<<"                   ";
+		// SO HANG
+		alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"                 0 < SO LUONG HANG < 35                    ");
+		do{
+			SetBGColor(Color_White);
+			NhapLieuSo(136,23,sohang,2);
+			if(sohang == 0) return 0;
+			else if(sohang >30){
+				gotoxy(126,25); SetColor(Color_Red);	SetBGColor(Color_DarkWhite);	cout<<"SO HANG KHONG HOP LE";	SetColor(Color_DarkBlue);
+			}else mb.sohang_MB = sohang;
+		}while(sohang>30);
+		gotoxy(126,25);		SetBGColor(Color_DarkWhite);	cout<<"                    ";
+		// 
+		gotoxy(136, 27); 	SetBGColor(Color_White);		cout << (mb.soday_MB * mb.sohang_MB);
+		bool xacthucKey;
+		do{
+			xacthucKey = true;	key = GetKey();
+			if(key == ESC) return 0;
+			else if(key == F2) return 1;
+			else if(key == TAB)	xacthuc = false;
+			else xacthucKey= false;
+		}while(!xacthucKey);
+	}while(!xacthuc);
+	return 0;
 }
 // hieu chinh thong tin may bay
-int editMB(List_MB & l, List_CB lCB, int vitrinode) {
+int editMB(List_MB &list_MB, List_CB list_CB, int vitrinode) {
 
 	ShowCur(true);
 	footerEditMB();
 	int key;
 	MAYBAY mb;
-	if (updateInfo_MB(l, mb, vitrinode) == 0) {
-		gotoxy(50, MAXYCONSOLE-3);
-		SetBGColor(Color_DarkWhite);
-		cout << "                                                            ";
-		Alert("DA HUY", 82, MAXYCONSOLE-3, 2);
-		return 0;
-	}
+	if (updateInfo_MB(list_MB, mb, vitrinode) == 0)	return 0;
 	else {
 		if (Hoi(55,MAXYCONSOLE-5,"   THONG TIN CU SE BI XOA. BAN CO CHAC CHAN MUON LUU MOI?  ")) {
-			frameCoverNotice();
-			strcpy(l.nodeMB[vitrinode]->sohieu_MB, mb.sohieu_MB);
-			strcpy(l.nodeMB[vitrinode]->loai_MB, mb.loai_MB);
-			l.nodeMB[vitrinode]->soday_MB = mb.soday_MB;
-			l.nodeMB[vitrinode]->sohang_MB = mb.sohang_MB;
-
-			Alert("DA CAP NHAT LAI THONG TIN", 72, MAXYCONSOLE-3, 1.6);
-			return 0;
-		}else{
-			frameCoverNotice();
-			Alert("DA HUY", 82, MAXYCONSOLE-3, 1.3);clrscr();
-			return 0;
-		}
+			if (searchInfoShmb(list_CB, list_MB.nodeMB[vitrinode]->sohieu_MB) != NULL) return -1;
+			else{
+				strcpy(list_MB.nodeMB[vitrinode]->sohieu_MB, mb.sohieu_MB);
+				strcpy(list_MB.nodeMB[vitrinode]->loai_MB, mb.loai_MB);
+				list_MB.nodeMB[vitrinode]->soday_MB = mb.soday_MB;
+				list_MB.nodeMB[vitrinode]->sohang_MB = mb.sohang_MB;
+				return 1;
+			}
+		}else	return 0;
 	}
 }
 //xoa may bay khoi danh sach
-int quanLyMayBay(List_MB & listMB, List_CB l) {
+void quanLyMayBay(List_MB &list_MB, List_CB list_CB) {
 
-start:
 	clrscr();
-	footer();
 	SetColor(Color_Pink);	SetBGColor(Color_DarkWhite);	vekhung(72,4,1,32);
 	gotoxy(82,5);			SetColor(Color_Pink);			cout<<"DANH SACH MAY BAY";
 	//FORM NHAP LIEU
-	formInput(positionFormInputX,positionFormInputY,5,ITEM);
-	int vitrinode = frameDeleteMB(listMB, l);
-	
-	int key;
-	if (vitrinode == -1) {
-
-		SetBGColor(Color_DarkWhite);
-		return 0;
-	}else if(vitrinode == -2){
-		goto start;
-	}
-	else
-	{
-		// CHON XOA HOAC SUA MAY BAY
-		if(alertOption(55,MAXYCONSOLE-5,"           BAN MUON XOA HAY CHINH SUA MAY BAY              ")){
-			if (Hoi(55,MAXYCONSOLE-5,"      BAN CO CHAC CHAN XOA MAY BAY KHOI DANH SACH?         ")) {
-				if (searchInfoShmb(l, listMB.nodeMB[vitrinode]->sohieu_MB) != NULL) {
-					Alert("KHONG THE XOA MAY BAY VI DA TAO CHUYEN BAY", 64, MAXYCONSOLE-3, 3);
-				}else{
-					frameCoverNotice();
-					delete  listMB.nodeMB[vitrinode];
-					for (int j = vitrinode + 1; j < listMB.soluong; j++)
-						listMB.nodeMB[j - 1] = listMB.nodeMB[j];
-					listMB.soluong--;
-					Alert("DA XOA THANH CONG", 77, MAXYCONSOLE - 11, 1.2);
-					clrscr();
-				}
-			}else{
-				frameCoverNotice();
-				Alert("DA HUY", 82, MAXYCONSOLE - 11, 1.2);clrscr(); goto start;
-			}
+	while(1){
+		footerMB();
+		formInput(positionFormInputX,positionFormInputY,5,ITEM);
+		int position = optionMB(list_MB, list_CB);
+		
+		int key;
+		if (position == -1) {
+			SetBGColor(Color_DarkWhite);		return;
+		}else if(position == -2){
 		}else{
-			//SUA MAY BAY
-			frameCoverNotice();
-			editMB(listMB, l, vitrinode);
+			// CHON XOA HOAC SUA MAY BAY
+			int choose = alertOption(55,MAXYCONSOLE-5,"           BAN MUON XOA HAY CHINH SUA MAY BAY              ");
+			if(choose == 1){
+				if (Hoi(55,MAXYCONSOLE-5,"      BAN CO CHAC CHAN XOA MAY BAY KHOI DANH SACH?         ")) {
+					if (searchInfoShmb(list_CB, list_MB.nodeMB[position]->sohieu_MB) != NULL) {
+						gotoxy(118,30); cout<<"KHONG THE XOA MAY BAY VI DA TAO CHUYEN BAY";
+					}else{
+						delete  list_MB.nodeMB[position];
+						for (int j = position + 1; j < list_MB.soluong; j++)
+							list_MB.nodeMB[j - 1] = list_MB.nodeMB[j];
+						list_MB.soluong--;
+						gotoxy(118,30); cout<<"DA XOA THANH CONG!";	getch();	clrscr();	SetBGColor(Color_DarkWhite);
+					}
+				}else{
+					gotoxy(118,30); cout<<"DA HUY!";	getch();	clrscr();	SetBGColor(Color_DarkWhite);
+				}
+			}else if(choose == 2){
+				int update = editMB(list_MB, list_CB, position);
+				SetBGColor(Color_DarkWhite);	SetColor(Color_DarkBlue);
+				if(update == 1){
+					gotoxy(118,30); 	cout<<"HIEU CHINH MAY BAY THANH CONG!";
+				}else if(update == 0){
+					gotoxy(118,30); 	cout<<"DA HUY!";
+				}else{
+					gotoxy(118,30); 	cout<<"MAY BAY DA TAO CHUYEN BAY, KHONG THE CHINH SUA";
+				}
+				getch();	clrscr();	SetBGColor(Color_DarkWhite);
+			}
 		}
 	}
-	goto start;
+	return;
 
 }
 
@@ -881,14 +641,13 @@ start:
 void saveFileList_MB(List_MB l) {
 	ofstream fileMbOut ("Danhsachmaybay.txt");
 	for(int i=0;i<l.soluong;i++){
-	fileMbOut << l.nodeMB[i]->sohieu_MB<<" ";
-	fileMbOut << l.nodeMB[i]->loai_MB<<" ";
-	fileMbOut << l.nodeMB[i]->soday_MB<<" ";
-	fileMbOut << l.nodeMB[i]->sohang_MB<<" ";
-	if(i!=l.soluong-1){
-		fileMbOut<<endl;
+		fileMbOut << l.nodeMB[i]->sohieu_MB<<" ";
+		fileMbOut << l.nodeMB[i]->loai_MB<<" ";
+		fileMbOut << l.nodeMB[i]->soday_MB<<" ";
+		fileMbOut << l.nodeMB[i]->sohang_MB<<" ";
+		if(i!=l.soluong-1){
+			fileMbOut<<endl;
 		}
-		
 	}
 	fileMbOut.close();
 
@@ -898,9 +657,8 @@ int docFileInfo1MB(ifstream &fileMbIn,MAYBAY &mb){
 	getline(fileMbIn,data,' ');	strcpy(mb.sohieu_MB, data.c_str());
 	getline(fileMbIn,data,' '); strcpy(mb.loai_MB,data.c_str());
 	getline(fileMbIn,data,' ');mb.soday_MB= atoi(data.c_str());
-	getline(fileMbIn,data,' ');mb.sohang_MB= atoi(data.c_str());	
-	
-	}
+	getline(fileMbIn,data,' ');mb.sohang_MB= atoi(data.c_str());
+}
 //doc file danh sach may bay
 int openFileList_MB(List_MB &l) {
 ifstream fileMbIn ("Danhsachmaybay.txt");
@@ -919,10 +677,6 @@ ifstream fileMbIn ("Danhsachmaybay.txt");
 }
 ///////////////////////////////////////////////////////////////// CHUYEN BAY ///////////////////////////////////////////////////////////////////////////////////
 // tim kiem
-
-
-
-
 
 //tao node chuyen bay, them du lieu cho node va tra ve dia chi node
 Node_CB* createNodeCB(CHUYENBAY cb) {
@@ -946,11 +700,10 @@ boolean isEmptyListCB(List_CB l) {
 }
 boolean checkTrungChuyenbay(List_CB l, CHUYENBAY cb) {
 	for (Node_CB* p = l.pHead;p != NULL;p = p->pNext) {
-		if (strcmp(p->data.sohieumb, cb.sohieumb) == 0) {// neu trung sohieu thi kiem tra thang
+		if (strcmp(p->data.sohieumb, cb.sohieumb) == 0 && strcmp(p->data.ma_CB, cb.ma_CB) != 0) {// neu trung sohieu thi kiem tra thang
 			if (p->data.ngaygioStart.month == cb.ngaygioStart.month) {// neu trung thang thi kiem tra ngay
 				if (p->data.ngaygioStart.day == cb.ngaygioStart.day) {//neu trung ngay thi cach 6 tieng moi duoc bay
 					if ((abs(p->data.ngaygioStart.hours - cb.ngaygioStart.hours + (p->data.ngaygioStart.minutes - cb.ngaygioStart.minutes) / (float)60) < 6))
-						gotoxy(1,1);cout<<cb.ngaygioStart.month<<"/"<<cb.ngaygioStart.day;
 						return false;
 				}
 			}
@@ -972,136 +725,39 @@ boolean checkTrungChuyenbayEdit(List_CB & l, CHUYENBAY & cb, CHUYENBAY cbcansua)
 	return true;
 }
 
-void NhapLieu(int x, int y, string &text, int sokytu){
 
-	int key;
-	gotoxy(x, y);	SetBGColor(Color_DarkWhite);	cout<<text;
-	while (true) {
-		key = GetKey();
-		switch(key)
-		{
-			case ESC:{
-				text = "";
-				return;
-			}
-			case TAB:
-			case ENTER:
-				{
-					if(text.length()==0){
-						gotoxy(x -10, y+1); SetColor(Color_DarkRed);
-						cout<<"VUI LONG DIEN THONG TIN";
-//						gotoxy(x,y); SetColor(Color_DarkBlue); cout<<text;
-					}else{
-						gotoxy(x -10, y+1); SetBGColor(Color_DarkWhite);
-						cout<<"                       ";
-						return;
-					}
-				}
-			case BACKSPACE:
-				{
-					if(text.length()>0){	
-						text.erase(text.length()-1,1);
-						cout<<"\b \b";
-					}
-					break;
-				}
-			default:
-				{
-					if((key>47&&key<123) &&text.length()<sokytu)
-					{
-						gotoxy(x, y);
-						if(97<= key && key<=122)
-						{
-							text +=char(key-32);
-						}else{
-							text +=char(key);
-						}
-						cout<<text;
-					}
-					break;
-				}	
-		}
-	}
-}
-void NhapLieuso(int x, int y, string &text, int sokytu){
-
-	int key;
-	gotoxy(x, y);	SetBGColor(Color_DarkWhite);	cout<<text;
-	while (true) {
-		key = GetKey();
-		switch(key)
-		{
-			case ESC:{
-				text = "";
-				return;
-			}
-			case TAB:
-			case ENTER:
-				{
-					if(text.length()==0){
-						gotoxy(x -10, y+1); SetColor(Color_DarkRed);
-						cout<<"VUI LONG DIEN THONG TIN";
-						gotoxy(x,y); SetColor(Color_DarkBlue); cout<<text;
-					}else{
-						gotoxy(x -10, y+1); SetBGColor(Color_DarkWhite);
-						cout<<"                       ";
-						return;
-					}
-				}
-			case BACKSPACE:
-				{
-					if(text.length()>0){	
-						text.erase(text.length()-1,1);
-						cout<<"\b \b";
-					}
-					break;
-				}
-			default:
-				{
-					if((key>47&&key<58) &&text.length()<sokytu)
-					{
-						gotoxy(x, y);
-						text +=char(key);
-						cout<<text;
-					}
-					break;
-				}	
-		}
-	}
-}
-string Chuyen(int x){
-	ostringstream convert;   
-    convert << x;
-    string resuft = convert.str();
-    if(resuft.length()==1){
-    	resuft ="0" + resuft;
-	}
+string Chuyen(int num){
+	string resuft;
+	stringstream ss;	ss << num; resuft = ss.str();
+	if(num<10) resuft = "0" + resuft;
     return resuft;
 }
 
 //them thong tin cho chuyen bay
 int addInfo_CB(List_CB & listCB, List_MB & listMB, CHUYENBAY & cb) {
-start:
-//	frameAdd_CB();footer();
-	int vitri; int key;
-	SetColor(Color_DarkRed);
-	SetBGColor(Color_DarkWhite);	gotoxy(2, dongStartCB);
 	
-	int A[6]={20,40,55,75,90,105};
-	table(positionX_listCB ,40 , 3, 120, 6, A);
-	SetColor(Color_Back);
-	gotoxy(positionX_listCB + 4, 40 + 1); 	cout<<"MA CHUYEN BAY";
-	gotoxy(positionX_listCB + 24, 40 + 1); 	cout<<"SO HIEU MB";
-	gotoxy(positionX_listCB + 44, 40 + 1); 	cout<<"NOI DEN";
-	gotoxy(positionX_listCB + 59, 40 + 1); 	cout<<"NGAY KHOI HANH ";
-	gotoxy(positionX_listCB + 80, 40 + 1); 	cout<<"GIO KH";
-	gotoxy(positionX_listCB + 93, 40 + 1); 	cout<<" SO GHE";
-	gotoxy(positionX_listCB + 108, 40 + 1); 	cout<<"TRANG THAI";
-	bool update = false;
+	footerEditMB();
+	ShowCur(true);
+	int vitri; int key;
+	SetBGColor(Color_DarkWhite);
+	bool xacthuc;
 	string ma_CB = "", sohieuMB = "", noiden = "", ngay = "", gio = "";
+	
+	SetColor(Color_Back);
+	vekhungdoi(105,6,30,60);
+	SetColor(Color_Yellow);
+	gotoxy(118,10);	cout<<"MA CHUYEN BAY:";
+	gotoxy(118,12);	cout<<"SO HIEU MAY BAY:";
+	gotoxy(118,14);	cout<<"NOI DEN:";
+	gotoxy(118,16);	cout<<"NGAY KHOI HANH:";
+	gotoxy(118,18);	cout<<"GIO KHOI HANH:";
+	gotoxy(118,20);	cout<<"SO GHE:";
+	gotoxy(118,22);	cout<<"TRANG THAI:";
+	SetColor(Color_DarkBlue);
 	ma_CB = cb.ma_CB;
+	string macbtemp = "";
 	if(ma_CB != ""){
-		update = true;
+		macbtemp = ma_CB;
 		string day 		= Chuyen(cb.ngaygioStart.day);
 		string month 	= Chuyen(cb.ngaygioStart.month);
 		string year 	= Chuyen(cb.ngaygioStart.year);
@@ -1112,332 +768,265 @@ start:
 		noiden	= cb.sanbayDen;
 		ngay		= day + "/" + month + "/" + year;
 		gio 		= hours + ":" + minutes;
-		gotoxy(18 , 43);		cout<<ma_CB;
-		gotoxy(34 , 43);		cout<<sohieuMB;
-		gotoxy(53 , 43);		cout<<noiden;
-		gotoxy(70 , 43);		cout<<ngay;
-		gotoxy(91 , 43);		cout<<gio;
-		gotoxy(107, 43);		cout<<cb.soluongVe;
-		gotoxy(118, 43);		cout << staTus[cb.trangthai];
+		gotoxy(118 , 10);		cout<<ma_CB;
+		gotoxy(118 , 12);		cout<<sohieuMB;
+		gotoxy(118 , 14);		cout<<noiden;
+		gotoxy(118 , 16);		cout<<ngay;
+		gotoxy(118 , 18);		cout<<gio;
+		gotoxy(118 , 20);		cout<<cb.soluongVe;
+		gotoxy(118 , 22);		cout << staTus[cb.trangthai];
 	}
-
-MACHUYENBAY:///////////////////// MA CHUYEN BAY
-	SetColor(Color_DarkRed);
-	SetBGColor(Color_White);
-	gotoxy(55, 47);
-	cout << "                                                           ";
-	gotoxy(55, 48);
-	cout << "       MA CHUYEN BAY: GOM CAC KI TU (A-Z) & (0-9)          ";
-	gotoxy(55, 49);
-	cout << "                                                           ";
-	NhapLieu(positionX_listCB + 8, 43, ma_CB, 15);
-	if(ma_CB == "") return 0;
-	ma_CB.copy(cb.ma_CB,15);
-	if(!update){
-		if (searchInfo(listCB, cb.ma_CB) != NULL) {
-			Alert("MA CHUYEN BAY BI TRUNG!", 73, MAXYCONSOLE-3, 2);
-			gotoxy(8, dongStartCB);
-			SetColor(Color_DarkRed);cout << "        ";
-			goto MACHUYENBAY;
-		}
-	}
-SOHIEUMAYBAY://////////////// SO HIEU MAY BAY
-			// ghi chu
-	SetColor(Color_DarkRed);
-	SetBGColor(Color_White);
-	gotoxy(55, 47);
-	cout << "                                                           ";
-	gotoxy(55, 48);
-	cout << "               CHON MAY BAY TRONG DANH SACH                ";
-	gotoxy(55, 49);
-	cout << "                                                           ";
-
-	while (1) {
-	start1:
-		
-		gotoxy(positionX_listCB+24,43);
-		cout<<sohieuMB;
+	do{
+		xacthuc =true;
+		bool xacnhan_maCB;
 		do{
-			
-			key = GetKey();
-			switch(key){
-				case ENTER: {
-					SetBGColor(Color_DarkWhite);
-					vekhungdoi(144,10,20,13);		kengangdoi(144,12,13);
-					gotoxy(146,11); 				cout<<"SO HIEU MB";
-					int nodeout = frameAddShmb_AddCB(listMB);
-					if (nodeout == -1) {
-						goto start1;
-					}
-					SetColor(Color_Blue);
-					SetBGColor(Color_DarkWhite);
-					gotoxy(positionX_listCB + 24, 43);cout << listMB.nodeMB[nodeout]->sohieu_MB;
-					sohieuMB = listMB.nodeMB[nodeout]->sohieu_MB;
-					key = GetKey();
-					if (key == ESC) {
-						gotoxy(40, MAXYCONSOLE-3);
-						SetBGColor(Color_DarkWhite);
-						cout << "                                                                                                              ";
-						SetColor(Color_DarkRed);
-						SetBGColor(Color_DarkWhite);
-						gotoxy(65, MAXYCONSOLE-3);
-						cout << "BAN MUON CHON LAI(ENTER) HAY HUY NHAP(ESC)?";
-						int cofirm = GetKey();
-						if (cofirm == ENTER) {
-							SetColor(Color_DarkRed);
-							SetBGColor(Color_DarkWhite);
-							gotoxy(positionX_listCB + 24, 43);cout << "        ";
-							gotoxy(40, MAXYCONSOLE-3);
-							SetBGColor(Color_DarkWhite);
-							cout << "                                                                                                              ";
-							goto SOHIEUMAYBAY;
-						}
-						else if (cofirm == ESC) {
-							gotoxy(40, MAXYCONSOLE-3);
-							SetBGColor(Color_DarkWhite);
-							cout << "                                                                                                                ";
-							return 0;
-						}
-			
-					}
-					if (key == ENTER || key == TAB) {
-						strcpy(cb.sohieumb, listMB.nodeMB[nodeout]->sohieu_MB);
-						
-						SetBGColor(Color_DarkWhite);
-						for (int i = 0;i < 22;i++) {
-							gotoxy(144, 10 + i);cout << "               ";
-						}
-						goto NOIDEN;
-					}
-				}
-				case TAB: {
-					sohieuMB.copy(cb.sohieumb,15);
-//					strcpy(cb.sohieumb, listMB.nodeMB[nodeout]->sohieu_MB);
-					goto NOIDEN;
+			SetColor(Color_DarkBlue);
+			xacnhan_maCB = true;	SetBGColor(Color_DarkWhite);
+			NhapLieu(135,10,ma_CB,15);
+			if(ma_CB == "") return 0;
+			strcpy(cb.ma_CB, ma_CB.c_str());
+			if(macbtemp != ma_CB){
+				if (searchInfo(listCB, cb.ma_CB) != NULL) {
+					Alert("MA CHUYEN BAY BI TRUNG!", 73, MAXYCONSOLE-3, 2);
+					xacnhan_maCB = false;
 				}
 			}
-		}while(key != TAB);
-	}
-NOIDEN:/// NHAP SAN BAY DEN
-	
-	SetColor(Color_DarkRed);
-	SetBGColor(Color_White);
-	gotoxy(55, 47);
-	cout << "                                                           ";
-	gotoxy(55, 48);
-	cout << "                   NHAP SAN BAY DEN                        ";
-	gotoxy(55, 49);
-	cout << "                                                           ";
-	
-	NhapLieu(53, 43, noiden, 4);
-	noiden.copy(cb.sanbayDen,4);
-	if (checkNoiDen(cb.sanbayDen) < 0) {
-		Alert("NOI DEN KHONG HOP LE!", 73, MAXYCONSOLE-3, 2);
-		gotoxy(43, dongStartCB);
-		SetColor(Color_DarkRed);cout << "    ";
-		goto NOIDEN;
-	}
-NGAY://NHAP NGAY KHOI HANH
-
-	SetColor(Color_DarkRed);
-	SetBGColor(Color_White);
-	gotoxy(55, 47);
-	cout << "                                                                ";
-	gotoxy(55, 48);
-	cout << " CU PHAP: dd/mm/yyyy. NEU NGAY,THANG < 10 THI THEM 0 PHIA TRUOC ";
-	gotoxy(55, 49);
-	cout << "                                                                ";
-	vitri = 0;
-	char ngaytemp[3];
-	char thangtemp[3];
-	char namtemp[5];
-	char ddmmyy[11];
-	ShowCur(true);
-	gotoxy(70,43);cout<<ngay;
-	while (1) {
-		SetBGColor(Color_DarkWhite);
-		SetColor(Color_Blue);
-		key = GetKey();
-		if ((key >= 47 && key < 58) && ngay.length() < 10) {
-			ngay +=char(key);
-			gotoxy(70,43);cout<<ngay;
-		}
-		if (key == BACKSPACE) {
-			if(ngay.length()>0){	
-				ngay.erase(ngay.length()-1,1);
-				cout<<"\b \b";
-			}
-		}if (key == ENTER || key == TAB) {
-			ngay.copy(ddmmyy,11);
-			ddmmyy[11] = '\0';
-			if (ddmmyy[0] == '\0') {
-				Alert("CHUA NHAP NGAY KHOI HANH", 72, MAXYCONSOLE-3, 2);
-				goto NGAY;
-			}
-			else {
-				ngaytemp[0] = ddmmyy[0];ngaytemp[1] = ddmmyy[1];
-				thangtemp[0] = ddmmyy[3];thangtemp[1] = ddmmyy[4];
-				namtemp[0] = ddmmyy[6];namtemp[1] = ddmmyy[7];namtemp[2] = ddmmyy[8];namtemp[3] = ddmmyy[9];
-				cb.ngaygioStart.day = atoi(ngaytemp);
-				cb.ngaygioStart.month = atoi(thangtemp);
-				cb.ngaygioStart.year = atoi(namtemp);
-				if (checkYear(cb.ngaygioStart.year) != true || checkMonth(cb.ngaygioStart.month) != true || checkDay(cb.ngaygioStart.day, cb.ngaygioStart.month) != true) {
-					Alert("NGAY KHOI HANH KHONG DUNG", 71, MAXYCONSOLE-3, 2);
-					SetColor(Color_DarkRed);
-					gotoxy(70, 43);
-					cout << "          ";
-					goto NGAY;
-				}
-				else if (checkCurrentDDMMYY(cb.ngaygioStart.day, cb.ngaygioStart.month) != true) {
-					Alert("NGAY PHAI LON HON NGAY HIEN TAI", 70, MAXYCONSOLE-3, 2);
-					SetColor(Color_DarkRed);
-					gotoxy(70, 43);
-					cout << "          ";
-					goto NGAY;
-				}
-				SetBGColor(Color_DarkWhite);
-				gotoxy(55, 47);
-				cout << "                                                                                   ";
-				gotoxy(55, 48);
-				cout << "                                                                                   ";
-				gotoxy(55, 49);
-				cout << "                                                                                   ";
-				goto GIO;
-			}
-		}
-		if (key == ESC) {
-			gotoxy(50, MAXYCONSOLE-3);
-
-			SetBGColor(Color_DarkWhite);
-			cout << "                                                            ";
-			SetColor(Color_DarkRed);
-			SetBGColor(Color_DarkWhite);
-			gotoxy(76, MAXYCONSOLE-3);
-			cout << "BAN CO CHAC CHAN HUY?";
-			int cofirm = GetKey();
-			if (cofirm == ENTER) {
-				gotoxy(76, MAXYCONSOLE-3);
-				SetBGColor(Color_DarkWhite);
-				cout << "                                                            ";
+		}while(!xacnhan_maCB);
+		
+		bool xacnhanSHMB;
+		do{
+			xacnhanSHMB = true;
+			vekhungdoi(150,8,20,13);		kengangdoi(150,10,13);
+			gotoxy(152,9); 				cout<<"SO HIEU MB";
+			int nodeout = frameAddShmb_AddCB(listMB);
+			if(nodeout == -1){
+				gotoxy(135,13); cout<<"CHUA CO MAY BAY NAO!";
+				GetKey();	return 0;
+			}else if(nodeout == -2){
 				return 0;
+			}else{
+				sohieuMB = listMB.nodeMB[nodeout]->sohieu_MB;
+				strcpy(cb.sohieumb, listMB.nodeMB[nodeout]->sohieu_MB);
+				SetColor(Color_DarkBlue);	SetBGColor(Color_DarkWhite);
+				gotoxy(135,12); cout<<sohieuMB;
+				clearOnePart(150,8,15,21);
 			}
-			gotoxy(76, MAXYCONSOLE-3);
-			SetBGColor(Color_DarkWhite);
-			cout << "                                                            ";
-		}
-	}
-
-GIO:///////// NHAP GIO KHOI HANH
-
-	SetColor(Color_DarkRed);
-	SetBGColor(Color_White);
-	gotoxy(55, 47);
-	cout << "                                                                ";
-	gotoxy(55, 48);
-	cout << " CU PHAP: hh:mm. NEU GIO, PHUT NHO HON 10 THI THEM 0 PHIA TRUOC ";
-	gotoxy(55, 49);
-	cout << "                                                                ";
-
-	vitri = 0;
-	char giotemp[3];
-	char phuttemp[3];
-	char hhmm[6];
-	ShowCur(true);
-	gotoxy(91,43);cout<<gio;
-	while (1) {
-		SetBGColor(Color_DarkWhite);
-		SetColor(Color_Blue);
-//		fflush(stdin);
-		key = GetKey();
-		if ((key > 47 && key <= 58) && gio.length() < 5) {
-			gio +=char(key);
-			gotoxy(91,43);cout<<gio;
-		}
-		if (key == BACKSPACE) {
-			if(gio.length()>0){	
-				gio.erase(gio.length()-1,1);
-				cout<<"\b \b";
+		}while(!xacnhanSHMB);
+		// NOI DEN
+		bool xacnhan_ND;
+		do{
+			xacnhan_ND = true;	SetBGColor(Color_DarkWhite);
+			NhapLieu(135, 14, noiden, 4);
+			strcpy(cb.sanbayDen, noiden.c_str());
+			if (checkNoiDen(cb.sanbayDen) < 0) {
+				Alert("NOI DEN KHONG HOP LE!", 73, MAXYCONSOLE-3, 2);
+				xacnhan_ND = false;
 			}
-		}
-		if (key == ENTER) {
-			gio.copy(hhmm,6);
-			hhmm[6] = '\0';
-			if (ddmmyy[0] == '\0') {
-				Alert("CHUA NHAP GIO KHOI HANH", 72, MAXYCONSOLE-3, 2);
-				goto GIO;
+		}while(!xacnhan_ND);
+		
+		bool xacthucNgay;
+		char ngaytemp[3];
+		char thangtemp[3];
+		char namtemp[5];	char ddmmyy[11];
+		do{
+			xacthucNgay = true;	SetBGColor(Color_DarkWhite);
+			NhapLieuso(135,16,ngay,10);
+			strcpy(ddmmyy, ngay.c_str());
+			ngaytemp[0] = ddmmyy[0];ngaytemp[1] = ddmmyy[1];
+			thangtemp[0] = ddmmyy[3];thangtemp[1] = ddmmyy[4];
+			namtemp[0] = ddmmyy[6];namtemp[1] = ddmmyy[7];namtemp[2] = ddmmyy[8];namtemp[3] = ddmmyy[9];
+			cb.ngaygioStart.day = atoi(ngaytemp);
+			cb.ngaygioStart.month = atoi(thangtemp);
+			cb.ngaygioStart.year = atoi(namtemp);
+			if (checkYear(cb.ngaygioStart.year) != true || checkMonth(cb.ngaygioStart.month) != true || checkDay(cb.ngaygioStart.day, cb.ngaygioStart.month) != true) {
+				Alert("NGAY KHOI HANH KHONG DUNG", 71, MAXYCONSOLE-3, 2);
+				xacthucNgay = false;
 			}
-			else {
-				giotemp[0] = hhmm[0];giotemp[1] = hhmm[1];
-				phuttemp[0] = hhmm[3];phuttemp[1] = hhmm[4];
-				cb.ngaygioStart.hours = atoi(giotemp);
-				cb.ngaygioStart.minutes = atoi(phuttemp);
-				if (cb.ngaygioStart.hours < 0 || cb.ngaygioStart.hours>23 || cb.ngaygioStart.minutes < 0 || cb.ngaygioStart.minutes>59) {
-					Alert("GIO KHOI HANH KHONG DUNG", 71, MAXYCONSOLE-3, 2);
-					SetColor(Color_DarkRed);
-					gotoxy(91, 43);
-					cout << "     ";
-					goto GIO;
-				}
-				else if (checkTrungChuyenbay(listCB, cb) == false) {
-					Alert("CHUYEN BAY BI TRUNG NGAY GIO KHOI HANH. KIEM TRA LAI THONG TIN", 55, MAXYCONSOLE-3, 4);
-					int key1 = frameAddNext();//thay nhap tiep
-					frameCoverNotice();
-					SetBGColor(Color_DarkWhite);
-					gotoxy(55, 47);
-					cout << "                                                                    ";
-					gotoxy(55, 48);
-					cout << "                                                                    ";
-					gotoxy(55, 49);
-					cout << "                                                                    ";
-					if (key1 == ENTER) {
-						goto start;
-					}
-					else if (key1 = ESC) {
-						return 0;
-					}
-				}
-
-				goto ENDp;
+			else if (checkCurrentDDMMYY(cb.ngaygioStart.day, cb.ngaygioStart.month) != true) {
+				Alert("NGAY PHAI LON HON NGAY HIEN TAI", 70, MAXYCONSOLE-3, 2);
+				xacthucNgay = false;
 			}
-		}
-		if (key == ESC) {
-			gotoxy(50, MAXYCONSOLE-3);
-			SetBGColor(Color_DarkWhite);
-			cout << "                                                            ";
-			SetColor(Color_DarkRed);
-			SetBGColor(Color_DarkWhite);
-			gotoxy(76, MAXYCONSOLE-3);
-			cout << "BAN CO CHAC CHAN HUY?";
-			int cofirm = GetKey();
-			if (cofirm == ENTER) {
-				gotoxy(76, MAXYCONSOLE-3);
-				SetBGColor(Color_DarkWhite);
-				cout << "                                                            ";
-				return 0;
+		}while(!xacthucNgay);
+		
+		char giotemp[3];	char phuttemp[3];	char hhmm[6];
+		do{
+			xacthucNgay= true;	SetBGColor(Color_DarkWhite);
+			NhapLieuso(135,18,gio,5);
+			strcpy(hhmm, gio.c_str());
+			giotemp[0] = hhmm[0];giotemp[1] = hhmm[1];
+			phuttemp[0] = hhmm[3];phuttemp[1] = hhmm[4];
+			cb.ngaygioStart.hours = atoi(giotemp);
+			cb.ngaygioStart.minutes = atoi(phuttemp);
+			if (cb.ngaygioStart.hours < 0 || cb.ngaygioStart.hours>23 || cb.ngaygioStart.minutes < 0 || cb.ngaygioStart.minutes>59) {
+				Alert("GIO KHOI HANH KHONG DUNG", 71, MAXYCONSOLE-3, 2);
+				SetColor(Color_DarkRed);
+				xacthucNgay = false;
 			}
-			gotoxy(76, MAXYCONSOLE-3);
-			SetBGColor(Color_DarkWhite);
-			cout << "                                                            ";
-		}
-		if(key == TAB){
-			goto MACHUYENBAY;
-		}
-	}
-ENDp:
-	key = GetKey();
-	if(key == F2){
-		SetColor(Color_Blue);
+			else if (checkTrungChuyenbay(listCB, cb) == false) {
+				Alert("CHUYEN BAY BI TRUNG NGAY GIO KHOI HANH. KIEM TRA LAI THONG TIN", 55, MAXYCONSOLE-3, 4);
+				xacthuc = false;xacthucNgay = true;
+			}
+		}while(!xacthucNgay);
+		SetColor(Color_DarkBlue);
 		cb.soluongVe = (listMB.nodeMB[search(listMB, cb.sohieumb)]->soday_MB * listMB.nodeMB[search(listMB, cb.sohieumb)]->sohang_MB);
-		gotoxy(107, 43);cout << cb.soluongVe;
+		gotoxy(135, 20);cout << cb.soluongVe;
 		cb.trangthai = 1;
-		gotoxy(118, 43);cout << staTus[cb.trangthai];
-//		return;
-	}else if(key == TAB){
-		goto MACHUYENBAY;
-	}else{
-		goto ENDp;
-	}
+		gotoxy(135, 22);cout << staTus[cb.trangthai];
+		do{
+			key = GetKey();
+			if(key == F2) 		return 1;
+			else if(key == TAB) xacthuc = false;
+			else if(key == ESC)	return 0;
+		}while(!(key== ESC || key == F2 || key == TAB));
+	}while(!xacthuc);
+	return 0;
+}
+int update_CB(List_CB & listCB, List_MB listMB, CHUYENBAY & cb) {
 	
+	footerEditMB();
+	ShowCur(true);
+	int vitri; int key;
+	SetBGColor(Color_DarkWhite);
+	bool xacthuc;
+	string ma_CB = "", sohieuMB = "", noiden = "", ngay = "", gio = "";
+	
+	SetColor(Color_Back);
+	vekhungdoi(105,6,30,60);
+	SetColor(Color_Yellow);
+	gotoxy(118,10);	cout<<"MA CHUYEN BAY:";
+	gotoxy(118,12);	cout<<"SO HIEU MAY BAY:";
+	gotoxy(118,14);	cout<<"NOI DEN:";
+	gotoxy(118,16);	cout<<"NGAY KHOI HANH:";
+	gotoxy(118,18);	cout<<"GIO KHOI HANH:";
+	gotoxy(118,20);	cout<<"SO GHE:";
+	gotoxy(118,22);	cout<<"TRANG THAI:";
+	SetColor(Color_DarkBlue);
+	ma_CB = cb.ma_CB;
+	string macbtemp = "";
+	if(ma_CB != ""){
+		macbtemp = ma_CB;
+		string day 		= Chuyen(cb.ngaygioStart.day);
+		string month 	= Chuyen(cb.ngaygioStart.month);
+		string year 	= Chuyen(cb.ngaygioStart.year);
+		string hours 	= Chuyen(cb.ngaygioStart.hours);
+		string minutes 	= Chuyen(cb.ngaygioStart.minutes);
+	    
+		sohieuMB = cb.sohieumb;
+		noiden	= cb.sanbayDen;
+		ngay		= day + "/" + month + "/" + year;
+		gio 		= hours + ":" + minutes;
+		gotoxy(118 , 10);		cout<<ma_CB;
+		gotoxy(118 , 12);		cout<<sohieuMB;
+		gotoxy(118 , 14);		cout<<noiden;
+		gotoxy(118 , 16);		cout<<ngay;
+		gotoxy(118 , 18);		cout<<gio;
+		gotoxy(118 , 20);		cout<<cb.soluongVe;
+		gotoxy(118 , 22);		cout << staTus[cb.trangthai];
+	}
+	do{
+		xacthuc =true;
+		bool xacnhan_maCB;
+		do{
+			SetColor(Color_DarkBlue);
+			xacnhan_maCB = true;	SetBGColor(Color_DarkWhite);
+			NhapLieu(135,10,ma_CB,15);
+			if(ma_CB == "") return 0;
+			strcpy(cb.ma_CB, ma_CB.c_str());
+			if(macbtemp != ma_CB){
+				if (searchInfo(listCB, cb.ma_CB) != NULL) {
+					Alert("MA CHUYEN BAY BI TRUNG!", 73, MAXYCONSOLE-3, 2);
+					xacnhan_maCB = false;
+				}
+			}
+		}while(!xacnhan_maCB);
+		
+		bool xacnhanSHMB;
+		do{
+			xacnhanSHMB = true;
+			vekhungdoi(150,8,20,13);		kengangdoi(150,10,13);
+			gotoxy(152,9); 				cout<<"SO HIEU MB";
+			int nodeout = frameAddShmb_AddCB(listMB);
+			if(nodeout == -1){
+				gotoxy(135,13); cout<<"CHUA CO MAY BAY NAO!";
+				GetKey();	return 0;
+			}else if(nodeout == -2){
+				return 0;
+			}else{
+				sohieuMB = listMB.nodeMB[nodeout]->sohieu_MB;
+				strcpy(cb.sohieumb, listMB.nodeMB[nodeout]->sohieu_MB);
+				SetColor(Color_DarkBlue);	SetBGColor(Color_DarkWhite);
+				gotoxy(135,12); cout<<sohieuMB;
+				clearOnePart(150,8,15,21);
+			}
+		}while(!xacnhanSHMB);
+		// NOI DEN
+		bool xacnhan_ND;
+		do{
+			xacnhan_ND = true;	SetBGColor(Color_DarkWhite);
+			NhapLieu(135, 14, noiden, 4);
+			strcpy(cb.sanbayDen, noiden.c_str());
+			if (checkNoiDen(cb.sanbayDen) < 0) {
+				Alert("NOI DEN KHONG HOP LE!", 73, MAXYCONSOLE-3, 2);
+				xacnhan_ND = false;
+			}
+		}while(!xacnhan_ND);
+		
+		bool xacthucNgay;
+		char ngaytemp[3];
+		char thangtemp[3];
+		char namtemp[5];	char ddmmyy[11];
+		do{
+			xacthucNgay = true;	SetBGColor(Color_DarkWhite);
+			NhapLieuso(135,16,ngay,10);
+			strcpy(ddmmyy, ngay.c_str());
+			ngaytemp[0] = ddmmyy[0];ngaytemp[1] = ddmmyy[1];
+			thangtemp[0] = ddmmyy[3];thangtemp[1] = ddmmyy[4];
+			namtemp[0] = ddmmyy[6];namtemp[1] = ddmmyy[7];namtemp[2] = ddmmyy[8];namtemp[3] = ddmmyy[9];
+			cb.ngaygioStart.day = atoi(ngaytemp);
+			cb.ngaygioStart.month = atoi(thangtemp);
+			cb.ngaygioStart.year = atoi(namtemp);
+			if (checkYear(cb.ngaygioStart.year) != true || checkMonth(cb.ngaygioStart.month) != true || checkDay(cb.ngaygioStart.day, cb.ngaygioStart.month) != true) {
+				Alert("NGAY KHOI HANH KHONG DUNG", 71, MAXYCONSOLE-3, 2);
+				xacthucNgay = false;
+			}
+			else if (checkCurrentDDMMYY(cb.ngaygioStart.day, cb.ngaygioStart.month) != true) {
+				Alert("NGAY PHAI LON HON NGAY HIEN TAI", 70, MAXYCONSOLE-3, 2);
+				xacthucNgay = false;
+			}
+		}while(!xacthucNgay);
+		
+		char giotemp[3];	char phuttemp[3];	char hhmm[6];
+		do{
+			xacthucNgay= true;	SetBGColor(Color_DarkWhite);
+			NhapLieuso(135,18,gio,5);
+			strcpy(hhmm, gio.c_str());
+			giotemp[0] = hhmm[0];giotemp[1] = hhmm[1];
+			phuttemp[0] = hhmm[3];phuttemp[1] = hhmm[4];
+			cb.ngaygioStart.hours = atoi(giotemp);
+			cb.ngaygioStart.minutes = atoi(phuttemp);
+			if (cb.ngaygioStart.hours < 0 || cb.ngaygioStart.hours>23 || cb.ngaygioStart.minutes < 0 || cb.ngaygioStart.minutes>59) {
+				Alert("GIO KHOI HANH KHONG DUNG", 71, MAXYCONSOLE-3, 2);
+				SetColor(Color_DarkRed);
+				xacthucNgay = false;
+			}
+			else if (checkTrungChuyenbay(listCB, cb) == false) {
+				Alert("CHUYEN BAY BI TRUNG NGAY GIO KHOI HANH. KIEM TRA LAI THONG TIN", 55, MAXYCONSOLE-3, 4);
+				xacthuc = false;xacthucNgay = true;
+			}
+		}while(!xacthucNgay);
+		SetColor(Color_DarkBlue);
+		cb.soluongVe = (listMB.nodeMB[search(listMB, cb.sohieumb)]->soday_MB * listMB.nodeMB[search(listMB, cb.sohieumb)]->sohang_MB);
+		gotoxy(135, 20);cout << cb.soluongVe;
+		cb.trangthai = 1;
+		gotoxy(135, 22);cout << staTus[cb.trangthai];
+		do{
+			key = GetKey();
+			if(key == F2) 		return 1;
+			else if(key == TAB) xacthuc = false;
+			else if(key == ESC)	return 0;
+		}while(!(key== ESC || key == F2 || key == TAB));
+	}while(!xacthuc);
+	return 0;
 }
 
 //hien thi thong tin node chuyen bay
@@ -1526,652 +1115,69 @@ int showList_CB(List_CB listCB) {
 
 //xoa chuyen bay theo ma chuyen bay
 int DeleteCB(List_CB & listCB) {
-//	header();
-
 	if (listCB.pHead == NULL) {
 		Alert("DANH SACH CHUYEN BAY RONG", 72, MAXYCONSOLE-3, 1);
 		return 0;
 	}
 	else {
+		ShowCur(true);
 		string temp = "";
 		char maCB[15];
-	NHAP:
-		SetColor(Color_DarkRed);
-		SetBGColor(Color_DarkWhite);
-		ShowCur(true);
-		
-		SetBGColor(Color_DarkWhite);
-		int key;
-		while(1){
-			
-			gotoxy(135,8);		cout<<"NHAP ENTER DE NHAP MA CAN XOA";
-			gotoxy(135,9);		cout<<"ESC DE THOAT";
-			key = GetKey();
-			switch(key){
-				case ENTER: {
-					SetColor(Color_Back);
-					vekhungdoi(135,10,4,30);	kengangdoi(135,12,30);
-					gotoxy(142,11); 			cout<<"SO HIEU MAY BAY";
-					NhapLieu(150,13, temp, 15);
-					temp.copy(maCB,15);
-					Node_CB* p, * q;
-					p = searchInfo(listCB, maCB);//tim va tra ve dia chi cua chuyen bay co ma chuyen bay la maCB
-					if (p == NULL) {
-						gotoxy(140, 16);SetColor(Color_Back);
-						cout << "KHONG TIM THAY CHUYEN BAY!";
-						getch();
-						gotoxy(140, 16);SetColor(Color_DarkWhite);
-						cout << "                          ";
-						SetColor(Color_DarkRed);
-//						gotoxy(149, 13);cout << "            ";
-						goto NHAP;
-					}
-					if(p->data.trangthai==3){
-						Alert2("CHUYEN BAY DA HOAN TAT",142,17,3);
-						return 0;
-					}		
-					else{
-						if(Hoi(134,17,"   BAN CO MUON XOA CHUYEN BAY   ")){
-							gotoxy(134,17);		SetBGColor(Color_DarkWhite);		cout<<"                                ";
-							gotoxy(134,18);		SetBGColor(Color_DarkWhite);		cout<<"                                ";
-							gotoxy(134,19);		SetBGColor(Color_DarkWhite);		cout<<"                                ";
-							gotoxy(134,20);		SetBGColor(Color_DarkWhite);		cout<<"                                ";
-							if(checkTonTaiVe(p->data)!=0){// co chuyen bay va da co nguoi dat ve 
-								Alert2("CHUYEN BAY DA CO HANH KHACH",138,17,2);
-								goto NHAP;
-							}
-							Normal();
-							if (p == listCB.pHead) {//neu chuyen bay can tim o dau danh sach
-								listCB.pHead = p->pNext;
-								delete p;
-								Alert("XOA CHUYEN BAY THANH CONG", 70, MAXYCONSOLE-3, 1);
-								
-								SetBGColor(Color_DarkWhite);
-								showList_CB(listCB);
-//								gotoxy(149, 13);cout << "            ";
-								goto NHAP;
-							}
-							else {
-								q = listCB.pHead;
-								for (q;q->pNext != p && q->pNext != NULL;q = q->pNext) {
-								}
-								q->pNext = p->pNext;
-								delete p;
-								showList_CB(listCB);
-								Alert("XOA CHUYEN BAY THANH CONG", 70, MAXYCONSOLE-3, 1);
-								SetBGColor(Color_DarkWhite);
-								showList_CB(listCB);
-//								gotoxy(149, 13);cout << "            ";
-								goto NHAP;
-							}
-						}else{
-							SetBGColor(Color_DarkWhite);
-							gotoxy(134,17);		SetBGColor(Color_DarkWhite);		cout<<"                                ";
-							gotoxy(134,18);		SetBGColor(Color_DarkWhite);		cout<<"                                ";
-							gotoxy(134,19);		SetBGColor(Color_DarkWhite);		cout<<"                                ";
-							gotoxy(134,20);		SetBGColor(Color_DarkWhite);		cout<<"                                ";
-							
-//							gotoxy(149, 13);cout << "            ";
-							goto NHAP;
-						}
-					}
-					break;
-				}
-				case ESC: {
-					SetBGColor(Color_DarkWhite);
-					gotoxy(135,8);		cout<<"                                ";
-					gotoxy(135,9);		cout<<"                                ";
-					
-					gotoxy(135,10);		cout<<"                                ";
-					gotoxy(135,11);		cout<<"                                ";
-					gotoxy(135,12);		cout<<"                                ";
-					gotoxy(135,13);		cout<<"                                ";
-					gotoxy(135,14);		cout<<"                                ";
-					gotoxy(135,15);		cout<<"                                ";
-					return 1;
-					break;
-				}
+		SetColor(Color_Back);
+		vekhungdoi(105,6,30,60);
+		SetColor(Color_Yellow);
+		gotoxy(118,10);	cout<<"MA CHUYEN BAY:";
+		bool xacthuc;
+		do{
+			xacthuc = true;
+			NhapLieu(135,10,temp, 15);
+			strcpy(maCB,temp.c_str());
+			Node_CB* p, * q;
+			p = searchInfo(listCB, maCB);//tim va tra ve dia chi cua chuyen bay co ma chuyen bay la maCB
+			if (p == NULL) {
+				gotoxy(140, 16);SetColor(Color_Back);
+				cout << "KHONG TIM THAY CHUYEN BAY!";
+				getch();
 			}
-		}
-	}
-}
-
-int updateInfo_CB(List_CB & lCB, List_MB & lMB, CHUYENBAY cb, CHUYENBAY &cbtemp) {
-	Normal();
-	int vitri;
-	int key;
-//	gotoxy(132, 15);cout << "|_______________TIM THAY__________________|";
-	gotoxy(139, 17);cout << cb.ma_CB;
-	gotoxy(139, 19);cout << cb.sohieumb;
-	gotoxy(139, 21);cout << cb.sanbayDen;
-	gotoxy(136, 23);cout << cb.ngaygioStart.day << "/" << cb.ngaygioStart.month << "/" << cb.ngaygioStart.year;
-	gotoxy(139, 25);cout << cb.ngaygioStart.hours << ":" << cb.ngaygioStart.minutes;
-	gotoxy(143, 27);cout << staTus[cb.trangthai];
-	//	gotoxy(150,21);cout<<"THANG: "<<cb.ngaygioStart.month;
-	//	gotoxy(140,22);cout<<"TRANG THAI: "<<staTus[cb.trangthai];
-MACHUYENBAY:///////////////////// MA CHUYEN BAY
-	SetColor(Color_DarkRed);
-	SetBGColor(Color_White);
-	gotoxy(55, 47);
-	cout << "                                                           ";
-	gotoxy(55, 48);
-	cout << "       MA CHUYEN BAY: GOM CAC KI TU (A-Z) & (0-9)          ";
-	gotoxy(55, 49);
-	cout << "                                                           ";
-	vitri = 0;
-	//	gotoxy(151+vitri,17);
-	while (1) {
-		gotoxy(165 + vitri, 17);
-		SetColor(Color_Blue);
-		SetBGColor(Color_DarkWhite);
-		key = GetKey();
-		if (((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key <= '9' && key >= '0')) && (vitri < 15)) {
-			cbtemp.ma_CB[vitri] = toupper((char)key);
-			cout << cbtemp.ma_CB[vitri];
-			vitri++;
-		}
-		if (key == BACKSPACE && vitri > 0) {
-			vitri--;
-			gotoxy(165 + vitri, 17);
-			SetColor(Color_DarkRed);
-			cout << " ";
-		}
-		if (key == TAB) {
-			strcpy(cbtemp.ma_CB, cb.ma_CB);
-			gotoxy(165,17);
-			SetColor(Color_Blue);
-			cout << cbtemp.ma_CB;
-			goto SOHIEUMAYBAY;
-		}
-		if (key == ESC) {
-			gotoxy(50, MAXYCONSOLE-3);
-			SetBGColor(Color_DarkWhite);
-			cout << "                                                            ";
-			SetColor(Color_DarkRed);
-			SetBGColor(Color_DarkWhite);
-			gotoxy(76, MAXYCONSOLE-3);
-			cout << "BAN CO CHAC CHAN HUY?";
-			int cofirm = GetKey();
-			gotoxy(76, MAXYCONSOLE-3);
-			SetBGColor(Color_DarkWhite);
-			cout << "                                                            ";
-			if (cofirm == ENTER) {
-
+			if(p->data.trangthai==3){
+				Alert2("CHUYEN BAY DA HOAN TAT",142,17,3);
 				return 0;
-			}
-			//	gotoxy(76,MAXYCONSOLE-3);
-			//	SetBGColor(Color_DarkWhite);
-			//	cout<<"                                                            ";
-		}
-		if (key == ENTER) {
-			cbtemp.ma_CB[vitri] = '\0';
-			if (cbtemp.ma_CB[0] == '\0') {
-				Alert("CHUA NHAP MA CHUYEN BAY", 73, MAXYCONSOLE-3, 2);
-				goto MACHUYENBAY;
-			}
-			else if (searchInfo(lCB, cbtemp.ma_CB) != NULL && strcmp(cb.ma_CB, cbtemp.ma_CB) != 0) {
-				Alert("MA CHUYEN BAY BI TRUNG!", 73, MAXYCONSOLE-3, 2);
-				gotoxy(165, 17);
-				cout << "          ";
-				goto MACHUYENBAY;
-			}
-			else {
-				goto SOHIEUMAYBAY;
-			}
-		}
-	}
-SOHIEUMAYBAY://////////////// SO HIEU MAY BAY
-			// ghi chu
-	SetColor(Color_DarkRed);
-	SetBGColor(Color_White);
-	gotoxy(55, 47);
-	cout << "                                                           ";
-	gotoxy(55, 48);
-	cout << "               CHON MAY BAY TRONG DANH SACH                ";
-	gotoxy(55, 49);
-	cout << "                                                           ";
-	SetBGColor(Color_DarkWhite);
-	gotoxy(165, 19);//cout<<"         ";
-	while (1) {
-		nhaplai:
-		gotoxy(165, 19);		
-		key = GetKey();
-		if(key!=ENTER&&key!=ESC&&key!=TAB){
-			goto nhaplai;
-			}
-		if (key == ENTER) {
-		start1:
-			int nodeout = frameAddShmb_AddCB(lMB);
-			xoaSoHieuMayBay(lMB.soluong+5);
-			if (nodeout == -1) {
-				goto start1;
-			}
-			int key1;
-			SetColor(Color_Blue);
-			SetBGColor(Color_DarkWhite);
-			gotoxy(165, 19);cout << lMB.nodeMB[nodeout]->sohieu_MB;
-			nhaplai2:
-			key1 = GetKey();
-			if(key1!=ENTER&&key1!=ESC){
-				goto nhaplai2;
-				}
-			if (key1 == ESC) {
-				gotoxy(40, MAXYCONSOLE-3);
-				SetBGColor(Color_DarkWhite);
-				cout << "                                                                                                              ";
-				SetColor(Color_DarkRed);
-				SetBGColor(Color_DarkWhite);
-				gotoxy(65, MAXYCONSOLE-3);
-				cout << "BAN MUON CHON LAI(ENTER) HAY HUY NHAP(ESC)?";
-				nhaplaicofirm:
-				int cofirm = GetKey();
-				if(cofirm!=ENTER&&cofirm!=ESC){
-					goto nhaplaicofirm;
+			}		
+			else{
+				if(Hoi(118,22,"        BAN CO MUON XOA CHUYEN BAY        ")){
+					if(checkTonTaiVe(p->data)!=0){// co chuyen bay va da co nguoi dat ve 
+						Alert2("CHUYEN BAY DA CO HANH KHACH",138,17,2);
+						return 0;
 					}
-				if (cofirm == ENTER) {
-					SetColor(Color_DarkRed);
-					SetBGColor(Color_DarkWhite);
-					gotoxy(165, 19);cout << "         ";
-					gotoxy(40, MAXYCONSOLE-3);
-					SetBGColor(Color_DarkWhite);
-					cout << "                                                                                                              ";
-					goto SOHIEUMAYBAY;
-				}
-				else if (cofirm == ESC) {
-					gotoxy(40, MAXYCONSOLE-3);
-					SetBGColor(Color_DarkWhite);
-					cout << "                                                                                                                ";
-					return 0;
-				}
-			}
-			if (key1 == ENTER) {
-				if (lMB.nodeMB[nodeout]->soday_MB < lMB.nodeMB[search(lMB, cb.sohieumb)]->soday_MB || lMB.nodeMB[nodeout]->sohang_MB < lMB.nodeMB[search(lMB, cb.sohieumb)]->sohang_MB)
-				{
-					Alert("SO DAY, SO HANG PHAI >= SO DAY, SO HANG MAY BAY HIEN TAI", 60, MAXYCONSOLE-3, 2);
-					gotoxy(165, 19);cout << "        ";
-					goto SOHIEUMAYBAY;
-				}
-				else {
-
-					strcpy(cbtemp.sohieumb, lMB.nodeMB[nodeout]->sohieu_MB);
-
-					if (checkTonTaiVe(cb) == 1)
-					{
-						strcpy(cbtemp.sanbayDen, cb.sanbayDen);
-						gotoxy(165, 21);
-						cout << cbtemp.sanbayDen;
-						goto NGAY;
+					Normal();
+					if (p == listCB.pHead) {//neu chuyen bay can tim o dau danh sach
+						listCB.pHead = p->pNext;
+						delete p;
+						Alert("XOA CHUYEN BAY THANH CONG", 70, MAXYCONSOLE-3, 1);
+						
+						SetBGColor(Color_DarkWhite);
+						showList_CB(listCB);
+						return 1;
 					}
 					else {
-
-						goto NOIDEN;
+						q = listCB.pHead;
+						for (q;q->pNext != p && q->pNext != NULL;q = q->pNext) {
+						}
+						q->pNext = p->pNext;
+						delete p;
+						showList_CB(listCB);
+						Alert("XOA CHUYEN BAY THANH CONG", 70, MAXYCONSOLE-3, 1);
+						SetBGColor(Color_DarkWhite);
+						showList_CB(listCB);
+						return 1;
 					}
-				}
-			}
-			}
-			if (key == TAB) {
-				strcpy(cbtemp.sohieumb, cb.sohieumb);
-				SetColor(Color_Blue);
-				cout << cbtemp.sohieumb;
-
-				if (checkTonTaiVe(cb) == 1)
-				{
-					strcpy(cbtemp.sanbayDen, cb.sanbayDen);
-					gotoxy(165, 21);
-					cout << cbtemp.sanbayDen;
-					goto NGAY;
-				}
-				else {
-					goto NOIDEN;
-				}
-
-			}
-			if (key == ESC) {
-
-				gotoxy(50, MAXYCONSOLE-3);
-				SetBGColor(Color_DarkWhite);
-				cout << "                                                            ";
-				SetColor(Color_DarkRed);
-				SetBGColor(Color_DarkWhite);
-				gotoxy(76, MAXYCONSOLE-3);
-				cout << "BAN CO CHAC CHAN HUY?";
-				int cofirm = GetKey();
-				gotoxy(76, MAXYCONSOLE-3);
-				SetBGColor(Color_DarkWhite);
-				cout << "                                                            ";
-				if (cofirm == ENTER) {
+				}else{
+					SetBGColor(Color_DarkWhite);
 					return 0;
 				}
 			}
-}
-		
-	NOIDEN:/// NHAP SAN BAY DEN
-		coverOutDataSHMB(lMB);
-		SetColor(Color_DarkRed);
-		SetBGColor(Color_White);
-		gotoxy(55, 47);
-		cout << "                                                           ";
-		gotoxy(55, 48);
-		cout << "                   NHAP SAN BAY DEN                        ";
-		gotoxy(55, 49);
-		cout << "                                                           ";
-		frameSanbayDen();
-		vitri = 0;
-		while (1) {
-			gotoxy(165 + vitri, 21);
-			SetColor(Color_Blue);
-			SetBGColor(Color_DarkWhite);
-			key = GetKey();
-			if (((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) && (vitri < 4)) {
-				cbtemp.sanbayDen[vitri] = toupper((char)key);
-				cout << cbtemp.sanbayDen[vitri];
-				vitri++;
-			}
-			if (key == BACKSPACE && vitri > 0) {
-				vitri--;
-				gotoxy(165 + vitri, 21);
-				SetColor(Color_DarkRed);
-				cout << " ";
-			}
-			if (key == ESC) {
-				gotoxy(50, MAXYCONSOLE-3);
-				SetBGColor(Color_DarkWhite);
-				cout << "                                                            ";
-				SetColor(Color_DarkRed);
-				SetBGColor(Color_DarkWhite);
-				gotoxy(76, MAXYCONSOLE-3);
-				cout << "BAN CO CHAC CHAN HUY?";
-				int cofirm = GetKey();
-				if (cofirm == ENTER) {
-					gotoxy(76, MAXYCONSOLE-3);
-					SetBGColor(Color_DarkWhite);
-					cout << "                                                            ";
-					return 0;
-				}
-				gotoxy(76, MAXYCONSOLE-3);
-				SetBGColor(Color_DarkWhite);
-				cout << "                                                            ";
-			}
-			if (key == ENTER) {
-				cbtemp.sanbayDen[vitri] = '\0';
-				if (cbtemp.sanbayDen[0] == '\0') {
-					Alert("CHUA NHAP NOI DEN", 73, MAXYCONSOLE-3, 2);
-					goto NOIDEN;
-				}
-				else if (checkNoiDen(cbtemp.sanbayDen) < 0) {
-					Alert("NOI DEN KHONG HOP LE!", 73, MAXYCONSOLE-3, 2);
-					gotoxy(165, 21);
-					SetColor(Color_DarkRed);cout << "         ";
-					goto NOIDEN;
-				}
-				else {
-					goto NGAY;
-				}
-			}
-			if (key == TAB) {
-				strcpy(cbtemp.sanbayDen, cb.sanbayDen);
-				gotoxy(165,21);
-				cout << cbtemp.sanbayDen;
-				goto NGAY;
-			}
-		}
-	NGAY://NHAP NGAY KHOI HANH
-
-		SetColor(Color_DarkRed);
-		SetBGColor(Color_White);
-		gotoxy(55, 47);
-		cout << "                                                                ";
-		gotoxy(55, 48);
-		cout << " CU PHAP: dd/mm/yyyy. NEU NGAY,THANG < 10 THI THEM 0 PHIA TRUOC ";
-		gotoxy(55, 49);
-		cout << "                                                                ";
-		vitri = 0;
-		char ngaytemp[3];
-		char thangtemp[3];
-		char namtemp[5];
-		char ddmmyy[11];
-		while (1) {
-			gotoxy(158 + vitri, 23);
-			SetBGColor(Color_DarkWhite);
-			SetColor(Color_Blue);
-			fflush(stdin);
-			key = GetKey();
-			if (((key >= '0' && key <= '9') || key == '/') && vitri < 10) {
-				ddmmyy[vitri] = (char)key;
-				cout << ddmmyy[vitri];
-				vitri++;
-			}
-			if (key == BACKSPACE && vitri > 0) {
-				vitri--;
-				gotoxy(158 + vitri, 23);SetColor(Color_DarkRed);
-				cout << " ";
-
-			}if (key == ENTER) {
-				ddmmyy[vitri] = '\0';
-				if (ddmmyy[0] == '\0') {
-					Alert("CHUA NHAP NGAY KHOI HANH", 72, MAXYCONSOLE-3, 2);
-					goto NGAY;
-				}
-				else {
-					ngaytemp[0] = ddmmyy[0];ngaytemp[1] = ddmmyy[1];
-					thangtemp[0] = ddmmyy[3];thangtemp[1] = ddmmyy[4];
-					namtemp[0] = ddmmyy[6];namtemp[1] = ddmmyy[7];namtemp[2] = ddmmyy[8];namtemp[3] = ddmmyy[9];
-					cbtemp.ngaygioStart.day = atoi(ngaytemp);
-					cbtemp.ngaygioStart.month = atoi(thangtemp);
-					cbtemp.ngaygioStart.year = atoi(namtemp);
-					if (checkYear(cbtemp.ngaygioStart.year) != true || checkMonth(cbtemp.ngaygioStart.month) != true || checkDay(cbtemp.ngaygioStart.day, cbtemp.ngaygioStart.month) != true) {
-						Alert("NGAY KHOI HANH KHONG DUNG", 71, MAXYCONSOLE-3, 2);
-						SetColor(Color_DarkRed);
-						gotoxy(158, 23);
-						cout << "          ";
-						goto NGAY;
-					}
-					else if (checkCurrentDDMMYY(cbtemp.ngaygioStart.day, cbtemp.ngaygioStart.month) != true) {
-						Alert("NGAY PHAI LON HON NGAY HIEN TAI", 70, MAXYCONSOLE-3, 2);
-						SetColor(Color_DarkRed);
-						gotoxy(158, 23);
-						cout << "          ";
-						goto NGAY;
-					}
-					SetBGColor(Color_DarkWhite);
-					gotoxy(55, 47);
-					cout << "                                                                    ";
-					gotoxy(55, 48);
-					cout << "                                                                    ";
-					gotoxy(55, 49);
-					cout << "                                                                    ";
-					goto GIO;
-				}
-			}
-			if (key == ESC) {
-				gotoxy(50, MAXYCONSOLE-3);
-
-				SetBGColor(Color_DarkWhite);
-				cout << "                                                            ";
-				SetColor(Color_DarkRed);
-				SetBGColor(Color_DarkWhite);
-				gotoxy(76, MAXYCONSOLE-3);
-				cout << "BAN CO CHAC CHAN HUY?";
-				int cofirm = GetKey();
-				if (cofirm == ENTER) {
-					gotoxy(76, MAXYCONSOLE-3);
-					SetBGColor(Color_DarkWhite);
-					cout << "                                                            ";
-					return 0;
-				}
-				gotoxy(76, MAXYCONSOLE-3);
-				SetBGColor(Color_DarkWhite);
-				cout << "                                                            ";
-			}
-			if (key == TAB) {
-				cbtemp.ngaygioStart.day = cb.ngaygioStart.day;
-				cbtemp.ngaygioStart.month = cb.ngaygioStart.month;
-				cbtemp.ngaygioStart.year = cb.ngaygioStart.year;
-				gotoxy(158,23);
-				cout << cbtemp.ngaygioStart.day << "/" << cbtemp.ngaygioStart.month << "/" << cbtemp.ngaygioStart.year;
-				goto GIO;
-			}
-		}
-
-	GIO:///////// NHAP GIO KHOI HANH
-
-		SetColor(Color_DarkRed);
-		SetBGColor(Color_White);
-		gotoxy(55, 47);
-		cout << "                                                                ";
-		gotoxy(55, 48);
-		cout << " CU PHAP: hh:mm. NEU GIO, PHUT NHO HON 10 THI THEM 0 PHIA TRUOC ";
-		gotoxy(55, 49);
-		cout << "                                                                ";
-		vitri = 0;
-		char giotemp[3];
-		char phuttemp[3];
-		char hhmm[6];
-		while (1) {
-			gotoxy(160 + vitri, 25);
-			SetBGColor(Color_DarkWhite);
-			SetColor(Color_Blue);
-			fflush(stdin);
-			key = GetKey();
-			if (((key >= '0' && key <= '9') || key == ':') && vitri < 5) {
-				hhmm[vitri] = (char)key;
-				cout << hhmm[vitri];
-				vitri++;
-			}
-			if (key == BACKSPACE && vitri > 0) {
-				vitri--;
-				gotoxy(160 + vitri, 25);SetColor(Color_DarkRed);
-				cout << " ";
-
-			}if (key == ENTER) {
-				hhmm[vitri] = '\0';
-				if (ddmmyy[0] == '\0') {
-					Alert("CHUA NHAP GIO KHOI HANH", 72, MAXYCONSOLE-3, 2);
-					goto GIO;
-				}
-				else {
-					giotemp[0] = hhmm[0];giotemp[1] = hhmm[1];
-					phuttemp[0] = hhmm[3];phuttemp[1] = hhmm[4];
-					cbtemp.ngaygioStart.hours = atoi(giotemp);
-					cbtemp.ngaygioStart.minutes = atoi(phuttemp);
-					if (cbtemp.ngaygioStart.hours < 5 || cbtemp.ngaygioStart.hours>23 || cb.ngaygioStart.minutes < 0 || cb.ngaygioStart.minutes>59) {
-						Alert("GIO KHOI HANH KHONG DUNG", 71, MAXYCONSOLE-3, 2);
-						SetColor(Color_DarkRed);
-						gotoxy(160, 25);
-						cout << "     ";
-						goto GIO;
-					}
-					else if (checkTrungChuyenbayEdit(lCB, cbtemp, cb) == false) {
-						Alert("CHUYEN BAY BI TRUNG NGAY GIO KHOI HANH. KIEM TRA LAI THONG TIN", 55, MAXYCONSOLE-3, 4);
-						SetColor(Color_DarkRed);
-						gotoxy(160, 25);
-						cout << "     ";
-						goto GIO;
-
-					}
-					SetBGColor(Color_DarkWhite);
-					gotoxy(55, 47);
-					cout << "                                                                    ";
-					gotoxy(55, 48);
-					cout << "                                                                    ";
-					gotoxy(55, 49);
-					cout << "                                                                    ";
-					goto TRANGTHAI;
-				}
-			}
-			if (key == ESC) {
-				gotoxy(50, MAXYCONSOLE-3);
-				SetBGColor(Color_DarkWhite);
-				cout << "                                                            ";
-				SetColor(Color_DarkRed);
-				SetBGColor(Color_DarkWhite);
-				gotoxy(76, MAXYCONSOLE-3);
-				cout << "BAN CO CHAC CHAN HUY?";
-				int cofirm = GetKey();
-				if (cofirm == ENTER) {
-					gotoxy(76, MAXYCONSOLE-3);
-					SetBGColor(Color_DarkWhite);
-					cout << "                                                            ";
-					return 0;
-				}
-				gotoxy(76, MAXYCONSOLE-3);
-				SetBGColor(Color_DarkWhite);
-				cout << "                                                            ";
-			} if (key == TAB) {
-				cbtemp.ngaygioStart.hours = cb.ngaygioStart.hours;
-				cbtemp.ngaygioStart.minutes = cb.ngaygioStart.minutes;
-						if (checkTrungChuyenbayEdit(lCB, cbtemp, cb) == false) {
-						Alert("CHUYEN BAY BI TRUNG NGAY GIO KHOI HANH. KIEM TRA LAI THONG TIN", 55, MAXYCONSOLE-3, 4);
-						SetColor(Color_DarkRed);
-						gotoxy(160, 25);
-						cout << "     ";
-						goto GIO;
-
-					}				
-				cout << cbtemp.ngaygioStart.hours << ":" << cbtemp.ngaygioStart.minutes;
-				goto TRANGTHAI;
-			}
-		}
-	TRANGTHAI:
-		SetColor(Color_DarkRed);
-		SetBGColor(Color_White);
-		gotoxy(55, 47);
-		cout << "                                                                ";
-		gotoxy(55, 48);
-		cout << "     0 - HUY CHUYEN | 1 - CON VE | 2 - HET VE | 3 - HOAN TAT    ";
-		gotoxy(55, 49);
-		cout << "                                                                ";
-		vitri = 0;
-		char trangthaitemp[2];
-		while (1) {
-			SetBGColor(Color_DarkWhite);
-			SetColor(Color_Blue);
-			gotoxy(160, 27);
-			fflush(stdin);
-			key = GetKey();
-			if (((key >= '0' && key <= '9')) && vitri < 2) {
-				trangthaitemp[vitri] = (char)key;
-				cout << trangthaitemp[vitri];
-				vitri++;
-			}
-			if (key == BACKSPACE && vitri > 0) {
-				vitri--;
-				gotoxy(160 + vitri, 27);SetColor(Color_DarkRed);
-				cout << " ";
-			}
-			if (key == ENTER) {
-				trangthaitemp[vitri] = '\0';
-				if (trangthaitemp[0] == '\0') {
-					Alert("CHUA NHAP TRANG THAI", 72, MAXYCONSOLE-3, 2);
-					goto TRANGTHAI;
-				}
-				else {
-					cbtemp.trangthai = atoi(trangthaitemp);
-					if (cbtemp.trangthai < 0 || cbtemp.trangthai>3) {
-						Alert("TRANG THAI KHONG HOP LE", 73, MAXYCONSOLE-3, 2);
-						gotoxy(160, 27);cout << "   ";
-						goto TRANGTHAI;
-					}
-					gotoxy(160, 27);cout << staTus[cbtemp.trangthai];
-					goto ENDp;
-				}
-			}if (key == TAB) {
-				cbtemp.trangthai = cb.trangthai;
-				gotoxy(160, 27);cout << staTus[cbtemp.trangthai];
-				goto ENDp;
-			}
-
-		}
-
-
-
-	ENDp:
-		//	SetColor(Color_Blue);
-		cbtemp.soluongVe = (lMB.nodeMB[search(lMB, cbtemp.sohieumb)]->soday_MB * lMB.nodeMB[search(lMB, cbtemp.sohieumb)]->sohang_MB);
-		//	gotoxy(82,dongStartCB+dem);cout<<cb.soluongVe;
-		return 1;
-
-	
+		}while(!xacthuc);
+	}
 }
 
 int editCB(List_CB & listCB, List_MB & listMB) {
@@ -2180,115 +1186,59 @@ int editCB(List_CB & listCB, List_MB & listMB) {
 		return 0;
 	}
 	else {
+//		string temp = "";
+//		char maCB[15];
+	NHAP:
+//		SetColor(Color_DarkRed);
+//		SetBGColor(Color_DarkWhite);
+//		ShowCur(true);
+//		
+//		SetBGColor(Color_DarkWhite);
+//		int key;
+//		while(1){
+//			
+//			gotoxy(135,8);		cout<<"NHAP ENTER DE NHAP MA CAN XOA";
+//			gotoxy(135,9);		cout<<"ESC DE THOAT";
+//			key = GetKey();
+//			switch(key){
+//				case ENTER: {
+//					SetColor(Color_Back);
+//					vekhungdoi(135,10,4,30);	kengangdoi(135,12,30);
+//					gotoxy(142,11); 			cout<<"SO HIEU MAY BAY";
+//					NhapLieu(150,13, temp, 15);
+//					temp.copy(maCB,15);
+		ShowCur(true);
 		string temp = "";
 		char maCB[15];
-	NHAP:
-		SetColor(Color_DarkRed);
-		SetBGColor(Color_DarkWhite);
-		ShowCur(true);
-		
-		SetBGColor(Color_DarkWhite);
-		int key;
-		while(1){
-			
-			gotoxy(135,8);		cout<<"NHAP ENTER DE NHAP MA CAN XOA";
-			gotoxy(135,9);		cout<<"ESC DE THOAT";
-			key = GetKey();
-			switch(key){
-				case ENTER: {
-					SetColor(Color_Back);
-					vekhungdoi(135,10,4,30);	kengangdoi(135,12,30);
-					gotoxy(142,11); 			cout<<"SO HIEU MAY BAY";
-					NhapLieu(150,13, temp, 15);
-					temp.copy(maCB,15);
+		SetColor(Color_Back);
+		vekhungdoi(105,6,30,60);
+		SetColor(Color_Yellow);
+		gotoxy(118,10);	cout<<"MA CHUYEN BAY:";
+		bool xacthuc;
+		do{
+			xacthuc = true;
+			NhapLieu(135,10,temp, 15);
+			strcpy(maCB,temp.c_str());
 					Node_CB* p, * q;
 					p = searchInfo(listCB, maCB);
 					if (p == NULL) {
 						gotoxy(140, 16);SetColor(Color_Back);
 						cout << "KHONG TIM THAY CHUYEN BAY!";
-			//			gotoxy(140, 17);
-			//			cout << "KIEM TRA LAI MA CHUYEN BAY";
 						getch();
 						goto NHAP;
-//						SetColor(Color_DarkRed);
-//						gotoxy(140, 16);
-//						cout << "BAN CO MUON NHAP LAI?";
-//						nhaplai:
-//						int key = GetKey();
-//						if(key!=ENTER&&key!=ESC){
-//							goto nhaplai;
-//							}
-//						if (key == ENTER) {
-//							gotoxy(149, 12);cout << "            ";
-//							gotoxy(132, 16);cout << "|                                         |";
-//							goto NHAP;
-//						}
-//						else if (key == ESC) {
-//							gotoxy(149, 12);cout << "            ";
-//							gotoxy(132, 16);cout << "|                                         |";
-//							return 0;
-//						}
 					}
 					if(p->data.trangthai==3){
 						Alert2("KHONG THE CHINH SUA CHUYEN BAY DA HOAN TAT", 132,16,3);
-//						return 0;
 						goto NHAP;
 						}
 					else {
 			
 						CHUYENBAY cbtemp = p->data;
-//						frameTitelEditCB2();addInfo_CB(listCB, listMB, cb
-//						if (updateInfo_CB(listCB, listMB, p->data, cbtemp) == 0) {
 						if (addInfo_CB(listCB, listMB, p->data) == 0) {
 							Alert("DA HUY", 82, MAXYCONSOLE-3, 0);
 							return 0;
 						}
 						else {
-//							int key1;
-							
-								
-//							
-//							SetColor(Color_Back);
-//							SetBGColor(Color_Cyan);
-//							gotoxy(132, 32);cout << "             LUU THAY DOI?                 ";
-//							
-//							SetColor(Color_White);
-//							SetBGColor(Color_DarkRed);
-//							gotoxy(139, 34); cout << " ESC ";
-//			
-//							SetColor(Color_DarkYellow);
-//							SetBGColor(Color_Back);
-//							gotoxy(143, 34); cout << ":EXIT";
-//			
-//							// ok
-//							SetColor(Color_White);
-//							SetBGColor(Color_DarkGreen);
-//							gotoxy(160, 34); cout << " ENTER ";
-//			
-//							SetColor(Color_DarkYellow);
-//							SetBGColor(Color_Back);
-//							gotoxy(167, 34); cout << ":OK";
-//							SetBGColor(Color_DarkWhite);
-//							nhaplai1:
-//							 key1 = GetKey();
-//							 if(key1!=ENTER && key1!=ESC){
-//							 	goto nhaplai1;
-//							 	}
-//							SetColor(Color_DarkRed);SetBGColor(Color_DarkWhite);
-//							gotoxy(132, 32);cout << "                                           ";
-//							gotoxy(132, 33);cout << "                                           ";
-//							gotoxy(132, 34);cout << "                                           ";
-//							if (key1 == ENTER) {
-//								strcpy(p->data.ma_CB, cbtemp.ma_CB);
-//								strcpy(p->data.sohieumb, cbtemp.sohieumb);
-//								strcpy(p->data.sanbayDen, cbtemp.sanbayDen);
-//								p->data.ngaygioStart.day = cbtemp.ngaygioStart.day;
-//								p->data.ngaygioStart.month = cbtemp.ngaygioStart.month;
-//								p->data.ngaygioStart.year = cbtemp.ngaygioStart.year;
-//								p->data.ngaygioStart.hours = cbtemp.ngaygioStart.hours;
-//								p->data.ngaygioStart.minutes = cbtemp.ngaygioStart.minutes;
-//								p->data.trangthai = cbtemp.trangthai;							
-					///////////////////////////////////////////	 tao lai danh sach ve moi
 								p->data.nodeVe= new VE[p->data.soluongVe];
 									int sove = 0;
 								for (int i = 0;i < listMB.nodeMB[search(listMB, p->data.sohieumb)]->soday_MB;i++) {
@@ -2330,20 +1280,21 @@ int editCB(List_CB & listCB, List_MB & listMB) {
 //							}
 						}
 					}
-				}
-			}
-		}
+//				}
+//			}
+//		}
+		}while(!xacthuc);
 	}
 }
 
 // them node chuyen bay cho List chuyen bay
-int addList_CB(List_CB & listCB, List_MB & listMB) {
-//	frameAdd_CB();header();
+int quanLyChuyenBay(List_CB & listCB, List_MB & listMB) {
+	header(); footerCB();
 	CHUYENBAY cb;
 //	cb.ma_CB = '';
 	string temp = "";
 	temp.copy(cb.ma_CB, 15);
-	int key; 
+	int key;
 	if (listMB.soluong == 0) {
 		clrscr();
 		header();
@@ -2352,9 +1303,9 @@ int addList_CB(List_CB & listCB, List_MB & listMB) {
 		return 0;
 	}
 	else {
-
 		showList_CB(listCB);
 		do {
+			ShowCur(false);
 			key = GetKey();
 			switch(key){
 				case F1: 
@@ -2402,22 +1353,15 @@ int addList_CB(List_CB & listCB, List_MB & listMB) {
 						}
 						showList_CB(listCB);
 						SetBGColor(Color_DarkWhite);
-						cout.fill(' ');
-						gotoxy(positionX_listCB,40); cout<<setw(122)<<' ';
-						gotoxy(positionX_listCB,41); cout<<setw(122)<<' ';
-						gotoxy(positionX_listCB,42); cout<<setw(122)<<' ';
-						gotoxy(positionX_listCB,43); cout<<setw(122)<<' ';
-						gotoxy(positionX_listCB,44); cout<<setw(122)<<' ';
-//						vekhungdoi()
 						Alert("DA THEM CHUYEN BAY THANH CONG", 70, MAXYCONSOLE-3, 5);
 						break;
 					}
 				}
-				case -61: {
+				case F3: {
 					DeleteCB(listCB);
 					break;
 				}
-				case -62:{
+				case F4:{
 					editCB(listCB, listMB);
 					break;
 				}
@@ -2425,21 +1369,6 @@ int addList_CB(List_CB & listCB, List_MB & listMB) {
 					return 1;
 				}			
 			}
-
-//			key = frameAddNext();//thay nhap tiep and delete
-//			frameCoverNotice();
-//			SetColor(Color_Yellow);
-//			SetBGColor(Color_DarkPink);
-//			gotoxy(55, MAXYCONSOLE-4);
-//			cout << "                   BAN CO MUON THEM TIEP?                  ";
-//			key = GetKey();
-//			SetBGColor(Color_DarkWhite);
-////			gotoxy(55, 47);
-////			cout << "                                                                    ";
-////			gotoxy(55, 48);
-////			cout << "                                                                    ";
-//			gotoxy(55, MAXYCONSOLE-4);
-//			cout << "                                                                    ";
 		} while (key != ESC);
 	}
 }
@@ -2776,7 +1705,7 @@ int bookTicket(List_CB & lCB, List_MB listMB, NODEHKPTR & lHK) {
 	gotoxy(118,12);		cout<<"THANG: ";
 	gotoxy(138,12);		cout<<"NGAY: ";
 	
-	
+	ShowCur(true);
 	int vitri = 0;
 	char noiden[4];
 	int thang = 0;
@@ -3893,102 +2822,67 @@ int mainMenu(){
 }
 
 //---------------ROOT MENU------------------------
-void RootMenu(List_MB & l, List_CB & lCB, NODEHKPTR & lHK) {
+void RootMenu(List_MB &list_MB, List_CB &list_CB, NODEHKPTR &listHK) {
 	int choice;
 	int choiceMenuCon;
-	openFileList_MB(l);
-	LoadDataHanhKhach(lHK);
-	openFileList_CB(lCB,l);
+	openFileList_MB(list_MB);
+	LoadDataHanhKhach(listHK);
+	openFileList_CB(list_CB,list_MB);
 	while (true) {
-		SetBGColor(Color_DarkWhite);
-		clrscr();
-		choice = mainMenu();
-		SetBGColor(Color_DarkWhite);
+		ShowCur(false);			SetBGColor(Color_DarkWhite);	clrscr();
+		choice = mainMenu();	SetBGColor(Color_DarkWhite);
 		switch (choice) {
-//////////////////////////////////////////////////////  QUAN LY MAY BAY			
-			case 1:// Quan ly may bay
-				SetBGColor(Color_DarkWhite);
-				clrscr();
-					quanLyMayBay(l, lCB);
-				break;
-////////////////////// QUAN LY CHUYEN BAY		///////////////////////
-			case 2://quan ly chuyen bay
-				choiceMenuCon = MenuCon(itemmenuCB, MENUCHUYENBAY,positionMenuCB);
-				// item la so chuc nang cua lop con
-				SetBGColor(Color_DarkWhite);
-				clrscr();
-				switch (choiceMenuCon) {
-				case 1://them chuyen bay
-					addList_CB(lCB, l);
-					break;
-				case 2:// xoa chuyen bay
-					DeleteCB(lCB);
-					break;
-				case 3://hieu chinh thong tin chuyen bay				
-					editCB(lCB, l);
-					break;
-				case 4://hien thi danh sach
-					showList_CB(lCB);
-					getch();
-					break;
-				}
-				break;
-			case 3://quan ly dat ve
+			//  QUAN LY MAY BAY			
+			case 1:
+				SetBGColor(Color_DarkWhite);	clrscr();
+				quanLyMayBay(list_MB, list_CB);			break;
+			// QUAN LY CHUYEN BAY
+			case 2:
+				SetBGColor(Color_DarkWhite);	clrscr();
+				quanLyChuyenBay(list_CB, list_MB);		break;
+			//QUAN LY DAT VE
+			case 3:
 				choiceMenuCon = MenuCon(itemmenuDV, MENUDATVE,positionMenuDV);
-				// item la so chuc nang cua lop con
-				SetBGColor(Color_DarkWhite);
-				clrscr();
+				SetBGColor(Color_DarkWhite);	clrscr();
 				switch (choiceMenuCon) {
 				case 1://dat ve
-					bookTicket(lCB, l, lHK);
-					break;
+					bookTicket(list_CB, list_MB, listHK);	break;
 				case 2:// huye ve
-					cancelTicket(lCB, l, lHK);
-					break;
+					cancelTicket(list_CB, list_MB, listHK);	break;
 				case 3://
-					TimCBConve(lCB);
-//					getch();	
-					break;
+					TimCBConve(list_CB);			break;
 				case 4://
-					cauG(lCB,l);
-					getch();
-					break;
+					cauG(list_CB,list_MB);	getch();	break;
 				}
 				break;
 			case 4:// quan ly hanh khach
 				choiceMenuCon = MenuCon(itemmenuHK, MENUHK,positionMenuKH);
-				// item la so chuc nang cua lop con
-				SetBGColor(Color_DarkWhite);
-				clrscr();
+				SetBGColor(Color_DarkWhite);	clrscr();
 				switch (choiceMenuCon) {
-				case 1://tat ca hanh khach
-					duyetKH(lHK);
-					getch();
-					break;
-				case 2:// hanh khach cua chuyen xxx
-					showCustomerOfCbXXX(lCB, lHK);
-					getch();
-					break;
+					case 1://tat ca hanh khach
+						duyetKH(listHK);	getch();	break;
+					case 2:// hanh khach cua chuyen xxx
+						showCustomerOfCbXXX(list_CB, listHK);	getch();	break;
 				}
 				break;
 			case 5: //thoat
-				endProgram(lCB,l,lHK);
-				return ;
+				endProgram(list_CB,list_MB,listHK);		return ;
 		}
 	}
 	return;
 }
+
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 int main(int argc, char** argv) {
 	resizeConsole(maxrong, maxcao);
 	SetBGColor(Color_DarkWhite);
-	List_MB lMB;
-	lMB.soluong = 0;
-	List_CB lCB;
-	initList_CB(lCB);
-	NODEHKPTR listhk;
-	InitTree(listhk);
-	RootMenu(lMB, lCB, listhk);
+	List_MB list_MB;
+	list_MB.soluong = 0;
+	List_CB list_CB;
+	initList_CB(list_CB);
+	NODEHKPTR listHK;
+	InitTree(listHK);
+	RootMenu(list_MB, list_CB, listHK);
 	return 0;
 }
