@@ -204,14 +204,24 @@ int checkTonTaiVe(CHUYENBAY cb) {
 	return dem; //= 0 la het ve
 }
 int checkTonTaiVe11(CHUYENBAY cb) {
-	int dem=0;
 	for (int i = 0;i < cb.soluongVe;i++) {
 		if (cb.nodeVe[i].cmnd != " ")
 		{
-			dem++;//ve co nguoi dat r thi +1
+			return 1;
 		}
 	}
-	return dem; //neu chua co ai dat ve het thi tra ve 0
+	return 0; //neu chua co ai dat ve het thi tra ve 0
 }
+
+//int checkTonTaiVe11(CHUYENBAY cb) {
+//	int dem=0;
+//	for (int i = 0;i < cb.soluongVe;i++) {
+//		if (cb.nodeVe[i].cmnd != " ")
+//		{
+//			dem++;//ve co nguoi dat r thi +1
+//		}
+//	}
+//	return dem; //neu chua co ai dat ve het thi tra ve 0
+//}
 //hien thi dach sach may bay
 

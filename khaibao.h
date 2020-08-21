@@ -67,12 +67,18 @@
 #define Color_Yellow		14
 #define Color_White			15
 
+
+#define Color_White			15
+#define posXMessage 		118
+#define posYMessage 		30
+
 using namespace std;
 const int cotStart= 51;
 const int dongStart= 11;
 const int cotStartCB= 2;
 const int dongStartCB= 13;
 const int dongStartHK= 9;
+
 typedef struct  {
 	int day,month,year,hours,minutes;
 	
