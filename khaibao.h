@@ -81,7 +81,6 @@ const int dongStartHK= 9;
 
 typedef struct  {
 	int day,month,year,hours,minutes;
-	
 }DATETIME;
 ///////////////////
 typedef struct {
