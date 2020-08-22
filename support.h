@@ -33,20 +33,7 @@ void coverOutDataSHMB(List_MB l) {//remove
 		gotoxy(144, 10 + i);cout << "               ";
 	}
 }
-void frameCoverNotice() {
-
-	SetBGColor(Color_DarkWhite);
-	gotoxy(55, MAXYCONSOLE-5);
-	cout << "                                                           ";
-	gotoxy(55, MAXYCONSOLE-4);
-	cout << "                                                           ";
-	gotoxy(55, MAXYCONSOLE-3);
-	cout << "                                                           ";
-	gotoxy(55, MAXYCONSOLE-2);
-	cout << "                                                           ";
-}
 void outDataSHMB(List_MB l, int vitri) {
-	//SetBGColor(Color_DarkWhite); 
 	int dong = 11;
 	gotoxy(156, dong + vitri);cout << l.nodeMB[vitri]->sohieu_MB;
 }
@@ -56,7 +43,7 @@ int checkNoiDen(char noiden[]) {
 	return -1;
 }
 boolean checkYear(int y) {
-	if (y != 2019) {
+	if (y != (ltm->tm_year +1900) ) {
 		return false;
 	}
 	return true;
@@ -91,12 +78,9 @@ boolean checkCurrentDDMMYY(int d, int m) {
 }
 boolean checkTrangThai(int d, int m) {
 	if (m == (1 + ltm->tm_mon)) {
-
 		if (d < ltm->tm_mday) return false;
-
 	}
-	else if (m < (1 + ltm->tm_mon))
-	{
+	else if (m < (1 + ltm->tm_mon)){
 		return false;
 	}
 	return true;
@@ -106,16 +90,11 @@ int frameAddShmb_AddCB(List_MB listMB) {
 	
 	SetBGColor(Color_DarkWhite);SetColor(Color_DarkRed);
 	for (int i = 0;i < listMB.soluong;i++) {
-		if (i == 0) {
-			HighLight();
-		}
-		else {
-			Normal();
-		}
+		if (i == 0) 	HighLight();
+		else	Normal();
 		outDataSHMB(listMB, i);
 	}
 	int vitri = 0;
-	//	SetBGColor(Color_DarkWhite);
 	while (true) {
 		int key = GetKey();
 		switch (key) {
@@ -155,11 +134,9 @@ int frameAddShmb_AddCB(List_MB listMB) {
 			if (listMB.soluong > 0) {
 				return vitri;
 			}
-			frameCoverNotice();
 			return -1;
 		case ESC:
 			return -2;
-			break;
 		}
 	}
 }
@@ -184,26 +161,15 @@ void outDataMB(List_MB listMB ,int i) {
 	gotoxy(positionFormInputX + 21, positionFormInputY + 13);	cout << listMB.nodeMB[i]->sohang_MB;
 	gotoxy(positionFormInputX + 21, positionFormInputY + 17);	cout << (listMB.nodeMB[i]->soday_MB * listMB.nodeMB[i]->sohang_MB);
 }
-int checkSex(string gioitinhcansosanh) {
+int checkSex(string gioitinh) {
 	for (int i = 0;i < 2;i++) {
-		if (gioitinhcansosanh == sex[i]) {
+		if (gioitinh == sex[i]) {
 			return i;
 		}
 	}
 	return -1;
 }
 int checkTonTaiVe(CHUYENBAY cb) {
-	int dem=0;
-	for (int i = 0;i < cb.soluongVe;i++) {
-		if (cb.nodeVe[i].cmnd != " ")
-		{
-			dem = 1;
-			break;
-		}
-	}
-	return dem; //= 0 la het ve
-}
-int checkTonTaiVe11(CHUYENBAY cb) {
 	for (int i = 0;i < cb.soluongVe;i++) {
 		if (cb.nodeVe[i].cmnd != " ")
 		{
@@ -213,6 +179,17 @@ int checkTonTaiVe11(CHUYENBAY cb) {
 	return 0; //neu chua co ai dat ve het thi tra ve 0
 }
 
+//int checkTonTaiVe(CHUYENBAY cb) {
+//	int dem=0;
+//	for (int i = 0;i < cb.soluongVe;i++) {
+//		if (cb.nodeVe[i].cmnd != " ")
+//		{
+//			dem = 1;
+//			break;
+//		}
+//	}
+//	return dem; //= 0 la het ve
+//}
 //int checkTonTaiVe11(CHUYENBAY cb) {
 //	int dem=0;
 //	for (int i = 0;i < cb.soluongVe;i++) {

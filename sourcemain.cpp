@@ -5,9 +5,7 @@
 #include "support.h"
 #include "frame.h"
 #include <sstream> 
-//#include <boost>
 #include <algorithm>
-//#include <fstream.h>
 #include <math.h>
 
 
@@ -16,6 +14,19 @@
 
 
 using namespace std;
+
+//tao node chuyen bay, them du lieu cho node va tra ve dia chi node
+Node_CB* createNodeCB(CHUYENBAY cb) {
+	Node_CB* p = new Node_CB;
+	if (p == NULL) {
+		message(posXMessage,posYMessage, "CAP PHAT BO NHO KHONG THANH CONG");
+		exit(1);
+	}else {
+		p->data = cb;
+		p->pNext == NULL;
+		return p;
+	}
+}
 //hien thi danh sach may bay
 ////////////////////////////////////////////////////////////////////// MAY BAY //////////////////////////////////////////////////////////////////////
 int showList_MB(List_MB listMB, boolean flag) {
@@ -25,15 +36,10 @@ int showList_MB(List_MB listMB, boolean flag) {
 	gotoxy(82,5);			SetColor(Color_Pink);			cout<<"DANH SACH MAY BAY";
 	
 	if (listMB.soluong == 0 && flag == TRUE) {
-		Alert("CHUA CO MAY BAY", 77, 45, 3);return 0;
+		message(posXMessage,posYMessage, "CHUA CO MAY BAY"); return 0;
 	}
-	//else if(listMB.soluong==0 && flag==FALSE ){
-	//		Alert("SAN SANG NHAP",79,45,1.2);
-	//	}
 	else {
 		footer();
-//		frameAdd_MB();
-		//anConTro();
 		int A[4]={20,50,65,80};
 		SetColor(Color_Back);
 		SetBGColor(Color_DarkWhite);
@@ -597,7 +603,6 @@ void quanLyMayBay(List_MB &list_MB, List_CB list_CB) {
 		footerMB();
 		formInput(positionFormInputX,positionFormInputY,5,ITEM);
 		int position = optionMB(list_MB, list_CB);
-		 
 		int key;
 		if (position == -1) {
 			SetBGColor(Color_DarkWhite);		return;
@@ -638,59 +643,8 @@ void quanLyMayBay(List_MB &list_MB, List_CB list_CB) {
 
 }
 
-//luu file danh sach may bay
-void saveFileList_MB(List_MB l) {
-	ofstream fileMbOut ("Danhsachmaybay.txt");
-	for(int i=0;i<l.soluong;i++){
-		fileMbOut << l.nodeMB[i]->sohieu_MB<<" ";
-		fileMbOut << l.nodeMB[i]->loai_MB<<" ";
-		fileMbOut << l.nodeMB[i]->soday_MB<<" ";
-		fileMbOut << l.nodeMB[i]->sohang_MB<<" ";
-		if(i!=l.soluong-1){
-			fileMbOut<<endl;
-		}
-	}
-	fileMbOut.close();
-
-}
-int docFileInfo1MB(ifstream &fileMbIn,MAYBAY &mb){
-	string data;
-	getline(fileMbIn,data,' ');	strcpy(mb.sohieu_MB, data.c_str());
-	getline(fileMbIn,data,' '); strcpy(mb.loai_MB,data.c_str());
-	getline(fileMbIn,data,' ');mb.soday_MB= atoi(data.c_str());
-	getline(fileMbIn,data,' ');mb.sohang_MB= atoi(data.c_str());
-}
-//doc file danh sach may bay
-int openFileList_MB(List_MB &l) {
-ifstream fileMbIn ("Danhsachmaybay.txt");
-	string temp;
-	l.soluong=0;
-	while(!fileMbIn.eof()){
-		MAYBAY mb;
-		docFileInfo1MB(fileMbIn,mb);
-		l.nodeMB[l.soluong]=new MAYBAY;
-		*l.nodeMB[l.soluong]=mb;
-		l.soluong++;
-		getline(fileMbIn,temp);
-	}
-	fileMbIn.close();
-
-}
 ///////////////////////////////////////////////////////////////// CHUYEN BAY ///////////////////////////////////////////////////////////////////////////////////
 // tim kiem
-
-//tao node chuyen bay, them du lieu cho node va tra ve dia chi node
-Node_CB* createNodeCB(CHUYENBAY cb) {
-	Node_CB* p = new Node_CB;
-	if (p == NULL) {
-		message(posXMessage,posYMessage, "CAP PHAT BO NHO KHONG THANH CONG");
-		exit(1);
-	}else {
-		p->data = cb;
-		p->pNext == NULL;
-		return p;
-	}
-}
 
 boolean isEmptyListCB(List_CB l) {
 	if (l.pHead == NULL) {
@@ -1057,7 +1011,7 @@ int showInfo_CB(CHUYENBAY cb, int x) {
 //hien thi list cac chuyen bay
 int showList_CB(List_CB listCB) {
 	if (listCB.pHead == NULL) {
-		Alert("DANH SACH CHUYEN BAY RONG", 73, MAXYCONSOLE-3, 2);
+		message(posXMessage,posYMessage,"DANH SACH MAY BAY RONG");
 	}
 	else {
 		
@@ -1115,7 +1069,7 @@ int DeleteCB(List_CB & listCB) {
 			else{
 				int choose = alertOption(118,22,"        BAN CO MUON XOA CHUYEN BAY        ","    XOA   ","HUY CHUYEN");
 				if(choose==1){
-					if(checkTonTaiVe(p->data)!=0){// co chuyen bay va da co nguoi dat ve 
+					if(checkTonTaiVe(p->data)==1){// co chuyen bay va da co nguoi dat ve 
 						message(posXMessage, posYMessage,"CHUYEN BAY DA CO HANH KHACH");
 						return 0;
 					}
@@ -1201,7 +1155,7 @@ int editCB(List_CB & listCB, List_MB listMB) {
 					}
 //		//////////////////////////////////////////////////// ket thuc tao lai danh sach ve moi
 //		//////////////////////////////////////////// copy du lieu tren moi ve o danh sach ve cu sang moi ve o danh sach ve moi
-					if(checkTonTaiVe11(cbtemp)==1){//neu chuyen bay co nguoi dat ve roi thi copy du lieu, khong thi thoi
+					if(checkTonTaiVe(cbtemp)==1){//neu chuyen bay co nguoi dat ve roi thi copy du lieu, khong thi thoi
 						for(int i=0;i<cbtemp.soluongVe;i++){// duyet danh sach ve cu..
 							if(cbtemp.nodeVe[i].cmnd!=" "){//neu tai ve do da co nguoi dat roi (da co thong tin cmnd)...
 								for(int j=0; j<p->data.soluongVe;j++){// duyet het danh sach ve moi
@@ -1295,92 +1249,6 @@ void quanLyChuyenBay(List_CB & listCB, List_MB listMB) {
 		}
 	}
 }
-int addListCBFile(List_CB  &listCB, List_MB listMB, Node_CB *p) {
-//	Node_CB* p = createNodeCB(cb);
-
-	if (listCB.pHead == NULL) {//kiem tra xem dach rong hay kh
-		listCB.pHead = p;  //neu rong thi them vao dau danh sach
-	}
-	else { // neu co phan tu roi thi insertorder
-		Node_CB* temp = NULL, * q;
-		for (q = listCB.pHead;q != NULL && strcmp(q->data.ma_CB, p->data.ma_CB) <= 0;q = q->pNext) {
-			temp = q;
-		}
-		if (temp == NULL) {// neu tim duoc vi tri dau tien
-			p->pNext = listCB.pHead;
-			listCB.pHead = p;  // them vao dau luc nay p la phan tu dau
-		}
-		else {
-			p->pNext = q;
-			temp->pNext = p; //neu khong thi them sau node temp
-		}
-	}
-
-}
-
-int saveFileList_CB(List_CB lcb){
-	ofstream fileCbOut ("Danhsachchuyenbay.txt");
-	for(Node_CB *p=lcb.pHead;p!=NULL;p=p->pNext){
-		fileCbOut << p->data.ma_CB<<" ";
-		fileCbOut << p->data.sohieumb<<" ";
-		fileCbOut << p->data.sanbayDen<<" ";
-		fileCbOut << p->data.ngaygioStart.day<<"/"<<p->data.ngaygioStart.month<<"/"<<p->data.ngaygioStart.year<<" ";
-		fileCbOut << p->data.ngaygioStart.hours<<":"<<p->data.ngaygioStart.minutes<<" ";
-		fileCbOut << p->data.soluongVe<<" ";
-		fileCbOut << p->data.trangthai<<" ";
-		for(int i=0;i<p->data.soluongVe;i++){
-			fileCbOut<<p->data.nodeVe[i].soghe<<"-"<<p->data.nodeVe[i].cmnd<<",";
-		}
-		if(p->pNext!=NULL){
-		fileCbOut<<endl;	
-		}
-		
-	}
-	fileCbOut.close();
-}
-int docFileInfo1CB(ifstream &fileCbIn,CHUYENBAY &cb){
-	string data;
-	getline(fileCbIn,data,' ');	strcpy(cb.ma_CB,data.c_str());//doc tu dau den " " lay ma chuyen bay
-	getline(fileCbIn,data,' '); strcpy(cb.sohieumb,data.c_str());//tiep tuc doc den " " lay SHMB
-	getline(fileCbIn,data,' '); strcpy(cb.sanbayDen,data.c_str());//tiep tuc doc den " " lay san bay den
-	getline(fileCbIn,data,'/');cb.ngaygioStart.day= atoi(data.c_str());//doc den dau / lay ngay
-	getline(fileCbIn,data,'/');cb.ngaygioStart.month= atoi(data.c_str());//doc den dau/ lay thang
-	getline(fileCbIn,data,' ');cb.ngaygioStart.year =atoi(data.c_str());
-	getline(fileCbIn,data,':');cb.ngaygioStart.hours= atoi(data.c_str());
-	getline(fileCbIn,data,' ');cb.ngaygioStart.minutes= atoi(data.c_str());
-	getline(fileCbIn,data,' ');cb.soluongVe= atoi(data.c_str());
-	getline(fileCbIn,data,' ');cb.trangthai= atoi(data.c_str());
-
-/// luu danh sach ve
-	cb.nodeVe= new VE[cb.soluongVe];
-//	getline(fileCbIn,data);//xuong dong
-		for(int i=0;i<cb.soluongVe;i++){
-		getline(fileCbIn,cb.nodeVe[i].soghe,'-');
-		getline(fileCbIn,cb.nodeVe[i].cmnd,',');
-	}
-//	getline(fileCbIn,data);
-	
-}
-
-
-int openFileList_CB(List_CB &lcb,List_MB lmb){
-	ifstream fileCbIn("Danhsachchuyenbay.txt");
-	string temp;
-	while(!fileCbIn.eof()){
-		CHUYENBAY cb;
-		Node_CB *q= createNodeCB(cb);	
-		docFileInfo1CB(fileCbIn,q->data);
-		if (checkTrangThai(q->data.ngaygioStart.day,q->data.ngaygioStart.month) == false)
-		{
-			q->data.trangthai = 3;
-		}
-		addListCBFile(lcb,lmb,q);
-		getline(fileCbIn,temp);
-	}
-	fileCbIn.close();
-}
-
-
 ///////////////////////////////////////////////////////////////////// HANH KHACH //////////////////////////////////////////////////////////////////
 
 int showInfoHK(HANHKHACH hk, int y, string soghe) {
@@ -1497,90 +1365,6 @@ int showCustomerOfCbXXX(List_CB lcb, NODEHKPTR lhk){
 			}else return 0;
 		}
 	}while(!xacthuc);
-}
-void LoadDataHanhKhach(NODEHKPTR &lhk)
-{
-    fstream Data;
-//    HANHKHACH temp ;
-    string line;
-    
-    Data.open("Danhsachhanhkhach.txt",ios::in);
-    if (  !Data   )
-        exit(1);
-    
-    if ( Data.peek() != EOF )
-    {
-    	//KhoiTaoTree(dsnv);
-    	while ( getline(Data, line) ) {
-    		
-    		HANHKHACH temp;
-			int i = 0;
-			    
-			istringstream iss(line);
-			string s;
-			while ( getline( iss, s, ',' ) ) {
-			    	
-				switch (i) {
-			        	
-			        case 0:
-			        	temp.cmnd = s;
-						break;
-						
-			        case 1:
-			        	temp.ho=s;
-			        	break;
-			        	
-			        case 2:
-			        	temp.ten=s;
-			        	break;
-			        	
-			        case 3:
-			        	temp.gioiTinh=atoi(s.c_str());;
-			        	break;
-			        }
-			        
-			        i++;
-			        
-			    }
-			
-				InsertHanhKhach(lhk,temp);
-			
-    	}
-    }
-    
-    Data.close();
-    return;
-}
-void SaveData(fstream &Data, NODEHKPTR lhk) {
-	
-	if (lhk != NULL) {
-		
-		SaveData(Data, lhk->Left);
-		
-		HANHKHACH temp;
-		temp = lhk->data;
-		
-		Data << temp.cmnd << ","
-        << temp.ho << ","
-        << temp.ten << ","
-        << temp.gioiTinh<< endl;
-        
-        SaveData(Data, lhk->Right);
-	}
-	
-}
-
-void SaveDataHanhKhach(NODEHKPTR lhk)
-{
-	system("cls");
-
-    fstream Data;
-    Data.open("Danhsachhanhkhach.txt",ios::out);
-    
-    SaveData(Data, lhk);
-
-    Data.close();
-    return;
 }
 
 
@@ -2397,22 +2181,181 @@ int danhSachVe(List_CB lcb, List_MB list_MB){
 		}
 	}while(!xacthuc);
 }
-int endProgram(List_CB &lcb, List_MB &lmb, NODEHKPTR &lhk){
+
+int docFileInfo1MB(ifstream &fileMbIn,MAYBAY &mb){
+	string data;
+	getline(fileMbIn,data,' ');	strcpy(mb.sohieu_MB, data.c_str());
+	getline(fileMbIn,data,' '); strcpy(mb.loai_MB,data.c_str());
+	getline(fileMbIn,data,' ');mb.soday_MB= atoi(data.c_str());
+	getline(fileMbIn,data,' ');mb.sohang_MB= atoi(data.c_str());
+}
+//doc file danh sach may bay
+int openFileList_MB(List_MB &l) {
+	ifstream fileMbIn ("Danhsachmaybay.txt");
+	string temp;
+	l.soluong=0;
+	while(!fileMbIn.eof()){
+		MAYBAY mb;
+		docFileInfo1MB(fileMbIn,mb);
+		l.nodeMB[l.soluong]=new MAYBAY;
+		*l.nodeMB[l.soluong]=mb;
+		l.soluong++;
+		getline(fileMbIn,temp);
+	}
+	fileMbIn.close();
+}
+
+//luu file danh sach may bay
+void saveFileList_MB(List_MB l) {
+	ofstream fileMbOut ("Danhsachmaybay.txt");
+	for(int i=0;i<l.soluong;i++){
+		fileMbOut << l.nodeMB[i]->sohieu_MB<<" ";
+		fileMbOut << l.nodeMB[i]->loai_MB<<" ";
+		fileMbOut << l.nodeMB[i]->soday_MB<<" ";
+		fileMbOut << l.nodeMB[i]->sohang_MB<<" ";
+		if(i!=l.soluong-1){
+			fileMbOut<<endl;
+		}
+	}
+	fileMbOut.close();
+
+}
+//doc file khach hang
+void LoadDataHanhKhach(NODEHKPTR &lhk)
+{
+    fstream Data;
+    string line;
+    
+    Data.open("Danhsachhanhkhach.txt",ios::in);
+    if (  !Data   )    exit(1);
+    if ( Data.peek() != EOF )
+    {
+    	//KhoiTaoTree(dsnv);
+    	while ( getline(Data, line) ) {
+    		HANHKHACH temp;
+			int i = 0;
+			istringstream iss(line);
+			string s;
+			while ( getline( iss, s, ',' ) ) {
+				switch (i) {
+			        case 0:	temp.cmnd = s;	break;
+			        case 1:	temp.ho=s;		break;
+			        case 2:	temp.ten=s;		break;
+			        case 3:	temp.gioiTinh=atoi(s.c_str());	break;
+		        }
+		        i++;
+		    }
+			InsertHanhKhach(lhk,temp);
+    	}
+    }
+    Data.close();
+    return;
+}
+
+// doc 1 chuyen bay
+int docFileInfo1CB(ifstream &fileCbIn,CHUYENBAY &cb){
+	string data;
+	getline(fileCbIn,data,' ');	strcpy(cb.ma_CB,data.c_str());//doc tu dau den " " lay ma chuyen bay
+	getline(fileCbIn,data,' '); strcpy(cb.sohieumb,data.c_str());//tiep tuc doc den " " lay SHMB
+	getline(fileCbIn,data,' '); strcpy(cb.sanbayDen,data.c_str());//tiep tuc doc den " " lay san bay den
+	getline(fileCbIn,data,'/');cb.ngaygioStart.day= atoi(data.c_str());//doc den dau / lay ngay
+	getline(fileCbIn,data,'/');cb.ngaygioStart.month= atoi(data.c_str());//doc den dau/ lay thang
+	getline(fileCbIn,data,' ');cb.ngaygioStart.year =atoi(data.c_str());
+	getline(fileCbIn,data,':');cb.ngaygioStart.hours= atoi(data.c_str());
+	getline(fileCbIn,data,' ');cb.ngaygioStart.minutes= atoi(data.c_str());
+	getline(fileCbIn,data,' ');cb.soluongVe= atoi(data.c_str());
+	getline(fileCbIn,data,' ');cb.trangthai= atoi(data.c_str());
+
+/// luu danh sach ve
+	cb.nodeVe= new VE[cb.soluongVe];
+	for(int i=0;i<cb.soluongVe;i++){
+		getline(fileCbIn,cb.nodeVe[i].soghe,'-');
+		getline(fileCbIn,cb.nodeVe[i].cmnd,',');
+	}
+}
+
+int addListCBFile(List_CB  &listCB, List_MB listMB, Node_CB *p) {
+//	Node_CB* p = createNodeCB(cb);
+
+	if (listCB.pHead == NULL) {//kiem tra xem dach rong hay kh
+		listCB.pHead = p;  //neu rong thi them vao dau danh sach
+	}
+	else { // neu co phan tu roi thi insertorder
+		Node_CB* temp = NULL, * q;
+		for (q = listCB.pHead;q != NULL && strcmp(q->data.ma_CB, p->data.ma_CB) <= 0;q = q->pNext) {
+			temp = q;
+		}
+		if (temp == NULL) {// neu tim duoc vi tri dau tien
+			p->pNext = listCB.pHead;
+			listCB.pHead = p;  // them vao dau luc nay p la phan tu dau
+		}
+		else {
+			p->pNext = q;
+			temp->pNext = p; //neu khong thi them sau node temp
+		}
+	}
+}
+// doc list chuyen bay
+int openFileList_CB(List_CB &lcb,List_MB lmb){
+	ifstream fileCbIn("Danhsachchuyenbay.txt");
+	string temp;
+	while(!fileCbIn.eof()){
+		CHUYENBAY cb;
+		Node_CB *q= createNodeCB(cb);	
+		docFileInfo1CB(fileCbIn,q->data);
+		if (checkTrangThai(q->data.ngaygioStart.day,q->data.ngaygioStart.month) == false)
+		{
+			q->data.trangthai = 3;
+		}
+		addListCBFile(lcb,lmb,q);
+		getline(fileCbIn,temp);
+	}
+	fileCbIn.close();
+}
+
+void saveFileList_CB(List_CB lcb){
+	ofstream fileCbOut ("Danhsachchuyenbay.txt");
+	for(Node_CB *p=lcb.pHead;p!=NULL;p=p->pNext){
+		fileCbOut << p->data.ma_CB<<" ";
+		fileCbOut << p->data.sohieumb<<" ";
+		fileCbOut << p->data.sanbayDen<<" ";
+		fileCbOut << p->data.ngaygioStart.day<<"/"<<p->data.ngaygioStart.month<<"/"<<p->data.ngaygioStart.year<<" ";
+		fileCbOut << p->data.ngaygioStart.hours<<":"<<p->data.ngaygioStart.minutes<<" ";
+		fileCbOut << p->data.soluongVe<<" ";
+		fileCbOut << p->data.trangthai<<" ";
+		for(int i=0;i<p->data.soluongVe;i++){
+			fileCbOut<<p->data.nodeVe[i].soghe<<"-"<<p->data.nodeVe[i].cmnd<<",";
+		}
+		if(p->pNext!=NULL){
+			fileCbOut<<endl;	
+		}
+	}
+	fileCbOut.close();
+}
+// SAVE FILE KHACH HANG
+void SaveData(fstream &Data, NODEHKPTR lhk) {
 	
-	SetBGColor(Color_DarkWhite);
-	int key;
-	do{
-		key=frameExit();
-		if(key==ENTER){
-			saveFileList_MB(lmb);
-			saveFileList_CB(lcb);
-			SaveDataHanhKhach(lhk);
-			return 1;
-		}
-		if(key==ESC){
-			return 0;
-		}
-	}while(key!=ENTER||key!=ESC);
+	if (lhk != NULL) {
+		SaveData(Data, lhk->Left);
+		HANHKHACH temp;
+		temp = lhk->data;
+		
+		Data << temp.cmnd << ","
+        << temp.ho << ","
+        << temp.ten << ","
+        << temp.gioiTinh<< endl;
+        
+        SaveData(Data, lhk->Right);
+	}
+}
+void SaveDataHanhKhach(NODEHKPTR lhk)
+{
+	system("cls");
+    fstream Data;
+    Data.open("Danhsachhanhkhach.txt",ios::out);
+    SaveData(Data, lhk);
+    Data.close();
+    return;
 }
 
 //void DuyetDSHK(NODEHKPTR listhk)//SHOW TAT CAC CAC HANH KHACH CO TRONG DANH SACH
@@ -2625,7 +2568,11 @@ void RootMenu(List_MB &list_MB, List_CB &list_CB, NODEHKPTR &list_HK) {
 				}
 				break;
 			case 5: //thoat
-				endProgram(list_CB,list_MB,list_HK);		return ;
+				if(Hoi(60,20,"      BAN CO MUON LUU TAT CA CAC THAY DOI?       ")){
+					saveFileList_MB(list_MB);
+					saveFileList_CB(list_CB);
+					SaveDataHanhKhach(list_HK);
+				}	return ;
 		}
 	}
 	return;
