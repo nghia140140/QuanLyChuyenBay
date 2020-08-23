@@ -134,9 +134,9 @@ void footerCB() {
 	cout << "---------------------------------------------------------------------------------------------------------------------------------------------";
 	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "   THEM:  ";	vitri += 10;
 	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "    F1    ";	vitri += 10;
-	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "    XOA   :";	vitri += 10;
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "    SUA:  ";	vitri += 10;
 	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "    F3    ";	vitri += 10;
-	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "   SUA:   ";	vitri += 10;
+	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << " XOA/HUY: ";	vitri += 10;
 	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "    F4    ";	vitri += 10;
 	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "  THOAT:  ";	vitri += 10;
 	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "    ESC   ";	vitri += 10;
@@ -148,9 +148,9 @@ void footer() {
 	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "  THOAT:  ";	vitri += 10;
 	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "   ESC    ";	vitri += 20;
 	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << "   CHON:  ";	vitri += 10;
-	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout <<"   ENTER  ";	vitri += 20;
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "   ENTER  ";	vitri += 20;
 	SetColor(Color_White);	SetBGColor(Color_DarkGreen);	gotoxy(vitri, MAXYCONSOLE); cout << " UP/DOWN  ";	vitri += 10;
-	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "   "<< (char)94 << "  " << (char)118<<"   ";
+	SetColor(Color_Yellow);	SetBGColor(Color_Blue);			gotoxy(vitri, MAXYCONSOLE); cout << "   <  >   ";
 	SetBGColor(Color_DarkWhite);
 }
 void footerDatVe() {
