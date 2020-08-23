@@ -4,9 +4,9 @@
 #include "khaibao.h"
 #include "support.h"
 #include "frame.h"
-#include <sstream> 
-#include <algorithm>
-#include <math.h>
+//#include <sstream> 
+//#include <algorithm>
+//#include <math.h>
 
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
@@ -27,10 +27,8 @@ Node_CB* createNodeCB(CHUYENBAY cb) {
 		return p;
 	}
 }
-//hien thi danh sach may bay
 ////////////////////////////////////////////////////////////////////// MAY BAY //////////////////////////////////////////////////////////////////////
 int showList_MB(List_MB listMB, boolean flag) {
-	//system("cls") ;
 	SetBGColor(Color_DarkWhite);							header();
 	SetColor(Color_Pink);	SetBGColor(Color_DarkWhite);	vekhung(72,4,1,32);
 	gotoxy(82,5);			SetColor(Color_Pink);			cout<<"DANH SACH MAY BAY";
@@ -61,206 +59,6 @@ int showList_MB(List_MB listMB, boolean flag) {
 //			outDataMB(listMB, i);
 		}
 		return 1;
-	}
-}
-//them thong tin cho may bay
-void nhapMa(int x, int y, string &text, int sokytu){
-
-	int key;
-	gotoxy(x, y);	cout<<text;
-	while (true) {
-		key = GetKey();
-		switch(key)
-		{
-			case ESC:{
-				text = "";
-				return;
-			}
-			case TAB:
-			case ENTER:
-				{
-					if(text.length()==0){
-						gotoxy(x -10, y+1); SetColor(Color_DarkRed);
-						cout<<"VUI LONG DIEN THONG TIN";
-						gotoxy(x,y); SetColor(Color_DarkBlue); cout<<text;
-					}else{
-						gotoxy(x -10, y+1);
-						cout<<"                       ";
-						return;
-					}
-				}
-			case BACKSPACE:
-				{
-					if(text.length()>0){	
-						text.erase(text.length()-1,1);
-						cout<<"\b \b";
-					}
-					break;
-				}
-			default:
-				{
-					if((key>47&&key<123) &&text.length()<sokytu)
-					{
-						gotoxy(x, y);
-						if(97<= key && key<=122)
-						{
-							text +=char(key-32);
-						}else{
-							text +=char(key);
-						}
-						cout<<text;
-					}
-					break;
-				}	
-		}
-	}
-}
-void NhapLieu(int x, int y, string &text, int sokytu){
-
-	int key;
-	gotoxy(x, y);	cout<<text;
-	while (true) {
-		key = GetKey();
-		switch(key)
-		{
-			case ESC:{
-				text = "";
-				return;
-			}
-			case TAB:
-			case ENTER:
-				{
-					if(text.length()==0){
-						gotoxy(x -10, y+1); SetColor(Color_DarkRed);
-						cout<<"VUI LONG DIEN THONG TIN";
-						gotoxy(x,y); SetColor(Color_DarkBlue); cout<<text;
-					}else{
-						gotoxy(x -10, y+1);
-						cout<<"                       ";
-						return;
-					}
-				}
-			case BACKSPACE:
-				{
-					if(text.length()>0){	
-						text.erase(text.length()-1,1);
-						cout<<"\b \b";
-					}
-					break;
-				}
-			default:
-				{
-					if((key>47&&key<123 || key==32) && text.length()<sokytu)
-					{
-						gotoxy(x, y);
-						if(97<= key && key<=122)
-						{
-							text +=char(key-32);
-						}else{
-							text +=char(key);
-						}
-						cout<<text;
-					}
-					break;
-				}	
-		}
-	}
-}
-
-void NhapLieuSo(int x, int y, int &num, int sokytu){
-
-	int key; string text;
-	if(num == 0) text = "";
-	else{
-		stringstream ss;	ss << num; text = ss.str();
-	}
-	gotoxy(x, y);	cout<<text;
-	while (true) {
-		key = GetKey();
-		switch(key)
-		{
-			case ESC:{
-				num = 0;
-				return;
-			}
-			case TAB:
-			case ENTER:
-				{
-					if(text.length()==0){
-						gotoxy(x -10, y+1); SetColor(Color_DarkRed);
-						cout<<"VUI LONG DIEN THONG TIN";
-						gotoxy(x,y); SetColor(Color_DarkBlue); cout<<text;
-					}else{
-						gotoxy(x -10, y+1);
-						cout<<"                       ";
-						num = atoi(text.c_str());
-						return;
-					}
-				}
-			case BACKSPACE:
-				{
-					if(text.length()>0){	
-						text.erase(text.length()-1,1);
-						cout<<"\b \b";
-					}
-					break;
-				}
-			default:
-				{
-					if((key>47&&key<58) &&text.length()<sokytu)
-					{
-						gotoxy(x, y);
-						text +=char(key);
-						cout<<text;
-					}
-					break;
-				}	
-		}
-	}
-}
-void NhapLieuso(int x, int y, string &text, int sokytu){
-
-	int key;
-	gotoxy(x, y);	cout<<text;
-	while (true) {
-		key = GetKey();
-		switch(key)
-		{
-			case ESC:{
-				text = "";
-				return;
-			}
-			case TAB:
-			case ENTER:
-				{
-					if(text.length()==0){
-						gotoxy(x -10, y+1); SetColor(Color_DarkRed);
-						cout<<"VUI LONG DIEN THONG TIN";
-						gotoxy(x,y); SetColor(Color_DarkBlue); cout<<text;
-					}else{
-						gotoxy(x -10, y+1);	cout<<"                       ";
-						return;
-					}
-				}
-			case BACKSPACE:
-				{
-					if(text.length()>0){	
-						text.erase(text.length()-1,1);
-						cout<<"\b \b";
-					}
-					break;
-				}
-			default:
-				{
-					if((key>=47&&key<=58) &&text.length()<sokytu)
-					{
-						gotoxy(x, y);
-						text +=char(key);
-						cout<<text;
-					}
-					break;
-				}	
-		}
 	}
 }
 int addInfo_MB(List_MB list_MB, MAYBAY& mb) {
@@ -310,7 +108,7 @@ int addInfo_MB(List_MB list_MB, MAYBAY& mb) {
 		}while(soday==0 || soday>10);
 		gotoxy(126,21);	SetBGColor(Color_DarkWhite);	cout<<"                   ";
 		// SO HANG
-		alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"                 0 < SO LUONG HANG < 35                    ");
+		alertHelp(positionAlertHelp,MAXYCONSOLE - 11,"                 0 < SO LUONG HANG < 30                    ");
 		do{
 			SetBGColor(Color_White);
 			NhapLieuSo(136,23,sohang,2);
@@ -371,7 +169,7 @@ int addList_MB(List_MB & listMB) {
 		}
 	}
 }
-
+//IN LUOT BAY SECTION_SORT
 void Insoluotbay(List_MB lMB, List_CB list_CB)
 {
 	header();
@@ -382,12 +180,11 @@ void Insoluotbay(List_MB lMB, List_CB list_CB)
 		Node_CB *p;
 	    p=list_CB.pHead;
 		MAYBAY *temp;
+		int vitrimax = i;
 	    while(p!=NULL)
 	    {
 			if(strcmp(p->data.sohieumb,lMB.nodeMB[i]->sohieu_MB)==0&&p->data.trangthai==3)
-			{
-				dem++;
-			}
+			dem++;
 	        p=p->pNext;
 	    }
 	    for(int j=i+1;j< lMB.soluong;j++)
@@ -397,21 +194,20 @@ void Insoluotbay(List_MB lMB, List_CB list_CB)
 		    while(q!=NULL)
 		    {
 				if(strcmp(q->data.sohieumb,lMB.nodeMB[j]->sohieu_MB)==0&&q->data.trangthai==3)
-				{
 					dem1++;
-				}
 		        q=q->pNext;
 		    }
 	    	if(dem1>dem)
 	    	{
-	    		temp=lMB.nodeMB[i];
-	    		lMB.nodeMB[i]=lMB.nodeMB[j];
-	    		lMB.nodeMB[j]=temp;
+	    		vitrimax = j;
 	    		dem = dem1;
 			}
 			dem1=0;
-	    	
 	    }
+	    
+		temp=lMB.nodeMB[i];
+		lMB.nodeMB[i]=lMB.nodeMB[vitrimax];
+		lMB.nodeMB[vitrimax]=temp;
 	    SetColor(Color_DarkRed);
 		SetBGColor(Color_DarkWhite);
 		gotoxy(48,dongStart+i);cout<<lMB.nodeMB[i]->sohieu_MB; 
@@ -500,7 +296,7 @@ int optionMB(List_MB & list_MB, List_CB list_CB) {
 					gotoxy(70,9);	cout<<"LOAI MAY BAY";
 					gotoxy(95,9);	cout<<"SO LUOT BAY";
 					Insoluotbay(list_MB ,list_CB);
-					getch();	return -2;
+					getch(); clrscr();	return -2;
 				}
 			case ESC:	return -1;
 			default: break;
@@ -644,41 +440,6 @@ void quanLyMayBay(List_MB &list_MB, List_CB list_CB) {
 }
 
 ///////////////////////////////////////////////////////////////// CHUYEN BAY ///////////////////////////////////////////////////////////////////////////////////
-// tim kiem
-
-boolean isEmptyListCB(List_CB l) {
-	if (l.pHead == NULL) {
-		return true;
-	}
-	return false;
-}
-boolean checkTrungChuyenbay(List_CB l, CHUYENBAY cb) {
-	for (Node_CB* p = l.pHead;p != NULL;p = p->pNext) {
-		if (strcmp(p->data.sohieumb, cb.sohieumb) == 0 && strcmp(p->data.ma_CB, cb.ma_CB) != 0) {// neu trung sohieu thi kiem tra thang
-			if (p->data.ngaygioStart.month == cb.ngaygioStart.month) {// neu trung thang thi kiem tra ngay
-				if (p->data.ngaygioStart.day == cb.ngaygioStart.day) {//neu trung ngay thi cach 6 tieng moi duoc bay
-					if ((abs(p->data.ngaygioStart.hours - cb.ngaygioStart.hours + (p->data.ngaygioStart.minutes - cb.ngaygioStart.minutes) / (float)60) < 6))
-						return false;
-				}
-			}
-		}
-	}
-	return true;
-}
-boolean checkTrungChuyenbayEdit(List_CB & l, CHUYENBAY & cb, CHUYENBAY cbcansua) {
-	for (Node_CB* p = l.pHead;p != NULL;p = p->pNext) {
-		if (strcmp(p->data.sohieumb, cb.sohieumb) == 0 && strcmp(p->data.ma_CB, cbcansua.ma_CB) != 0) {// neu trung sohieu thi kiem tra thang
-			if (p->data.ngaygioStart.month == cb.ngaygioStart.month) {// neu trung thang thi kiem tra ngay
-				if (p->data.ngaygioStart.day == cb.ngaygioStart.day) {//neu trung ngay thi cach 6 tieng moi duoc bay
-					if ((abs(p->data.ngaygioStart.hours - cb.ngaygioStart.hours + (p->data.ngaygioStart.minutes - cb.ngaygioStart.minutes) / (float)60) < 6))
-						return false;
-				}
-			}
-		}
-	}
-	return true;
-}
-
 
 string Chuyen(int num){
 	string resuft;
@@ -690,7 +451,7 @@ string Chuyen(int num){
 //them thong tin cho chuyen bay
 int addInfo_CB(List_CB & listCB, List_MB listMB, CHUYENBAY & cb) {
 	
-	footerEditMB();
+	footerEditMB();frameSanbayDen();
 	ShowCur(true);
 	int vitri; int key;
 	SetBGColor(Color_DarkWhite);
@@ -763,9 +524,14 @@ int addInfo_CB(List_CB & listCB, List_MB listMB, CHUYENBAY & cb) {
 				char ngaytemp[3]="";	char thangtemp[3]="";	char namtemp[5]="";	char ddmmyy[11]="";
 				xacthucNgay = true;	SetBGColor(Color_DarkWhite);
 				NhapLieuso(135,16,ngay,10);
+				gotoxy(118,17); 	cout<<"                                               ";
 				if(ngay == "") return 0;
+				strcpy(ddmmyy, ngay.c_str());
+				if(ngay.length() <10 || (int)ddmmyy[2] != 47 || (int)ddmmyy[5] != 47){
+					gotoxy(118,17);	SetColor(Color_DarkRed); 	cout<<"NGAY KHOI HANH KHONG DUNG. CU PHAP '09/09/2020'";	SetColor(Color_DarkBlue);
+					xacthucNgay = false;
+				}
 				else{ 
-					strcpy(ddmmyy, ngay.c_str());
 					ngaytemp[0] = ddmmyy[0];ngaytemp[1] = ddmmyy[1];
 					thangtemp[0] = ddmmyy[3];thangtemp[1] = ddmmyy[4];
 					namtemp[0] = ddmmyy[6];namtemp[1] = ddmmyy[7];namtemp[2] = ddmmyy[8];namtemp[3] = ddmmyy[9];
@@ -782,15 +548,21 @@ int addInfo_CB(List_CB & listCB, List_MB listMB, CHUYENBAY & cb) {
 					}
 				}
 			}while(!xacthucNgay);
-			gotoxy(125,17); 	cout<<"                               ";
+			gotoxy(118,17); 	cout<<"                                               ";
 			
 			do{
 				char giotemp[3]= "";	char phuttemp[3]="";	char hhmm[6]="";
 				xacthucNgay= true;	SetBGColor(Color_DarkWhite);
 				NhapLieuso(135,18,gio,5);
 				if(gio == "") return 0;
+				strcpy(hhmm, gio.c_str());
+				gotoxy(118,19); 	cout<<"                                               ";
+				if(ngay.length() <5 || (int)hhmm[2] != 58){
+					gotoxy(118,19);	SetColor(Color_DarkRed); 	cout<<"GIO KHOI HANH KHONG DUNG. CU PHAP '09:09'";	SetColor(Color_DarkBlue);
+					xacthucNgay = false;
+				}
 				else{
-					strcpy(hhmm, gio.c_str());
+//					strcpy(hhmm, gio.c_str());
 					giotemp[0] = hhmm[0];giotemp[1] = hhmm[1];
 					phuttemp[0] = hhmm[3];phuttemp[1] = hhmm[4];
 					cb.ngaygioStart.hours = atoi(giotemp);
@@ -963,8 +735,6 @@ int update_CB(List_CB & listCB, List_MB listMB, CHUYENBAY & cb) {
 
 //hien thi thong tin node chuyen bay
 int showInfo_CB(CHUYENBAY cb, int x) {
-	//char d[3],mo[3],h[3],mi[3];
-
 	SetBGColor(Color_DarkWhite);SetColor(Color_DarkRed);
 	gotoxy(positionX_listCB + 6, positionY_listCB + 3 + x);cout << cb.ma_CB;
 	gotoxy(positionX_listCB + 22, positionY_listCB + 3 + x);cout << cb.sohieumb;
@@ -1233,16 +1003,16 @@ void quanLyChuyenBay(List_CB & listCB, List_MB listMB) {
 							}
 						}
 						showList_CB(listCB);
-						clearOnePart(106,7,58,28);
 						message(posXMessage,posYMessage, "DA THEM CHUYEN BAY THANH CONG");
+						clearOnePart(106,7,60,28);
 						break;
 					}
 				}
 				case F3: {
-					editCB(listCB, listMB);	clearOnePart(106,7,58,28);	break;
+					editCB(listCB, listMB);	clearOnePart(106,7,60,28);	break;
 				}
 				case F4:{
-					DeleteCB(listCB);		clearOnePart(106,7,58,28);	break;
+					DeleteCB(listCB);		clearOnePart(106,7,60,28);	break;
 				}
 				case ESC: return;
 			}
@@ -1251,14 +1021,6 @@ void quanLyChuyenBay(List_CB & listCB, List_MB listMB) {
 }
 ///////////////////////////////////////////////////////////////////// HANH KHACH //////////////////////////////////////////////////////////////////
 
-int showInfoHK(HANHKHACH hk, int y, string soghe) {
-	
-	gotoxy(24, dongStartHK + y);cout << (y + 1);
-	gotoxy(34, dongStartHK + y);cout << soghe;
-	gotoxy(43, dongStartHK + y);cout << hk.cmnd;
-	gotoxy(58, dongStartHK + y);cout << hk.ho << " " << hk.ten;
-	gotoxy(85, dongStartHK + y);cout << sex[hk.gioiTinh];
-}
 int showCustomerOfCbXXX(List_CB lcb, NODEHKPTR lhk){
 	header();
 	SetColor(Color_Back);	vekhungdoi(110,positionY_listCB,30,50);
@@ -1340,13 +1102,17 @@ int showCustomerOfCbXXX(List_CB lcb, NODEHKPTR lhk){
 				gotoxy(82, positionY_listCB + 1); 	cout<<"GIOI TINH";
 //				gotoxy(positionX_listCB + 69, positionY_listCB + 1); 	cout<<" SO GHE";
 //				gotoxy(positionX_listCB + 81, positionY_listCB + 1); 	cout<<"TRANG THAI";
-				NODEHKPTR nodehk; int hang = 0;
+				NODEHKPTR nodehk; int y = 0;
 				for (int i = 0;i < p->data.soluongVe;i++) {
 					if (p->data.nodeVe[i].cmnd != " ") {
 						nodehk = Search(lhk, p->data.nodeVe[i].cmnd);
 	
-						showInfoHK(nodehk->data, hang, p->data.nodeVe[i].soghe);
-						hang++;
+						gotoxy(24, dongStartHK + y);cout << (y + 1);
+						gotoxy(34, dongStartHK + y);cout << p->data.nodeVe[i].soghe;
+						gotoxy(43, dongStartHK + y);cout << nodehk->data.cmnd;
+						gotoxy(58, dongStartHK + y);cout << nodehk->data.ho << " " << nodehk->data.ten;
+						gotoxy(85, dongStartHK + y);cout << sex[nodehk->data.gioiTinh];
+						y++;
 					}
 				}
 				break;
@@ -1368,39 +1134,7 @@ int showCustomerOfCbXXX(List_CB lcb, NODEHKPTR lhk){
 }
 
 
-/////////////////////////////////////////////////////////////////// DAT VE /////////////////////////////////////////////////////////////////////
-  // time_t baygio = time(0);
- //  tm *ltm = localtime(&baygio);
- /////test
-
-
-
-//////
-int checkConVe(CHUYENBAY cb) {
-	int dem = 0;
-	for (int i = 0;i < cb.soluongVe;i++) {
-		if (cb.nodeVe[i].cmnd == " ")
-			dem++;
-	}
-	return dem; //= 0 la het ve
-}
-
-int checkCoCMND(CHUYENBAY cb, string cmndtemp) {
-	for (int i = 0;i < cb.soluongVe;i++) {
-		if (cb.nodeVe[i].cmnd == cmndtemp) {
-			return i;
-		}
-	}
-	return -1;
-}
-int checkCoGHE(CHUYENBAY cb, string soghetemp) {
-	for (int i = 0;i < cb.soluongVe;i++) {
-		if (cb.nodeVe[i].soghe == soghetemp)
-			return i;
-	}
-	return -1;
-}
-
+	/////////////////////////////////////////////////////////////////// DAT VE /////////////////////////////////////////////////////////////////////
 void thongTinVeVuaDat(Node_CB *cb,HANHKHACH hk, string soghe){
 	clearOnePart(111,7, 48, 29);	
 	thongTinVe();
@@ -1947,54 +1681,6 @@ int huyVe(List_CB &list_CB, List_MB list_MB, NODEHKPTR listKH) {
 	}
 }
 
-int showInfo_CB2(CHUYENBAY cb, int x) {
-	SetBGColor(Color_DarkWhite);SetColor(Color_DarkRed);
-//	2,6,11,16,19,24,29
-//		int A[6]={20,40,55,75,90,105};
-//	gotoxy(2, dongStartCB + x);cout << "|__________________|________________|____________|________________|_________|__________|_______________|";
-	gotoxy(positionX_listCB + 6, positionY_listCB + 3 + x);cout << cb.ma_CB;
-	gotoxy(positionX_listCB + 22, positionY_listCB + 3 + x);cout << cb.sohieumb;
-	gotoxy(positionX_listCB + 35, positionY_listCB + 3 + x);cout << cb.sanbayDen;
-	////ngay
-	if (cb.ngaygioStart.day < 10) {
-		gotoxy(positionX_listCB + 46 , positionY_listCB + 3 + x);cout << "0";
-		gotoxy(positionX_listCB + 47 , positionY_listCB + 3 + x);cout << cb.ngaygioStart.day << "/";
-	}
-	else {
-		gotoxy(positionX_listCB + 46, positionY_listCB + 3 + x);cout << cb.ngaygioStart.day << "/";
-	}
-	//thang
-	if (cb.ngaygioStart.month < 10) {
-		gotoxy(positionX_listCB + 49, positionY_listCB + 3 + x);cout << "0";
-		gotoxy(positionX_listCB + 50, positionY_listCB + 3 + x);cout << cb.ngaygioStart.month << "/";
-	}
-	else {
-		gotoxy(positionX_listCB + 49, positionY_listCB + 3 + x);cout << cb.ngaygioStart.month << "/";
-	}
-	//nam
-	gotoxy(positionX_listCB + 52, positionY_listCB + 3 + x);cout << cb.ngaygioStart.year;
-	//gio
-	if (cb.ngaygioStart.hours < 10) {
-		gotoxy(positionX_listCB + 61, positionY_listCB + 3 + x);cout << "0";
-		gotoxy(positionX_listCB + 62, positionY_listCB + 3 + x);cout << cb.ngaygioStart.hours << ":";
-	}
-	else {
-		gotoxy(positionX_listCB + 61, positionY_listCB + 3 + x);cout << cb.ngaygioStart.hours << ":";
-	}
-	//phut
-	if (cb.ngaygioStart.minutes < 10) {
-		gotoxy(positionX_listCB + 64, positionY_listCB + 3 + x);cout << "0";
-		gotoxy(positionX_listCB + 65, positionY_listCB + 3 + x);cout << cb.ngaygioStart.minutes;
-	}
-	else {
-		gotoxy(positionX_listCB + 64, positionY_listCB + 3 + x);cout << cb.ngaygioStart.minutes;
-	}
-	gotoxy(positionX_listCB + 72, positionY_listCB + 3 + x);cout << checkConVe(cb);
-	gotoxy(positionX_listCB + 82, positionY_listCB + 3 + x);cout << staTus[cb.trangthai];
-//	gotoxy(85, dongStartCB + x);cout << checkConVe(cb);
-
-	//	cout<<cb.ma_CB<<"\t"<<cb.sohieumb<<"\t"<<cb.ngaygioStart.day<<"/"<<cb.ngaygioStart.month<<"/"<<cb.ngaygioStart.year<<"\t"<<cb.ngaygioStart.hours<<":"<<cb.ngaygioStart.minutes<<"\t"<<cb.sanbayDen<<"\t"<<cb.soluongVe<<"\t"<<cb.trangthai<<endl;
-}
 // cau F
 int TimCBConve(List_CB list_CB){
 	header();footer();
@@ -2058,7 +1744,7 @@ int TimCBConve(List_CB list_CB){
 		// CAC MAY BAY BAY DEN NOI XXX NGAY XXX
 		for (Node_CB* p = list_CB.pHead;p != NULL;p = p->pNext) {
 			if (strcmp(p->data.sanbayDen, noiden) == 0 && p->data.ngaygioStart.month == thang && p->data.ngaygioStart.day == ngay && checkConVe(p->data) != 0) {
-				showInfo_CB2(p->data, vitri);
+				showInfo_CB(p->data, vitri);
 				vitri++;
 			}
 		}
@@ -2315,6 +2001,7 @@ int openFileList_CB(List_CB &lcb,List_MB lmb){
 
 void saveFileList_CB(List_CB lcb){
 	ofstream fileCbOut ("Danhsachchuyenbay.txt");
+	
 	for(Node_CB *p=lcb.pHead;p!=NULL;p=p->pNext){
 		fileCbOut << p->data.ma_CB<<" ";
 		fileCbOut << p->data.sohieumb<<" ";
@@ -2358,6 +2045,20 @@ void SaveDataHanhKhach(NODEHKPTR lhk)
     return;
 }
 
+
+void DuyetDSHK(NODEHKPTR listhk)//SHOW TAT CAC CAC HANH KHACH CO TRONG DANH SACH
+{
+     if(listhk!=NULL)
+     {
+      DuyetDSHK(listhk->Left);
+      ///show thong tin
+      cout<<listhk->data.cmnd<<endl;
+      cout<<listhk->data.ho<<" "<<listhk->data.ten<<endl;
+      cout<<listhk->data.gioiTinh<<endl;
+      
+      DuyetDSHK(listhk->Right);
+     }
+}
 //void DuyetDSHK(NODEHKPTR listhk)//SHOW TAT CAC CAC HANH KHACH CO TRONG DANH SACH
 //{
 ////	int A[6]={10,20,35,60};
@@ -2400,19 +2101,25 @@ void duyetKH(NODEHKPTR listhk){
 	int y =0;
 	while(p!= NULL)
 	{
-		gotoxy(34, dongStartHK + y);cout << (y + 1);
-		gotoxy(43, dongStartHK + y);cout << p->data.cmnd;
-		gotoxy(58, dongStartHK + y);cout << p->data.ho << " " << p->data.ten;
-		gotoxy(85, dongStartHK + y);cout << sex[p->data.gioiTinh];
-		y++;
+//		gotoxy(34, dongStartHK + y);cout << (y + 1);
+//			gotoxy(43, dongStartHK + y);cout << p->data.cmnd;
+//			gotoxy(58, dongStartHK + y);cout << p->data.ho << " " << p->data.ten;
+//			gotoxy(85, dongStartHK + y);cout << sex[p->data.gioiTinh];
+//			y++;
 		if(p->Right != NULL)
 			Stack[++sp] = p->Right;
 		if(p->Left != NULL)
 			p=p->Left;
 		else if(sp == -1)
 			break;
-		else
+		else{
 			p =Stack[sp--];
+			gotoxy(34, dongStartHK + y);cout << (y + 1);
+			gotoxy(43, dongStartHK + y);cout << p->data.cmnd;
+			gotoxy(58, dongStartHK + y);cout << p->data.ho << " " << p->data.ten;
+			gotoxy(85, dongStartHK + y);cout << sex[p->data.gioiTinh];
+			y++;
+		}
 	}
 }
 
@@ -2562,7 +2269,9 @@ void RootMenu(List_MB &list_MB, List_CB &list_CB, NODEHKPTR &list_HK) {
 				SetBGColor(Color_DarkWhite);	clrscr();
 				switch (choiceMenuCon) {
 					case 1://tat ca hanh khach
-						duyetKH(list_HK);	getch();	break;
+//						DuyetDSHK(list_HK);
+						duyetKH(list_HK);
+							getch();	break;
 					case 2:// hanh khach cua chuyen xxx
 						showCustomerOfCbXXX(list_CB, list_HK);	getch();	break;
 				}

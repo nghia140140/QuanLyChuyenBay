@@ -1,6 +1,8 @@
 #include <iostream>
 #include"mylib.h"
 #include <ctime>
+#include <algorithm>
+#include <math.h>
 //#include"frame.h"
 using namespace std;
 int isEmpty(List_MB l) {
@@ -86,6 +88,57 @@ boolean checkTrangThai(int d, int m) {
 	return true;
 }
 
+boolean checkTrungChuyenbay(List_CB l, CHUYENBAY cb) {
+	for (Node_CB* p = l.pHead;p != NULL;p = p->pNext) {
+		if (strcmp(p->data.sohieumb, cb.sohieumb) == 0 && strcmp(p->data.ma_CB, cb.ma_CB) != 0) {// neu trung sohieu thi kiem tra thang
+			if (p->data.ngaygioStart.month == cb.ngaygioStart.month) {// neu trung thang thi kiem tra ngay
+				if (p->data.ngaygioStart.day == cb.ngaygioStart.day) {//neu trung ngay thi cach 6 tieng moi duoc bay
+					if ((abs(p->data.ngaygioStart.hours - cb.ngaygioStart.hours + (p->data.ngaygioStart.minutes - cb.ngaygioStart.minutes) / (float)60) < 6))
+						return false;
+				}
+			}
+		}
+	}
+	return true;
+}
+boolean checkTrungChuyenbayEdit(List_CB & l, CHUYENBAY & cb, CHUYENBAY cbcansua) {
+	for (Node_CB* p = l.pHead;p != NULL;p = p->pNext) {
+		if (strcmp(p->data.sohieumb, cb.sohieumb) == 0 && strcmp(p->data.ma_CB, cbcansua.ma_CB) != 0) {// neu trung sohieu thi kiem tra thang
+			if (p->data.ngaygioStart.month == cb.ngaygioStart.month) {// neu trung thang thi kiem tra ngay
+				if (p->data.ngaygioStart.day == cb.ngaygioStart.day) {//neu trung ngay thi cach 6 tieng moi duoc bay
+					if ((abs(p->data.ngaygioStart.hours - cb.ngaygioStart.hours + (p->data.ngaygioStart.minutes - cb.ngaygioStart.minutes) / (float)60) < 6))
+						return false;
+				}
+			}
+		}
+	}
+	return true;
+}
+
+int checkConVe(CHUYENBAY cb) {
+	int dem = 0;
+	for (int i = 0;i < cb.soluongVe;i++) {
+		if (cb.nodeVe[i].cmnd == " ")
+			dem++;
+	}
+	return dem; //= 0 la het ve
+}
+
+int checkCoCMND(CHUYENBAY cb, string cmndtemp) {
+	for (int i = 0;i < cb.soluongVe;i++) {
+		if (cb.nodeVe[i].cmnd == cmndtemp) {
+			return i;
+		}
+	}
+	return -1;
+}
+int checkCoGHE(CHUYENBAY cb, string soghetemp) {
+	for (int i = 0;i < cb.soluongVe;i++) {
+		if (cb.nodeVe[i].soghe == soghetemp)
+			return i;
+	}
+	return -1;
+}
 int frameAddShmb_AddCB(List_MB listMB) {
 	
 	SetBGColor(Color_DarkWhite);SetColor(Color_DarkRed);

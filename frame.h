@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iomanip>
+#include <sstream> 
 //#include "mylib.h"
 
 using namespace std;
@@ -399,6 +400,205 @@ int alertOption(int x, int y, char* s, char* section1, char* section2){
 	}while(key!=ENTER);
 }
 
+void nhapMa(int x, int y, string &text, int sokytu){
+
+	int key;
+	gotoxy(x, y);	cout<<text;
+	while (true) {
+		key = GetKey();
+		switch(key)
+		{
+			case ESC:{
+				text = "";
+				return;
+			}
+			case TAB:
+			case ENTER:
+				{
+					if(text.length()==0){
+						gotoxy(x -10, y+1); SetColor(Color_DarkRed);
+						cout<<"VUI LONG DIEN THONG TIN";
+						gotoxy(x,y); SetColor(Color_DarkBlue); cout<<text;
+					}else{
+						gotoxy(x -10, y+1);
+						cout<<"                       ";
+						return;
+					}
+				}
+			case BACKSPACE:
+				{
+					if(text.length()>0){	
+						text.erase(text.length()-1,1);
+						cout<<"\b \b";
+					}
+					break;
+				}
+			default:
+				{
+					if((key>47&&key<123) &&text.length()<sokytu)
+					{
+						gotoxy(x, y);
+						if(97<= key && key<=122)
+						{
+							text +=char(key-32);
+						}else{
+							text +=char(key);
+						}
+						cout<<text;
+					}
+					break;
+				}	
+		}
+	}
+}
+void NhapLieu(int x, int y, string &text, int sokytu){
+
+	int key;
+	gotoxy(x, y);	cout<<text;
+	while (true) {
+		key = GetKey();
+		switch(key)
+		{
+			case ESC:{
+				text = "";
+				return;
+			}
+			case TAB:
+			case ENTER:
+				{
+					if(text.length()==0){
+						gotoxy(x -10, y+1); SetColor(Color_DarkRed);
+						cout<<"VUI LONG DIEN THONG TIN";
+						gotoxy(x,y); SetColor(Color_DarkBlue); cout<<text;
+					}else{
+						gotoxy(x -10, y+1);
+						cout<<"                       ";
+						return;
+					}
+				}
+			case BACKSPACE:
+				{
+					if(text.length()>0){	
+						text.erase(text.length()-1,1);
+						cout<<"\b \b";
+					}
+					break;
+				}
+			default:
+				{
+					if((key>47&&key<123 || key==32) && text.length()<sokytu)
+					{
+						gotoxy(x, y);
+						if(97<= key && key<=122)
+						{
+							text +=char(key-32);
+						}else{
+							text +=char(key);
+						}
+						cout<<text;
+					}
+					break;
+				}	
+		}
+	}
+}
+
+void NhapLieuSo(int x, int y, int &num, int sokytu){
+
+	int key; string text;
+	if(num == 0) text = "";
+	else{
+		stringstream ss;	ss << num; text = ss.str();
+	}
+	gotoxy(x, y);	cout<<text;
+	while (true) {
+		key = GetKey();
+		switch(key)
+		{
+			case ESC:{
+				num = 0;
+				return;
+			}
+			case TAB:
+			case ENTER:
+				{
+					if(text.length()==0){
+						gotoxy(x -10, y+1); SetColor(Color_DarkRed);
+						cout<<"VUI LONG DIEN THONG TIN";
+						gotoxy(x,y); SetColor(Color_DarkBlue); cout<<text;
+					}else{
+						gotoxy(x -10, y+1);
+						cout<<"                       ";
+						num = atoi(text.c_str());
+						return;
+					}
+				}
+			case BACKSPACE:
+				{
+					if(text.length()>0){	
+						text.erase(text.length()-1,1);
+						cout<<"\b \b";
+					}
+					break;
+				}
+			default:
+				{
+					if((key>47&&key<58) &&text.length()<sokytu)
+					{
+						gotoxy(x, y);
+						text +=char(key);
+						cout<<text;
+					}
+					break;
+				}	
+		}
+	}
+}
+void NhapLieuso(int x, int y, string &text, int sokytu){
+
+	int key;
+	gotoxy(x, y);	cout<<text;
+	while (true) {
+		key = GetKey();
+		switch(key)
+		{
+			case ESC:{
+				text = "";
+				return;
+			}
+			case TAB:
+			case ENTER:
+				{
+					if(text.length()==0){
+						gotoxy(x -10, y+1); SetColor(Color_DarkRed);
+						cout<<"VUI LONG DIEN THONG TIN";
+						gotoxy(x,y); SetColor(Color_DarkBlue); cout<<text;
+					}else{
+						gotoxy(x -10, y+1);	cout<<"                       ";
+						return;
+					}
+				}
+			case BACKSPACE:
+				{
+					if(text.length()>0){	
+						text.erase(text.length()-1,1);
+						cout<<"\b \b";
+					}
+					break;
+				}
+			default:
+				{
+					if((key>=47&&key<=58) &&text.length()<sokytu)
+					{
+						gotoxy(x, y);
+						text +=char(key);
+						cout<<text;
+					}
+					break;
+				}	
+		}
+	}
+}
 void ToMauMenuChinh(int textColor, int bGColor, int vitri) {
 	SetColor(textColor);
 	SetBGColor(bGColor);
