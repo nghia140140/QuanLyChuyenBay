@@ -832,22 +832,22 @@ int DeleteCB(List_CB & listCB) {
 					if(checkTonTaiVe(p->data)==1){// co chuyen bay va da co nguoi dat ve 
 						message(posXMessage, posYMessage,"CHUYEN BAY DA CO HANH KHACH");
 						xacthuc = false;
-					}
-					Normal();
-					if (p == listCB.pHead) {//neu chuyen bay can tim o dau danh sach
-						listCB.pHead = p->pNext;
-						delete p;
-						message(posXMessage, posYMessage,"XOA CHUYEN BAY THANH CONG");
-						SetBGColor(Color_DarkWhite);	showList_CB(listCB);
-						return 1;
-					}
-					else {
-						q = listCB.pHead;
-						for (q;q->pNext != p && q->pNext != NULL;q = q->pNext) {
+					}else{
+						if (p == listCB.pHead) {//neu chuyen bay can tim o dau danh sach
+							listCB.pHead = p->pNext;
+							delete p;
+	//						message(posXMessage, posYMessage,"XOA CHUYEN BAY THANH CONG");
+	//						SetBGColor(Color_DarkWhite);	showList_CB(listCB);
+							return 1;
 						}
-						q->pNext = p->pNext;
-						delete p;
-						return 1;
+						else {
+							q = listCB.pHead;
+							for (q;q->pNext != p && q->pNext != NULL;q = q->pNext) {
+							}
+							q->pNext = p->pNext;
+							delete p;
+							return 1;
+						}
 					}
 				}else if(choose == 2){
 					p->data.trangthai = 0;
@@ -1012,7 +1012,7 @@ void quanLyChuyenBay(List_CB & listCB, List_MB listMB) {
 ///////////////////////////////////////////////////////////////////// HANH KHACH //////////////////////////////////////////////////////////////////
 
 int showCustomerOfCbXXX(List_CB lcb, NODEHKPTR lhk){
-	header();
+	header();footerDatVe();
 	SetColor(Color_Back);	vekhungdoi(110,positionY_listCB,30,50);
 	string macb = "";
 	ShowCur(true);
@@ -1093,13 +1093,21 @@ int showCustomerOfCbXXX(List_CB lcb, NODEHKPTR lhk){
 				for (int i = 0;i < p->data.soluongVe;i++) {
 					if (p->data.nodeVe[i].cmnd != " ") {
 						nodehk = Search(lhk, p->data.nodeVe[i].cmnd);
-	
-						gotoxy(24, dongStartHK + y);cout << (y + 1);
-						gotoxy(34, dongStartHK + y);cout << p->data.nodeVe[i].soghe;
-						gotoxy(43, dongStartHK + y);cout << nodehk->data.cmnd;
-						gotoxy(58, dongStartHK + y);cout << nodehk->data.ho << " " << nodehk->data.ten;
-						gotoxy(85, dongStartHK + y);cout << sex[nodehk->data.gioiTinh];
-						y++;
+						if(nodehk!=NULL){
+							gotoxy(24, dongStartHK + y);cout << (y + 1);
+							gotoxy(34, dongStartHK + y);cout << p->data.nodeVe[i].soghe;
+							gotoxy(43, dongStartHK + y);cout << nodehk->data.cmnd;
+							gotoxy(58, dongStartHK + y);cout << nodehk->data.ho << " " << nodehk->data.ten;
+							gotoxy(85, dongStartHK + y);cout << sex[nodehk->data.gioiTinh];
+							y++;
+						}else{
+							gotoxy(24, dongStartHK + y);cout << (y + 1);
+							gotoxy(34, dongStartHK + y);cout << p->data.nodeVe[i].soghe;
+							gotoxy(43, dongStartHK + y);cout << p->data.nodeVe[i].cmnd;
+							gotoxy(58, dongStartHK + y);cout << "NULL";
+							gotoxy(85, dongStartHK + y);cout << "NULL";
+							y++;
+						}
 					}
 				}
 				break;
@@ -1169,7 +1177,7 @@ void thongTinVeVuaDat(Node_CB *cb,HANHKHACH hk, string soghe){
 	////
 //	int vitrighe = checkCoCMND(cb->data, cmnd);
 	gotoxy(135, 18); cout << soghe;
-	gotoxy(128, 20); cout << hk.ho;
+	gotoxy(122, 20); cout << hk.ho;
 	gotoxy(148, 20); cout << hk.ten;
 	gotoxy(135, 22); cout << hk.cmnd;
 	gotoxy(135, 24); cout << sex[hk.gioiTinh];
@@ -1187,6 +1195,7 @@ int datVe(List_CB & list_CB, List_MB listMB, NODEHKPTR & lHK) {
 	char noiden[4];	string noidenTemp = "";
 	int thang = 0,	ngay = 0;
 	do{
+		showList_CB(list_CB);
 		do{
 			SetColor(Color_Blue);
 			nhapMa(135,10,noidenTemp, 3);
@@ -1293,25 +1302,25 @@ int datVe(List_CB & list_CB, List_MB listMB, NODEHKPTR & lHK) {
 				
 				// THONG TIN KHACH HANG DA CO TRONG DL
 				SetColor(Color_DarkYellow);
-				gotoxy(128, 26);cout << "THONG TIN KHACH HANG";
-				gotoxy(118, 28);cout << "CMND:";
-				gotoxy(118, 30);cout << "HO:";
-				gotoxy(118, 32);cout << "TEN:";
-				gotoxy(118, 34);cout << "GIOI TINH:";
+				gotoxy(128, 25);cout << "THONG TIN KHACH HANG";
+				gotoxy(118, 27);cout << "CMND:";
+				gotoxy(118, 29);cout << "HO:";
+				gotoxy(118, 31);cout << "TEN:";
+				gotoxy(118, 33);cout << "GIOI TINH:";
 				SetColor(Color_Blue);
-				gotoxy(135, 28);cout << nodehk->data.cmnd;
-				gotoxy(135, 30);cout << nodehk->data.ho;
-				gotoxy(135, 32);cout << nodehk->data.ten;
-				gotoxy(135, 34);cout << sex[nodehk->data.gioiTinh];
+				gotoxy(135, 27);cout << nodehk->data.cmnd;
+				gotoxy(135, 29);cout << nodehk->data.ho;
+				gotoxy(135, 31);cout << nodehk->data.ten;
+				gotoxy(135, 33);cout << sex[nodehk->data.gioiTinh];
 				// CHON GHE
 				bool xacThucVe;
 				string soghetemp = "";
 				do{
 					xacThucVe = true;
-					SetColor(Color_DarkBlue);
+					SetColor(Color_DarkYellow);
 					SetBGColor(Color_DarkWhite);
-					gotoxy(118, 36);cout << "NHAP SO GHE:";
-					nhapMa(135,36,soghetemp,3);
+					gotoxy(118, 35);cout << "NHAP SO GHE:";
+					nhapMa(135,35,soghetemp,3);
 					if(soghetemp == "") return 0;
 					if (checkCoGHE(p->data, soghetemp) == -1) {
 						if(Hoi(118,18,"   SO GHE KHONG CO. NHAP LAI?    ")){
@@ -1326,20 +1335,24 @@ int datVe(List_CB & list_CB, List_MB listMB, NODEHKPTR & lHK) {
 					else {
 						// XUAT THONG TIN VUA NHAP
 						thongTinVeVuaDat(p, nodehk->data, soghetemp);
+						
+							// HIEN VE VUA DAT
+						int position = checkCoGHE(p->data, soghetemp);
+						gotoxy(65, 4);	SetColor(Color_Back);	SetBGColor(Color_Grey);cout << "VE VUA DAT";
+						int posX = 10 + ((position+1) / (listMB.nodeMB[search(listMB, p->data.sohieumb)]->sohang_MB)) * 10;
+						int posY = (position+1) % (listMB.nodeMB[search(listMB, p->data.sohieumb)]->sohang_MB)+ positionY_listCB - 1;
+						if((position+1) % (listMB.nodeMB[search(listMB, p->data.sohieumb)]->sohang_MB) == 0){
+							posX -=10;
+							posY +=listMB.nodeMB[search(listMB, p->data.sohieumb)]->sohang_MB;
+						}
+						gotoxy(posX, posY);	SetColor(Color_Back);	SetBGColor(Color_Grey); cout<<soghetemp;
+							
 						// XAC NHAN CO DAT VE HAY KHONG
 						if (Hoi(118,26,"         BAN CO MUON DAT VE KHONG?         ")) {
-							int position = checkCoGHE(p->data, soghetemp);
 							p->data.nodeVe[position].cmnd = cmndtemp; /////////// DAT VE THANH CONG
 							if(checkConVe(p->data)==0){
 								p->data.trangthai=2;
-							}			
-							// HIEN VE VUA DAT
-							
-							gotoxy(65, 4);SetBGColor(Color_Grey);cout << "VE VUA DAT";
-							int posX = 10 + ((position+1) / (listMB.nodeMB[search(listMB, p->data.sohieumb)]->sohang_MB)) * 10;
-							int posY = (position+1) % (listMB.nodeMB[search(listMB, p->data.sohieumb)]->sohang_MB)+ positionY_listCB - 1;
-							gotoxy(posX, posY);	SetBGColor(Color_Grey); cout<<soghetemp;
-							
+							}
 							message(posXMessage,posYMessage,"DAT VE THANH CONG!");
 							return 1;
 						}
@@ -1420,19 +1433,25 @@ int datVe(List_CB & list_CB, List_MB listMB, NODEHKPTR & lHK) {
 			else {
 				// XUAT THONG TIN CUA VE DANG DAT
 				thongTinVeVuaDat(p, hkmoi, soghetemp);
+				
+//				thongTinVeVuaDat(p, nodehk->data, soghetemp);
+				int position = checkCoGHE(p->data, soghetemp);
+				gotoxy(65, 4);	SetColor(Color_Back);	SetBGColor(Color_Grey);cout << "VE VUA DAT";
+				int posX = 10 + ((position+1) / (listMB.nodeMB[search(listMB, p->data.sohieumb)]->sohang_MB)) * 10;
+				int posY = (position+1) % (listMB.nodeMB[search(listMB, p->data.sohieumb)]->sohang_MB)+ positionY_listCB - 1;
+				if((position+1) % (listMB.nodeMB[search(listMB, p->data.sohieumb)]->sohang_MB) == 0){
+					posX -=10;
+					posY +=listMB.nodeMB[search(listMB, p->data.sohieumb)]->sohang_MB;
+				}
+				gotoxy(posX, posY);	SetColor(Color_Back);	SetBGColor(Color_Grey); cout<<soghetemp;
 				// XAC NHAN CO DAT VE HAY KHONG
 				if (Hoi(118,28,"        BAN CO MUON DAT VE KHONG?       ")) {
-					int position = checkCoGHE(p->data, soghetemp);
+//					int position = checkCoGHE(p->data, soghetemp);
 					p->data.nodeVe[position].cmnd = cmndtemp; /////////// DAT VE THANH CONG
 					InsertHanhKhach(lHK, hkmoi);
 					if(checkConVe(p->data)==0){
 						p->data.trangthai=2;
 					}		
-						// HIEN VE VUA DAT
-					gotoxy(65, 4);SetBGColor(Color_Grey);cout << "VE VUA DAT";
-					int posX = 10 + ((position+1) / (listMB.nodeMB[search(listMB, p->data.sohieumb)]->sohang_MB)) * 10;
-					int posY = (position+1) % (listMB.nodeMB[search(listMB, p->data.sohieumb)]->sohang_MB)+ positionY_listCB - 1;
-					gotoxy(posX, posY);	SetBGColor(Color_Grey); cout<<soghetemp;
 					message(posXMessage,posYMessage,"DAT VE THANH CONG!");
 					return 1;
 				}
@@ -1522,7 +1541,7 @@ int thongTinVeVaChoNgoi(Node_CB *cb, List_MB listMB,NODEHKPTR kh, string cmnd){
 	////
 	int vitrighe = checkCoCMND(cb->data, cmnd);
 	gotoxy(135, 18); cout << cb->data.nodeVe[vitrighe].soghe;
-	gotoxy(128, 20); cout << kh->data.ho;
+	gotoxy(122, 20); cout << kh->data.ho;
 	gotoxy(148, 20); cout << kh->data.ten;
 	gotoxy(135, 22); cout << cmnd;
 	gotoxy(135, 24); cout << sex[kh->data.gioiTinh];		
@@ -1530,7 +1549,7 @@ int thongTinVeVaChoNgoi(Node_CB *cb, List_MB listMB,NODEHKPTR kh, string cmnd){
 }
 
 int huyVe(List_CB &list_CB, List_MB list_MB, NODEHKPTR listKH) {
-	header();footer();
+	header();footerDatVe();
 	SetBGColor(Color_DarkWhite);	frameSanbayDen();
 	SetColor(Color_DarkYellow);
 	gotoxy(118,10);		cout<<"NOI DEN: ";
@@ -1666,6 +1685,11 @@ int huyVe(List_CB &list_CB, List_MB list_MB, NODEHKPTR listKH) {
 				gotoxy(65, 4);SetBGColor(Color_Grey);cout << "VE VUA DAT";
 				int posX = 10 + ((position+1) / (list_MB.nodeMB[search(list_MB, cbDuyNhat->data.sohieumb)]->sohang_MB)) * 10;
 				int posY = (position+1) % (list_MB.nodeMB[search(list_MB, cbDuyNhat->data.sohieumb)]->sohang_MB)+ positionY_listCB - 1;
+				
+				if((position+1) % (list_MB.nodeMB[search(list_MB, cbDuyNhat->data.sohieumb)]->sohang_MB) == 0){
+					posX -=10;
+					posY +=list_MB.nodeMB[search(list_MB, cbDuyNhat->data.sohieumb)]->sohang_MB;
+				}
 				gotoxy(posX, posY);	SetBGColor(Color_Cyan);	SetColor(Color_Back); cout << cbDuyNhat->data.nodeVe[position].soghe;
 							
 				if (Hoi(118,29,"   BAN CO CHAC CHAN MUON HUY VE KHONG?   ")) {
@@ -1683,7 +1707,7 @@ int huyVe(List_CB &list_CB, List_MB list_MB, NODEHKPTR listKH) {
 
 // cau F
 int TimCBConve(List_CB list_CB){
-	header();footer();
+	header();footerDatVe();
 	SetBGColor(Color_DarkWhite);
 	frameSanbayDen();
 	SetColor(Color_DarkYellow);
@@ -1754,7 +1778,7 @@ int TimCBConve(List_CB list_CB){
 	
 }
 int danhSachVe(List_CB lcb, List_MB list_MB){
-	header();
+	header();footerDatVe();
 	SetColor(Color_Back);
 	vekhungdoi(110,positionY_listCB,30,50);
 	ShowCur(true);
@@ -2263,7 +2287,7 @@ void RootMenu(List_MB &list_MB, List_CB &list_CB, NODEHKPTR &list_HK) {
 					case 1://tat ca hanh khach
 //						DuyetDSHK(list_HK);
 						duyetKH(list_HK);
-							getch();	break;
+						message(posXMessage, posYMessage, "NHAN PHIM BAT KY DE QUAY LAI!");	break;
 					case 2:// hanh khach cua chuyen xxx
 						showCustomerOfCbXXX(list_CB, list_HK);	break;
 				}
