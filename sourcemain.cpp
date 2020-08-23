@@ -2023,7 +2023,7 @@ void saveFileList_CB(List_CB lcb){
 void SaveData(fstream &Data, NODEHKPTR lhk) {
 	
 	if (lhk != NULL) {
-		SaveData(Data, lhk->Left);
+		
 		HANHKHACH temp;
 		temp = lhk->data;
 		
@@ -2031,6 +2031,8 @@ void SaveData(fstream &Data, NODEHKPTR lhk) {
         << temp.ho << ","
         << temp.ten << ","
         << temp.gioiTinh<< endl;
+        
+		SaveData(Data, lhk->Left);
         
         SaveData(Data, lhk->Right);
 	}
@@ -2099,28 +2101,41 @@ void duyetKH(NODEHKPTR listhk){
 	int sp = -1;
 	NODEHKPTR p = listhk;
 	int y =0;
-	while(p!= NULL)
-	{
-//		gotoxy(34, dongStartHK + y);cout << (y + 1);
-//			gotoxy(43, dongStartHK + y);cout << p->data.cmnd;
-//			gotoxy(58, dongStartHK + y);cout << p->data.ho << " " << p->data.ten;
-//			gotoxy(85, dongStartHK + y);cout << sex[p->data.gioiTinh];
-//			y++;
-		if(p->Right != NULL)
-			Stack[++sp] = p->Right;
-		if(p->Left != NULL)
-			p=p->Left;
-		else if(sp == -1)
-			break;
-		else{
-			p =Stack[sp--];
-			gotoxy(34, dongStartHK + y);cout << (y + 1);
-			gotoxy(43, dongStartHK + y);cout << p->data.cmnd;
-			gotoxy(58, dongStartHK + y);cout << p->data.ho << " " << p->data.ten;
-			gotoxy(85, dongStartHK + y);cout << sex[p->data.gioiTinh];
-			y++;
+	do{
+		while(p!= NULL)
+		{
+			Stack[++sp] = p;
+			p = p->Left;
+		//		gotoxy(34, dongStartHK + y);cout << (y + 1);
+		//			gotoxy(43, dongStartHK + y);cout << p->data.cmnd;
+		//			gotoxy(58, dongStartHK + y);cout << p->data.ho << " " << p->data.ten;
+		//			gotoxy(85, dongStartHK + y);cout << sex[p->data.gioiTinh];
+		//			y++;
+		//		if(p->Right != NULL)
+		//			Stack[++sp] = p->Right;
+		//		if(p->Left != NULL)
+		//			p=p->Left;
+		//		else if(sp == -1)
+		//			break;
+		//		else{
+		//			p =Stack[sp--];
+		//			gotoxy(34, dongStartHK + y);cout << (y + 1);
+		//			gotoxy(43, dongStartHK + y);cout << p->data.cmnd;
+		//			gotoxy(58, dongStartHK + y);cout << p->data.ho << " " << p->data.ten;
+		//			gotoxy(85, dongStartHK + y);cout << sex[p->data.gioiTinh];
+		//			y++;
+		//		}
 		}
-	}
+		if(sp != -1){
+			p = Stack[sp--];
+			gotoxy(34, dongStartHK + y);cout << (y + 1);
+				gotoxy(43, dongStartHK + y);cout << p->data.cmnd;
+				gotoxy(58, dongStartHK + y);cout << p->data.ho << " " << p->data.ten;
+				gotoxy(85, dongStartHK + y);cout << sex[p->data.gioiTinh];
+				y++;
+			p = p->Right;
+		}else break;
+	}while(1);
 }
 
 
